@@ -10,16 +10,17 @@ import { Separator } from '@/components/ui/separator'
 import { Toaster } from '@/components/ui/sonner'
 import { useKV } from '@/hooks/useKV'
 import portfolioData from '@/data/portfolioData.json'
-import { 
-  List, 
-  X, 
-  Download, 
-  Envelope, 
-  Plus, 
-  Pencil, 
-  Trash, 
+import cvData from '@/data/cvData.json'
+import {
+  List,
+  X,
+  Download,
+  Envelope,
+  Plus,
+  Pencil,
+  Trash,
   Eye,
-  EyeSlash 
+  EyeSlash
 } from '@phosphor-icons/react'
 import { toast } from 'sonner'
 
@@ -32,19 +33,30 @@ type PortfolioItem = {
 }
 
 type CVData = {
-  summary: string
-  experience: Array<{
-    title: string
-    company: string
-    period: string
-    description: string
-  }>
+  name: string;
+  contact: {
+    email: string;
+    phone: string;
+  };
+  summary: string;
+  socialMedia: Array<{
+    name: string;
+    url: string;
+  }>;
+  careerHistory: Array<{
+    role: string;
+    company: string;
+    period: string;
+    responsibilities?: string[];
+  }>;
+  skills: string[];
+  languages: string[];
   education: Array<{
-    degree: string
-    school: string
-    period: string
-  }>
-  skills: string[]
+    qualification: string;
+    institution: string;
+    year: string;
+    details?: string[];
+  }>;
 }
 
 function App() {
@@ -55,29 +67,9 @@ function App() {
   const [showAdmin, setShowAdmin] = useState(false)
   const [editingItem, setEditingItem] = useState<PortfolioItem | null>(null)
 
-  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>(portfolioData as PortfolioItem[])
-  const [aboutContent, setAboutContent] = useKV('about-content', 
-    "I'm Tiani Beeming, a passionate pastry chef with over 5 years of experience creating beautiful and delicious desserts. My work combines traditional techniques with modern innovation to create memorable culinary experiences."
-  )
-  const [cvData, setCvData] = useKV<CVData>('cv-data', {
-    summary: "Experienced pastry chef with expertise in French techniques, custom cake design, and team leadership.",
-    experience: [
-      {
-        title: "Senior Pastry Chef",
-        company: "Elite Bakery",
-        period: "2020 - Present",
-        description: "Lead pastry operations and custom cake design for high-end clientele."
-      }
-    ],
-    education: [
-      {
-        degree: "Culinary Arts Diploma",
-        school: "Culinary Institute",
-        period: "2018 - 2020"
-      }
-    ],
-    skills: ["French Pastry Techniques", "Custom Cake Design", "Team Leadership", "Menu Development"]
-  })
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>((portfolioData as any).portfolio as PortfolioItem[])
+  const [aboutContent, setAboutContent] = useState(cvData.summary)
+  const [cvDataState, setCvDataState] = useState<CVData>(cvData as CVData)
 
   const [user, setUser] = useState<any>(null)
 
@@ -99,8 +91,8 @@ function App() {
   ]
 
   const allLabels = Array.from(new Set(portfolioItems.flatMap(item => item.labels)))
-  const filteredItems = selectedFilter === 'all' 
-    ? portfolioItems 
+  const filteredItems = selectedFilter === 'all'
+    ? portfolioItems
     : portfolioItems.filter(item => item.labels.includes(selectedFilter))
 
   const addPortfolioItem = (item: Omit<PortfolioItem, 'id'>) => {
@@ -113,7 +105,7 @@ function App() {
   }
 
   const updatePortfolioItem = (id: string, updates: Partial<PortfolioItem>) => {
-    setPortfolioItems(current => 
+    setPortfolioItems(current =>
       current.map(item => item.id === id ? { ...item, ...updates } : item)
     )
     toast.success('Portfolio item updated')
@@ -131,18 +123,17 @@ function App() {
           <div className="font-display text-xl font-bold text-primary">
             Tiani Beeming
           </div>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
             {navigation.map(item => (
               <button
                 key={item.id}
                 onClick={() => setCurrentPage(item.id)}
-                className={`font-body text-sm font-medium transition-colors ${
-                  currentPage === item.id 
-                    ? 'text-primary border-b-2 border-primary' 
-                    : 'text-foreground hover:text-primary'
-                }`}
+                className={`font-body text-sm font-medium transition-colors ${currentPage === item.id
+                  ? 'text-primary border-b-2 border-primary'
+                  : 'text-foreground hover:text-primary'
+                  }`}
               >
                 {item.name}
               </button>
@@ -180,9 +171,8 @@ function App() {
                   setCurrentPage(item.id)
                   setMobileMenuOpen(false)
                 }}
-                className={`block w-full text-left font-body text-sm font-medium transition-colors ${
-                  currentPage === item.id ? 'text-primary' : 'text-foreground hover:text-primary'
-                }`}
+                className={`block w-full text-left font-body text-sm font-medium transition-colors ${currentPage === item.id ? 'text-primary' : 'text-foreground hover:text-primary'
+                  }`}
               >
                 {item.name}
               </button>
@@ -201,30 +191,30 @@ function App() {
           <div className="w-32 h-32 mx-auto mb-8 bg-muted rounded-full flex items-center justify-center">
             <span className="text-muted-foreground text-sm">Photo</span>
           </div>
-          
+
           <h1 className="font-display text-4xl lg:text-6xl font-bold text-primary mb-6">
             Tiani Beeming
           </h1>
-          
+
           <p className="font-display text-xl lg:text-2xl text-foreground mb-8">
             Professional Pastry Chef
           </p>
-          
+
           <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
             {aboutContent.split('.')[0]}. Creating beautiful and delicious desserts with precision and artistry.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               onClick={() => setCurrentPage('portfolio')}
               className="font-medium"
             >
               View My Work
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
+            <Button
+              size="lg"
+              variant="outline"
               onClick={() => setCurrentPage('cv')}
               className="font-medium"
             >
@@ -238,12 +228,12 @@ function App() {
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-display text-3xl font-bold text-center mb-12">Featured Work</h2>
-          
+
           {portfolioItems.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground">Portfolio items will appear here.</p>
               {isOwner && showAdmin && (
-                <Button 
+                <Button
                   onClick={() => setEditingItem({ id: '', title: '', description: '', imageSrc: '', labels: [] })}
                   className="mt-4"
                 >
@@ -255,24 +245,28 @@ function App() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {portfolioItems.slice(0, 3).map(item => (
-                <Card 
+                <Card
                   key={item.id}
                   className="group cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105"
                   onClick={() => setLightboxImage(item)}
                 >
                   <CardContent className="p-0">
                     <div className="aspect-[4/3] bg-muted rounded-t-lg overflow-hidden">
-                      <img 
-                        src={item.imageSrc} 
+                      <img
+                        src={item.imageSrc}
                         alt={item.title}
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           // Fallback to placeholder if image fails to load
-                          e.currentTarget.style.display = 'none'
-                          e.currentTarget.nextElementSibling!.style.display = 'flex'
+                          e.currentTarget.classList.add('hidden');
+                          const nextEl = e.currentTarget.nextElementSibling;
+                          if (nextEl) {
+                            nextEl.classList.remove('hidden');
+                            nextEl.classList.add('flex');
+                          }
                         }}
                       />
-                      <div className="w-full h-full bg-muted flex items-center justify-center" style={{display: 'none'}}>
+                      <div className="w-full h-full bg-muted hidden items-center justify-center">
                         <span className="text-muted-foreground">Image: {item.title}</span>
                       </div>
                     </div>
@@ -292,11 +286,11 @@ function App() {
               ))}
             </div>
           )}
-          
+
           {portfolioItems.length > 3 && (
             <div className="text-center mt-12">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={() => setCurrentPage('portfolio')}
               >
                 View All Work
@@ -363,26 +357,30 @@ function App() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredItems.map(item => (
-              <Card 
+              <Card
                 key={item.id}
                 className="group cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 relative"
               >
                 <CardContent className="p-0">
-                  <div 
+                  <div
                     className="aspect-[4/3] bg-muted rounded-t-lg overflow-hidden"
                     onClick={() => setLightboxImage(item)}
                   >
-                    <img 
-                      src={item.imageSrc} 
+                    <img
+                      src={item.imageSrc}
                       alt={item.title}
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         // Fallback to placeholder if image fails to load
-                        e.currentTarget.style.display = 'none'
-                        e.currentTarget.nextElementSibling!.style.display = 'flex'
+                        e.currentTarget.classList.add('hidden');
+                        const nextEl = e.currentTarget.nextElementSibling;
+                        if (nextEl) {
+                          nextEl.classList.remove('hidden');
+                          nextEl.classList.add('flex');
+                        }
                       }}
                     />
-                    <div className="w-full h-full bg-muted flex items-center justify-center" style={{display: 'none'}}>
+                    <div className="w-full h-full bg-muted hidden items-center justify-center">
                       <span className="text-muted-foreground">Image: {item.title}</span>
                     </div>
                   </div>
@@ -398,7 +396,7 @@ function App() {
                     <p className="text-muted-foreground text-sm">{item.description}</p>
                   </div>
                 </CardContent>
-                
+
                 {/* Admin overlay */}
                 {isOwner && showAdmin && (
                   <div className="absolute top-2 right-2 flex gap-2">
@@ -437,10 +435,12 @@ function App() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="font-display text-4xl font-bold text-primary mb-4">Curriculum Vitae</h1>
-          <Button className="mb-8">
-            <Download size={16} className="mr-2" />
-            Download CV as PDF
-          </Button>
+          <a href="/cv/Tiani-Beeming-CV.pdf" download="Tiani-Beeming-CV.pdf">
+            <Button className="mb-8">
+              <Download size={16} className="mr-2" />
+              Download CV as PDF
+            </Button>
+          </a>
         </div>
 
         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
@@ -454,7 +454,7 @@ function App() {
             {/* Summary */}
             <section className="mb-8">
               <h3 className="font-semibold text-xl mb-4 text-primary">Professional Summary</h3>
-              <p className="text-muted-foreground leading-relaxed">{cvData.summary}</p>
+              <p className="text-muted-foreground leading-relaxed">{cvDataState.summary}</p>
             </section>
 
             <Separator className="my-8" />
@@ -463,14 +463,18 @@ function App() {
             <section className="mb-8">
               <h3 className="font-semibold text-xl mb-6 text-primary">Work Experience</h3>
               <div className="space-y-6">
-                {cvData.experience.map((exp, index) => (
+                {cvDataState.careerHistory.map((exp, index) => (
                   <div key={index}>
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
-                      <h4 className="font-semibold text-lg">{exp.title}</h4>
+                      <h4 className="font-semibold text-lg">{exp.role}</h4>
                       <span className="text-muted-foreground text-sm">{exp.period}</span>
                     </div>
                     <p className="font-medium text-accent mb-2">{exp.company}</p>
-                    <p className="text-muted-foreground">{exp.description}</p>
+                    {exp.responsibilities && (
+                      <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                        {exp.responsibilities.map((resp, i) => <li key={i}>{resp}</li>)}
+                      </ul>
+                    )}
                   </div>
                 ))}
               </div>
@@ -482,15 +486,20 @@ function App() {
             <section className="mb-8">
               <h3 className="font-semibold text-xl mb-6 text-primary">Education</h3>
               <div className="space-y-4">
-                {cvData.education.map((edu, index) => (
+                {cvDataState.education.map((edu, index) => (
                   <div key={index}>
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
                       <div>
-                        <h4 className="font-semibold">{edu.degree}</h4>
-                        <p className="text-accent">{edu.school}</p>
+                        <h4 className="font-semibold">{edu.qualification}</h4>
+                        <p className="text-accent">{edu.institution}</p>
                       </div>
-                      <span className="text-muted-foreground text-sm">{edu.period}</span>
+                      <span className="text-muted-foreground text-sm">{edu.year}</span>
                     </div>
+                    {edu.details && (
+                      <ul className="list-disc list-inside text-muted-foreground space-y-1 mt-2">
+                        {edu.details.map((detail, i) => <li key={i}>{detail}</li>)}
+                      </ul>
+                    )}
                   </div>
                 ))}
               </div>
@@ -502,7 +511,7 @@ function App() {
             <section>
               <h3 className="font-semibold text-xl mb-6 text-primary">Core Skills</h3>
               <div className="flex flex-wrap gap-3">
-                {cvData.skills.map((skill, index) => (
+                {cvDataState.skills.map((skill, index) => (
                   <Badge key={index} variant="outline" className="text-sm">
                     {skill}
                   </Badge>
@@ -528,13 +537,13 @@ function App() {
               <span className="text-muted-foreground">Professional Photo</span>
             </div>
           </div>
-          
+
           <div className="lg:col-span-2">
             <div className="prose max-w-none">
               <p className="text-lg leading-relaxed text-foreground mb-6">
                 {aboutContent}
               </p>
-              
+
               {isOwner && showAdmin && (
                 <div className="mt-8 p-4 bg-accent/10 rounded-lg">
                   <Label htmlFor="about-edit">Edit About Content</Label>
@@ -569,7 +578,7 @@ function App() {
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <Envelope size={20} className="text-primary" />
-                <span>tiani.beeming@email.com</span>
+                <span>{cvDataState.contact.email}</span>
               </div>
             </div>
           </div>
@@ -603,7 +612,7 @@ function App() {
   return (
     <div className="min-h-screen bg-background font-body">
       {renderNavigation()}
-      
+
       <main>
         {currentPage === 'home' && renderHome()}
         {currentPage === 'portfolio' && renderPortfolio()}
@@ -618,17 +627,21 @@ function App() {
           {lightboxImage && (
             <div>
               <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden mb-4">
-                <img 
-                  src={lightboxImage.imageSrc} 
+                <img
+                  src={lightboxImage.imageSrc}
                   alt={lightboxImage.title}
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     // Fallback to placeholder if image fails to load
-                    e.currentTarget.style.display = 'none'
-                    e.currentTarget.nextElementSibling!.style.display = 'flex'
+                    e.currentTarget.classList.add('hidden');
+                    const nextEl = e.currentTarget.nextElementSibling;
+                    if (nextEl) {
+                      nextEl.classList.remove('hidden');
+                      nextEl.classList.add('flex');
+                    }
                   }}
                 />
-                <div className="w-full h-full bg-muted flex items-center justify-center" style={{display: 'none'}}>
+                <div className="w-full h-full bg-muted hidden items-center justify-center">
                   <span className="text-muted-foreground">Image: {lightboxImage.title}</span>
                 </div>
               </div>
@@ -671,11 +684,11 @@ function App() {
   )
 }
 
-function PortfolioItemForm({ 
-  item, 
-  onSave, 
-  onCancel 
-}: { 
+function PortfolioItemForm({
+  item,
+  onSave,
+  onCancel
+}: {
   item: PortfolioItem
   onSave: (data: Omit<PortfolioItem, 'id'>) => void
   onCancel: () => void

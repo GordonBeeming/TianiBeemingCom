@@ -1,0 +1,117 @@
+{
+  "name": "Tiani Beeming",
+  "contact": {
+    "email": "tiani@beeming.net",
+    "phone": "+61 433044813"
+  },
+  "summary": "As a child, I loved all things sweet. As a teenager I wanted to make new things, and as an adult I knew I wanted to make these things for others. I was fortunate enough to pursue my love of baking and make it into something more than just a hobby. I have met so many talented chefs and enjoy learning new recipes and techniques from anyone willing to share their knowledge. Baking and decorating cakes is my passion, and watching people enjoy something I created makes me love my work even more.",
+  "socialMedia": [
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/tiani-beeming/"
+    },
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com/tianibeeming/"
+    },
+    {
+      "name": "Facebook",
+      "url": "https://www.facebook.com/3.Tiers.Novalty.Cakes/"
+    }
+  ],
+  "careerHistory": [
+    {
+      "role": "Pastry Chef",
+      "company": "New Farm Deli & Cafe",
+      "period": "Nov 2023 - Current",
+      "responsibilities": [
+        "Create and decorate different Italian pastries, pies and cakes.",
+        "Stock front of house with display desserts",
+        "Create new menu items",
+        "Prepare buttercreams, mousses, and custards",
+        "Bake biscuits"
+      ]
+    },
+    {
+      "role": "Owner and Head Pastry Chef",
+      "company": "3 Tiers Bakery",
+      "period": "Oct 2013 - Dec 2022 (9 years 3 months)"
+    },
+    {
+      "role": "Ice Cream Cake Decorator",
+      "company": "Hubertos Ice Cream",
+      "period": "Mar 2022 - Oct 2022 (8 months)",
+      "responsibilities": [
+        "Ice and decorate ice cream cake orders for functions and events"
+      ]
+    },
+    {
+      "role": "Pastry Chef",
+      "company": "Madeleines Patisserie",
+      "period": "Jun 2017 - Dec 2017 (7 months)",
+      "responsibilities": [
+        "Create and decorate different pastries and cakes.",
+        "Stock front of house with display desserts",
+        "Interact with Customers",
+        "Create new menu items",
+        "Assist with stock take",
+        "Prepare buttercreams, mousses, and custards",
+        "Bake and package biscuits"
+      ]
+    },
+    {
+      "role": "Cashier",
+      "company": "Spur Steak and Grill",
+      "period": "May 2012 - Nov 2012 (7 months)"
+    },
+    {
+      "role": "Manager",
+      "company": "Badges Coffee Shop",
+      "period": "Jul 2009 - Jul 2010 (1 year 1 month)",
+      "responsibilities": [
+        "Stock take and ordering",
+        "Shift Scheduling for all staff",
+        "Create new menu items",
+        "Interact with customers",
+        "End of day cash up",
+        "Staff payments"
+      ]
+    }
+  ],
+  "skills": [
+    "Baking",
+    "Patisserie",
+    "Cake Decorating",
+    "Creative Ability",
+    "Hygienic",
+    "Ability to Work At A Fast Pace",
+    "Punctual",
+    "Thoroughness",
+    "HACCP"
+  ],
+  "languages": [
+    "English"
+  ],
+  "education": [
+    {
+      "qualification": "City and Guilds - Diploma in Food Prep and Cooking (Patisserie)",
+      "institution": "Capsicum Culinary Studio",
+      "year": "Finished 2017",
+      "details": [
+        "Level 2 Safety at work",
+        "Level 2 Prepare, cook, and finish cakes, biscuits and sponge products",
+        "Level 2 Prepare, cook and finish pastry products",
+        "Level 2 Prepare, cook and finish dough products",
+        "Level 2 Prepare, cook and finish hot desserts and puddings",
+        "Level 2 Prepare, cook and finish cold desserts",
+        "Level 2 Food safety in catering",
+        "Level 2 Patisserie principles"
+      ]
+    },
+    {
+      "qualification": "National Senior Certificate",
+      "institution": "Durban Academy",
+      "year": "Finished 2008"
+    }
+  ]
+}
