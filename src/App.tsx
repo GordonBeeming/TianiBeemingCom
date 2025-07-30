@@ -22,6 +22,7 @@ type PortfolioItem = {
   description: string
   imageSrc: string
   labels: string[]
+  featurePosition?: number
 }
 
 type CVData = {

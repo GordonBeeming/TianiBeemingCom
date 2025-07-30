@@ -11,7 +11,8 @@
         "Multi-tier",
         "Sugar Flowers",
         "Custom Design"
-      ]
+      ],
+      "featurePosition": 1
     },
     {
       "id": "childrens-birthday-castle",
@@ -37,7 +38,8 @@
         "Floral",
         "Wedding",
         "Nature"
-      ]
+      ],
+      "featurePosition": 2
     },
     {
       "id": "superhero-birthday-cake",
@@ -61,7 +63,8 @@
         "Drip Cake",
         "Decadent",
         "Birthday"
-      ]
+      ],
+      "featurePosition": 3
     },
     {
       "id": "unicorn-fantasy-cake",

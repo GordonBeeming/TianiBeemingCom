@@ -10,6 +10,7 @@ type PortfolioItem = {
   description: string
   imageSrc: string
   labels: string[]
+  featurePosition?: number
 }
 
 interface HomePageProps {
@@ -23,6 +24,10 @@ export default function HomePage({
   portfolioItems,
   setLightboxImage
 }: HomePageProps) {
+  const featuredItems = portfolioItems
+    .filter(item => typeof item.featurePosition === 'number')
+    .sort((a, b) => (a.featurePosition ?? 0) - (b.featurePosition ?? 0));
+
   return (
     <div className="font-body">
       {/* Hero Section */}
@@ -62,13 +67,13 @@ export default function HomePage({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-display text-3xl font-bold text-center mb-12">Featured Work</h2>
 
-          {portfolioItems.length === 0 ? (
+          {featuredItems.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Portfolio items will appear here.</p>
+              <p className="text-muted-foreground">No featured items to display.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {portfolioItems.slice(0, 3).map(item => (
+              {featuredItems.map(item => (
                 <Card
                   key={item.id}
                   className="group cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105"
@@ -111,7 +116,7 @@ export default function HomePage({
             </div>
           )}
 
-          {portfolioItems.length > 3 && (
+          {portfolioItems.length > featuredItems.length && (
             <div className="text-center mt-12">
               <Link to="/portfolio">
                 <Button variant="outline">

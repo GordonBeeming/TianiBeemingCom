@@ -27,7 +27,7 @@ export default function PortfolioPage({
   setLightboxImage
 }: PortfolioPageProps) {
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
-  
+
   const labelCounts = portfolioItems.flatMap(item => item.labels).reduce((acc, label) => {
     acc[label] = (acc[label] || 0) + 1;
     return acc;
@@ -53,8 +53,8 @@ export default function PortfolioPage({
                   <ListFilter className="w-4 h-4 mr-2" />
                   Filter
                   {activeFiltersCount > 0 && (
-                    <Badge 
-                      variant="secondary" 
+                    <Badge
+                      variant="secondary"
                       className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center text-xs rounded-full bg-primary text-primary-foreground"
                     >
                       {activeFiltersCount}
@@ -120,11 +120,11 @@ export default function PortfolioPage({
               <Card
                 key={item.id}
                 className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 relative"
+                onClick={() => setLightboxImage?.(item)}
               >
                 <CardContent className="p-0">
                   <div
                     className="aspect-[4/3] bg-muted rounded-t-lg overflow-hidden"
-                    onClick={() => setLightboxImage?.(item)}
                   >
                     <img
                       src={item.imageSrc}
