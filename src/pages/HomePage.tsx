@@ -22,22 +22,20 @@ interface HomePageProps {
   setLightboxImage?: (item: PortfolioItem) => void
 }
 
-export default function HomePage({ 
-  aboutContent, 
-  portfolioItems, 
-  isOwner, 
-  showAdmin, 
+export default function HomePage({
+  aboutContent,
+  portfolioItems,
+  isOwner,
+  showAdmin,
   setEditingItem,
-  setLightboxImage 
+  setLightboxImage
 }: HomePageProps) {
   return (
     <div className="font-body">
       {/* Hero Section */}
       <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-card">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="w-32 h-32 mx-auto mb-8 bg-muted rounded-full flex items-center justify-center">
-            <span className="text-muted-foreground text-sm">Photo</span>
-          </div>
+          <img src="/images/tiani-beeming-profile_350.png" alt="Tiani Beeming" className="w-32 h-32 mx-auto mb-8 rounded-full object-cover" />
 
           <h1 className="font-display text-4xl lg:text-6xl font-bold text-primary mb-6">
             Tiani Beeming

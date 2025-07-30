@@ -9,11 +9,11 @@ interface AboutPageProps {
   showAdmin?: boolean
 }
 
-export default function AboutPage({ 
-  aboutContent, 
-  setAboutContent, 
-  isOwner, 
-  showAdmin 
+export default function AboutPage({
+  aboutContent,
+  setAboutContent,
+  isOwner,
+  showAdmin
 }: AboutPageProps) {
   return (
     <div className="py-8 font-body">
@@ -24,9 +24,7 @@ export default function AboutPage({
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
           <div className="lg:col-span-1 text-center">
-            <div className="w-48 h-48 mx-auto mb-6 bg-muted rounded-full flex items-center justify-center">
-              <span className="text-muted-foreground">Professional Photo</span>
-            </div>
+            <img src="/images/tiani-beeming-profile_350_flipped.png" alt="Tiani Beeming" className="w-48 h-48 mx-auto rounded-full object-cover" />
           </div>
 
           <div className="lg:col-span-2">

@@ -1,9 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { Envelope } from '@phosphor-icons/react'
+import { Envelope, Phone, LinkedinLogo, InstagramLogo } from '@phosphor-icons/react'
 
 type CVData = {
   name: string;
@@ -15,6 +12,7 @@ type CVData = {
   socialMedia: Array<{
     name: string;
     url: string;
+    handle: string;
   }>;
   careerHistory: Array<{
     role: string;
@@ -37,6 +35,17 @@ interface ContactPageProps {
 }
 
 export default function ContactPage({ cvDataState }: ContactPageProps) {
+  const [showEmail, setShowEmail] = useState(false)
+  const [showPhone, setShowPhone] = useState(false)
+
+  const maskedEmail = cvDataState.contact.email.replace('@', ' [at] ').replace(/\./g, ' [dot] ');
+  const maskedPhone = `+${cvDataState.contact.phone.slice(0, 2)} ... ... ${cvDataState.contact.phone.slice(-3)}`;
+
+  const socialIcons: { [key: string]: React.ReactElement } = {
+    LinkedIn: <LinkedinLogo size={20} className="text-primary" />,
+    Instagram: <InstagramLogo size={20} className="text-primary" />,
+  }
+
   return (
     <div className="py-8 font-body">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,38 +54,43 @@ export default function ContactPage({ cvDataState }: ContactPageProps) {
           <p className="text-lg text-muted-foreground">Let's discuss your next pastry project</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Contact Info */}
+        <div className="space-y-8">
           <div>
-            <h2 className="font-semibold text-xl mb-6">Get in Touch</h2>
-            <div className="space-y-4">
+            <h2 className="font-semibold text-xl mb-6 text-center">Get in Touch</h2>
+            <div className="space-y-4 max-w-sm mx-auto">
               <div className="flex items-center space-x-3">
                 <Envelope size={20} className="text-primary" />
-                <span>{cvDataState.contact.email}</span>
+                <span>{showEmail ? cvDataState.contact.email : maskedEmail}</span>
+                <Button variant="link" size="sm" onClick={() => setShowEmail(!showEmail)}>
+                  {showEmail ? 'Hide' : 'Show'}
+                </Button>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Phone size={20} className="text-primary" />
+                <span>{showPhone ? cvDataState.contact.phone : maskedPhone}</span>
+                <Button variant="link" size="sm" onClick={() => setShowPhone(!showPhone)}>
+                  {showPhone ? 'Hide' : 'Show'}
+                </Button>
               </div>
             </div>
           </div>
 
-          {/* Contact Form */}
           <div>
-            <h2 className="font-semibold text-xl mb-6">Send a Message</h2>
-            <form className="space-y-4">
-              <div>
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Your name" />
-              </div>
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="your@email.com" />
-              </div>
-              <div>
-                <Label htmlFor="message">Message</Label>
-                <Textarea id="message" placeholder="Your message..." rows={4} />
-              </div>
-              <Button type="submit" className="w-full">
-                Send Message
-              </Button>
-            </form>
+            <h2 className="font-semibold text-xl mb-6 text-center">Find me on Social Media</h2>
+            <div className="space-y-4 max-w-sm mx-auto">
+              {cvDataState.socialMedia.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-3 text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {socialIcons[social.name] || null}
+                  <span>{social.handle}</span>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

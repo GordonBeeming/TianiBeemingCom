@@ -8,15 +8,18 @@
   "socialMedia": [
     {
       "name": "LinkedIn",
-      "url": "https://www.linkedin.com/in/tiani-beeming/"
+      "url": "https://www.linkedin.com/in/tiani-beeming/",
+      "handle": "tiani-beeming"
     },
     {
       "name": "Instagram",
-      "url": "https://www.instagram.com/tianibeeming/"
+      "url": "https://www.instagram.com/tianibeeming/",
+      "handle": "@tianibeeming"
     },
     {
-      "name": "Facebook",
-      "url": "https://www.facebook.com/3.Tiers.Novalty.Cakes/"
+      "name": "Instagram",
+      "url": "https://www.instagram.com/yayitsclay/",
+      "handle": "@yayitsclay"
     }
   ],
   "careerHistory": [
