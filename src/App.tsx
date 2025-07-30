@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
@@ -55,6 +55,7 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [selectedFilter, setSelectedFilter] = useState('all')
   const [lightboxImage, setLightboxImage] = useState<PortfolioItem | null>(null)
+  const imageRef = useRef<HTMLImageElement>(null)
 
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>((portfolioData as any).portfolio as PortfolioItem[])
   const [aboutContent, setAboutContent] = useState(cvData.summary)
@@ -173,14 +174,17 @@ function App() {
 
       {/* Lightbox */}
       <Dialog open={!!lightboxImage} onOpenChange={() => setLightboxImage(null)}>
-        <DialogContent className="max-w-5xl">
+        <DialogContent className="max-w-4xl w-auto h-auto max-h-[90vh] flex flex-col">
           {lightboxImage && (
-            <div>
-              <div className="aspect-video bg-muted rounded-lg overflow-hidden mb-4">
+            <div className="flex-grow overflow-y-auto">
+              <div
+                className="bg-muted rounded-lg overflow-hidden mb-4 relative group"
+              >
                 <img
+                  ref={imageRef}
                   src={lightboxImage.imageSrc}
                   alt={lightboxImage.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto object-contain transition-opacity duration-300 max-h-[calc(90vh-10rem)]"
                   onError={(e) => {
                     // Fallback to placeholder if image fails to load
                     e.currentTarget.classList.add('hidden');
