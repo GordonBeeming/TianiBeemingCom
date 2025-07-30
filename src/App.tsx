@@ -69,14 +69,14 @@ function App() {
 
   const navigation = [
     { name: 'Home', path: '/' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'CV', path: '/cv' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' }
+    { name: 'Portfolio', path: '/portfolio/' },
+    { name: 'CV', path: '/cv/' },
+    { name: 'About', path: '/about/' },
+    { name: 'Contact', path: '/contact/' }
   ]
 
   useEffect(() => {
-    if (location.pathname !== '/portfolio') {
+    if (location.pathname !== '/portfolio/') {
       setSelectedFilter('all');
     }
   }, [location.pathname]);
@@ -174,7 +174,7 @@ function App() {
             }
           />
           <Route
-            path="/portfolio"
+            path="/portfolio/"
             element={
               <PortfolioPage
                 portfolioItems={portfolioItems}
@@ -185,11 +185,11 @@ function App() {
             }
           />
           <Route
-            path="/cv"
+            path="/cv/"
             element={<CVPage cvDataState={cvDataState} />}
           />
           <Route
-            path="/about"
+            path="/about/"
             element={
               <AboutPage
                 aboutContent={aboutContent}
@@ -197,7 +197,7 @@ function App() {
             }
           />
           <Route
-            path="/contact"
+            path="/contact/"
             element={<ContactPage cvDataState={cvDataState} />}
           />
         </Routes>
