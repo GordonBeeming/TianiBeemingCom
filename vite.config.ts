@@ -5,9 +5,8 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig(({ command }) => {
-  const base = command === 'serve' ? '/' : '/tiani-beeming-profes/'
   return {
-    base: base,
+    base: '/',
     plugins: [
       react(),
       tailwindcss(),
