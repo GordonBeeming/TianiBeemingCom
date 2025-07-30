@@ -24,7 +24,13 @@ export default function PortfolioPage({
   setSelectedFilter,
   setLightboxImage
 }: PortfolioPageProps) {
-  const allLabels = Array.from(new Set(portfolioItems.flatMap(item => item.labels)))
+  const labelCounts = portfolioItems.flatMap(item => item.labels).reduce((acc, label) => {
+    acc[label] = (acc[label] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  const sortedLabels = Object.keys(labelCounts).sort((a, b) => labelCounts[b] - labelCounts[a]);
+
   const filteredItems = selectedFilter === 'all'
     ? portfolioItems
     : portfolioItems.filter(item => item.labels.includes(selectedFilter))
@@ -44,16 +50,16 @@ export default function PortfolioPage({
             onClick={() => setSelectedFilter('all')}
             size="sm"
           >
-            Show All
+            Show All ({portfolioItems.length})
           </Button>
-          {allLabels.map(label => (
+          {sortedLabels.map(label => (
             <Button
               key={label}
               variant={selectedFilter === label ? 'default' : 'outline'}
               onClick={() => setSelectedFilter(label)}
               size="sm"
             >
-              {label}
+              {label} ({labelCounts[label]})
             </Button>
           ))}
         </div>

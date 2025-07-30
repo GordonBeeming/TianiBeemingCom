@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
@@ -13,6 +13,7 @@ import ContactPage from '@/pages/ContactPage'
 import {
   List,
   X,
+  CaretDown
 } from '@phosphor-icons/react'
 
 type PortfolioItem = {
@@ -33,6 +34,7 @@ type CVData = {
   socialMedia: Array<{
     name: string;
     url: string;
+    handle: string;
   }>;
   careerHistory: Array<{
     role: string;
@@ -56,6 +58,9 @@ function App() {
   const [selectedFilter, setSelectedFilter] = useState('all')
   const [lightboxImage, setLightboxImage] = useState<PortfolioItem | null>(null)
   const imageRef = useRef<HTMLImageElement>(null)
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(false);
+
 
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>((portfolioData as any).portfolio as PortfolioItem[])
   const [aboutContent, setAboutContent] = useState(cvData.summary)
@@ -68,6 +73,25 @@ function App() {
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' }
   ]
+
+  useEffect(() => {
+    if (lightboxImage && scrollContainerRef.current) {
+      const { scrollHeight, clientHeight } = scrollContainerRef.current;
+      setShowScrollIndicator(scrollHeight > clientHeight);
+    } else {
+      setShowScrollIndicator(false);
+    }
+  }, [lightboxImage]);
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
+      // Hide indicator when user is near the bottom
+      if (scrollHeight - scrollTop - clientHeight < 20) {
+        setShowScrollIndicator(false);
+      }
+    }
+  };
 
   const renderNavigation = () => (
     <nav className="bg-white/95 backdrop-blur-sm border-b sticky top-0 z-40">
@@ -174,9 +198,13 @@ function App() {
 
       {/* Lightbox */}
       <Dialog open={!!lightboxImage} onOpenChange={() => setLightboxImage(null)}>
-        <DialogContent className="max-w-4xl w-auto h-auto max-h-[90vh] flex flex-col">
+        <DialogContent className="max-w-4xl w-auto h-auto max-h-[90vh] flex flex-col p-0">
           {lightboxImage && (
-            <div className="flex-grow overflow-y-auto">
+            <div
+              ref={scrollContainerRef}
+              onScroll={handleScroll}
+              className="flex-grow overflow-y-auto p-6 hide-scrollbar relative"
+            >
               <div
                 className="bg-muted rounded-lg overflow-hidden mb-4 relative group"
               >
@@ -184,7 +212,7 @@ function App() {
                   ref={imageRef}
                   src={lightboxImage.imageSrc}
                   alt={lightboxImage.title}
-                  className="w-full h-auto object-contain transition-opacity duration-300 max-h-[calc(90vh-10rem)]"
+                  className="w-full h-auto object-contain transition-opacity duration-300 max-h-[calc(90vh-12rem)]"
                   onError={(e) => {
                     // Fallback to placeholder if image fails to load
                     e.currentTarget.classList.add('hidden');
@@ -208,6 +236,13 @@ function App() {
               </div>
               <h3 className="font-semibold text-xl mb-2">{lightboxImage.title}</h3>
               <p className="text-muted-foreground whitespace-pre-line">{lightboxImage.description}</p>
+              {showScrollIndicator && (
+                <div className="sticky bottom-0 left-1/2 -translate-x-1/2 w-full h-12 flex justify-center items-end pointer-events-none">
+                  <div className="bg-background/80 backdrop-blur-sm rounded-full p-1">
+                    <CaretDown size={24} className="animate-bounce text-primary" />
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </DialogContent>
