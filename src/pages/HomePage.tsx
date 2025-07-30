@@ -53,9 +53,9 @@ export default function HomePage({
                 View My Work
               </Button>
             </Link>
-            <Link to="/cv">
+            <Link to="/resume">
               <Button size="lg" variant="outline" className="font-medium">
-                See My CV
+                See My Resume
               </Button>
             </Link>
           </div>

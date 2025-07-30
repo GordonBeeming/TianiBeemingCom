@@ -41,7 +41,7 @@ export default function ResumePage({ cvDataState }: ResumePageProps) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="font-display text-4xl font-bold text-primary mb-4">Resume</h1>
-          <a href="/cv/Tiani-Beeming-CV.pdf" download="Tiani-Beeming-CV.pdf">
+          <a href="/resume/Tiani-Beeming-CV.pdf" download="Tiani-Beeming-CV.pdf">
             <Button className="mb-8">
               <Download size={16} className="mr-2" />
               Download Resume as PDF
