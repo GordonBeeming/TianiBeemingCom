@@ -1,19 +1,11 @@
 import React from 'react'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
 
 interface AboutPageProps {
   aboutContent: string
-  setAboutContent?: (content: string) => void
-  isOwner?: boolean
-  showAdmin?: boolean
 }
 
 export default function AboutPage({
   aboutContent,
-  setAboutContent,
-  isOwner,
-  showAdmin
 }: AboutPageProps) {
   return (
     <div className="py-8 font-body">
@@ -32,19 +24,6 @@ export default function AboutPage({
               <p className="text-lg leading-relaxed text-foreground mb-6">
                 {aboutContent}
               </p>
-
-              {isOwner && showAdmin && setAboutContent && (
-                <div className="mt-8 p-4 bg-accent/10 rounded-lg">
-                  <Label htmlFor="about-edit">Edit About Content</Label>
-                  <Textarea
-                    id="about-edit"
-                    value={aboutContent}
-                    onChange={(e) => setAboutContent(e.target.value)}
-                    className="mt-2"
-                    rows={4}
-                  />
-                </div>
-              )}
             </div>
           </div>
         </div>

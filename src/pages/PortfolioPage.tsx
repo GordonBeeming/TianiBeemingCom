@@ -2,7 +2,6 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
-import { Plus, Pencil, Trash } from '@phosphor-icons/react'
 
 type PortfolioItem = {
   id: string
@@ -16,22 +15,14 @@ interface PortfolioPageProps {
   portfolioItems: PortfolioItem[]
   selectedFilter: string
   setSelectedFilter: (filter: string) => void
-  isOwner?: boolean
-  showAdmin?: boolean
-  setEditingItem?: (item: PortfolioItem) => void
   setLightboxImage?: (item: PortfolioItem) => void
-  deletePortfolioItem?: (id: string) => void
 }
 
 export default function PortfolioPage({
   portfolioItems,
   selectedFilter,
   setSelectedFilter,
-  isOwner,
-  showAdmin,
-  setEditingItem,
-  setLightboxImage,
-  deletePortfolioItem
+  setLightboxImage
 }: PortfolioPageProps) {
   const allLabels = Array.from(new Set(portfolioItems.flatMap(item => item.labels)))
   const filteredItems = selectedFilter === 'all'
@@ -66,22 +57,6 @@ export default function PortfolioPage({
             </Button>
           ))}
         </div>
-
-        {/* Admin Controls */}
-        {isOwner && showAdmin && setEditingItem && (
-          <div className="mb-8 p-4 bg-accent/10 rounded-lg">
-            <div className="flex items-center justify-between">
-              <h3 className="font-semibold">Admin Controls</h3>
-              <Button
-                onClick={() => setEditingItem({ id: '', title: '', description: '', imageSrc: '', labels: [] })}
-                size="sm"
-              >
-                <Plus size={16} className="mr-2" />
-                Add Item
-              </Button>
-            </div>
-          </div>
-        )}
 
         {/* Portfolio Grid */}
         {filteredItems.length === 0 ? (
@@ -132,32 +107,6 @@ export default function PortfolioPage({
                     <p className="text-muted-foreground text-sm">{item.description}</p>
                   </div>
                 </CardContent>
-
-                {/* Admin overlay */}
-                {isOwner && showAdmin && setEditingItem && deletePortfolioItem && (
-                  <div className="absolute top-2 right-2 flex gap-2">
-                    <Button
-                      size="sm"
-                      variant="secondary"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setEditingItem(item)
-                      }}
-                    >
-                      <Pencil size={14} />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        deletePortfolioItem(item.id)
-                      }}
-                    >
-                      <Trash size={14} />
-                    </Button>
-                  </div>
-                )}
               </Card>
             ))}
           </div>
