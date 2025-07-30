@@ -39,7 +39,7 @@ export default function ContactPage({ cvDataState }: ContactPageProps) {
   const [showPhone, setShowPhone] = useState(false)
 
   const maskedEmail = cvDataState.contact.email.replace('@', ' [at] ').replace(/\./g, ' [dot] ');
-  const maskedPhone = `+${cvDataState.contact.phone.slice(0, 2)} ... ... ${cvDataState.contact.phone.slice(-3)}`;
+  const maskedPhone = `${cvDataState.contact.phone.slice(0, 3)} ... ... ${cvDataState.contact.phone.slice(-3)}`;
 
   const socialIcons: { [key: string]: React.ReactElement } = {
     LinkedIn: <LinkedinLogo size={20} className="text-primary" />,

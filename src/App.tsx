@@ -7,7 +7,7 @@ import portfolioData from '@/data/portfolioData.json'
 import cvData from '@/data/cvData.json'
 import HomePage from '@/pages/HomePage'
 import PortfolioPage from '@/pages/PortfolioPage'
-import CVPage from '@/pages/CVPage'
+import ResumePage from '@/pages/ResumePage'
 import AboutPage from '@/pages/AboutPage'
 import ContactPage from '@/pages/ContactPage'
 import {
@@ -70,7 +70,7 @@ function App() {
   const navigation = [
     { name: 'Home', path: '/' },
     { name: 'Portfolio', path: '/portfolio' },
-    { name: 'CV', path: '/cv' },
+    { name: 'Resume', path: '/resume' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' }
   ]
@@ -185,8 +185,8 @@ function App() {
             }
           />
           <Route
-            path="/cv"
-            element={<CVPage cvDataState={cvDataState} />}
+            path="/resume"
+            element={<ResumePage cvDataState={cvDataState} />}
           />
           <Route
             path="/about"
