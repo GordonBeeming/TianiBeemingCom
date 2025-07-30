@@ -75,6 +75,12 @@ function App() {
   ]
 
   useEffect(() => {
+    if (location.pathname !== '/portfolio') {
+      setSelectedFilter('all');
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
     if (lightboxImage && scrollContainerRef.current) {
       const { scrollHeight, clientHeight } = scrollContainerRef.current;
       setShowScrollIndicator(scrollHeight > clientHeight);
