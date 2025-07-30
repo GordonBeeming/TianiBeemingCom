@@ -8,17 +8,18 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Toaster } from '@/components/ui/sonner'
-import { useKV } from '@github/spark/hooks'
+import { useKV } from '@/hooks/useKV'
+import portfolioData from '@/data/portfolioData.json'
 import { 
-  Menu, 
+  List, 
   X, 
   Download, 
   Envelope, 
   Plus, 
-  Edit, 
+  Pencil, 
   Trash, 
   Eye,
-  EyeOff 
+  EyeSlash 
 } from '@phosphor-icons/react'
 import { toast } from 'sonner'
 
@@ -26,7 +27,7 @@ type PortfolioItem = {
   id: string
   title: string
   description: string
-  image: string
+  imageSrc: string
   labels: string[]
 }
 
@@ -54,7 +55,7 @@ function App() {
   const [showAdmin, setShowAdmin] = useState(false)
   const [editingItem, setEditingItem] = useState<PortfolioItem | null>(null)
 
-  const [portfolioItems, setPortfolioItems] = useKV<PortfolioItem[]>('portfolio-items', [])
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>(portfolioData as PortfolioItem[])
   const [aboutContent, setAboutContent] = useKV('about-content', 
     "I'm Tiani Beeming, a passionate pastry chef with over 5 years of experience creating beautiful and delicious desserts. My work combines traditional techniques with modern innovation to create memorable culinary experiences."
   )
@@ -80,8 +81,11 @@ function App() {
 
   const [user, setUser] = useState<any>(null)
 
+  // For demo purposes, simulate owner access
+  // In a real app, you'd have proper authentication
   React.useEffect(() => {
-    spark.user().then(setUser)
+    // Mock user for demo - in production you'd implement real auth
+    setUser({ isOwner: true })
   }, [])
 
   const isOwner = user?.isOwner
@@ -148,7 +152,7 @@ function App() {
                 onClick={() => setShowAdmin(!showAdmin)}
                 className="font-body text-sm font-medium text-accent hover:text-accent/80"
               >
-                {showAdmin ? <EyeOff size={16} /> : <Eye size={16} />}
+                {showAdmin ? <EyeSlash size={16} /> : <Eye size={16} />}
               </button>
             )}
           </div>
@@ -159,7 +163,7 @@ function App() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="text-foreground hover:text-primary"
             >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileMenuOpen ? <X size={24} /> : <List size={24} />}
             </button>
           </div>
         </div>
@@ -240,7 +244,7 @@ function App() {
               <p className="text-muted-foreground">Portfolio items will appear here.</p>
               {isOwner && showAdmin && (
                 <Button 
-                  onClick={() => setEditingItem({ id: '', title: '', description: '', image: '', labels: [] })}
+                  onClick={() => setEditingItem({ id: '', title: '', description: '', imageSrc: '', labels: [] })}
                   className="mt-4"
                 >
                   <Plus size={16} className="mr-2" />
@@ -257,8 +261,20 @@ function App() {
                   onClick={() => setLightboxImage(item)}
                 >
                   <CardContent className="p-0">
-                    <div className="aspect-[4/3] bg-muted rounded-t-lg flex items-center justify-center">
-                      <span className="text-muted-foreground">Image: {item.title}</span>
+                    <div className="aspect-[4/3] bg-muted rounded-t-lg overflow-hidden">
+                      <img 
+                        src={item.imageSrc} 
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Fallback to placeholder if image fails to load
+                          e.currentTarget.style.display = 'none'
+                          e.currentTarget.nextElementSibling!.style.display = 'flex'
+                        }}
+                      />
+                      <div className="w-full h-full bg-muted flex items-center justify-center" style={{display: 'none'}}>
+                        <span className="text-muted-foreground">Image: {item.title}</span>
+                      </div>
                     </div>
                     <div className="p-6">
                       <div className="flex flex-wrap gap-2 mb-3">
@@ -327,7 +343,7 @@ function App() {
             <div className="flex items-center justify-between">
               <h3 className="font-semibold">Admin Controls</h3>
               <Button
-                onClick={() => setEditingItem({ id: '', title: '', description: '', image: '', labels: [] })}
+                onClick={() => setEditingItem({ id: '', title: '', description: '', imageSrc: '', labels: [] })}
                 size="sm"
               >
                 <Plus size={16} className="mr-2" />
@@ -353,10 +369,22 @@ function App() {
               >
                 <CardContent className="p-0">
                   <div 
-                    className="aspect-[4/3] bg-muted rounded-t-lg flex items-center justify-center"
+                    className="aspect-[4/3] bg-muted rounded-t-lg overflow-hidden"
                     onClick={() => setLightboxImage(item)}
                   >
-                    <span className="text-muted-foreground">Image: {item.title}</span>
+                    <img 
+                      src={item.imageSrc} 
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Fallback to placeholder if image fails to load
+                        e.currentTarget.style.display = 'none'
+                        e.currentTarget.nextElementSibling!.style.display = 'flex'
+                      }}
+                    />
+                    <div className="w-full h-full bg-muted flex items-center justify-center" style={{display: 'none'}}>
+                      <span className="text-muted-foreground">Image: {item.title}</span>
+                    </div>
                   </div>
                   <div className="p-6">
                     <div className="flex flex-wrap gap-2 mb-3">
@@ -382,7 +410,7 @@ function App() {
                         setEditingItem(item)
                       }}
                     >
-                      <Edit size={14} />
+                      <Pencil size={14} />
                     </Button>
                     <Button
                       size="sm"
@@ -589,8 +617,20 @@ function App() {
         <DialogContent className="max-w-4xl">
           {lightboxImage && (
             <div>
-              <div className="aspect-[4/3] bg-muted rounded-lg flex items-center justify-center mb-4">
-                <span className="text-muted-foreground">Image: {lightboxImage.title}</span>
+              <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden mb-4">
+                <img 
+                  src={lightboxImage.imageSrc} 
+                  alt={lightboxImage.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback to placeholder if image fails to load
+                    e.currentTarget.style.display = 'none'
+                    e.currentTarget.nextElementSibling!.style.display = 'flex'
+                  }}
+                />
+                <div className="w-full h-full bg-muted flex items-center justify-center" style={{display: 'none'}}>
+                  <span className="text-muted-foreground">Image: {lightboxImage.title}</span>
+                </div>
               </div>
               <div className="flex flex-wrap gap-2 mb-3">
                 {lightboxImage.labels.map(label => (
@@ -642,7 +682,7 @@ function PortfolioItemForm({
 }) {
   const [title, setTitle] = useState(item.title)
   const [description, setDescription] = useState(item.description)
-  const [image, setImage] = useState(item.image)
+  const [imageSrc, setImageSrc] = useState(item.imageSrc)
   const [labelsText, setLabelsText] = useState(item.labels.join(', '))
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -650,7 +690,7 @@ function PortfolioItemForm({
     onSave({
       title,
       description,
-      image,
+      imageSrc,
       labels: labelsText.split(',').map(l => l.trim()).filter(Boolean)
     })
   }
@@ -680,11 +720,11 @@ function PortfolioItemForm({
           />
         </div>
         <div>
-          <Label htmlFor="image">Image URL</Label>
+          <Label htmlFor="imageSrc">Image URL</Label>
           <Input
-            id="image"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            id="imageSrc"
+            value={imageSrc}
+            onChange={(e) => setImageSrc(e.target.value)}
             placeholder="URL to image"
           />
         </div>
