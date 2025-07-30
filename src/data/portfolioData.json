@@ -4,7 +4,7 @@
       "id": "elegant-wedding-cake",
       "imageSrc": "/portfolio-images/wp-20150722-17-42-10-pro.jpeg",
       "title": "Elegant Wedding Cake",
-      "description": "A stunning three-tier wedding cake featuring delicate sugar flowers and intricate piping work. This elegant design combines classic white fondant with subtle gold accents, perfect for a sophisticated celebration.",
+      "description": "A stunning three-tier wedding cake featuring delicate sugar flowers and intricate piping work.\nThis elegant design combines classic white fondant with subtle gold accents, perfect for a sophisticated celebration. Each tier can be a different flavor, from classic vanilla to rich chocolate fudge. The sugar flowers are handcrafted and can be customized to match the bridal bouquet.",
       "labels": [
         "Wedding",
         "Elegant",
@@ -17,7 +17,7 @@
       "id": "childrens-birthday-castle",
       "imageSrc": "/portfolio-images/img-20171026-192909-176.jpeg",
       "title": "Children's Birthday Castle",
-      "description": "A magical castle cake designed for a child's birthday party. Complete with colorful turrets, edible flags, and whimsical decorations that bring fairy tale dreams to life.",
+      "description": "A magical castle cake designed for a child's birthday party.\nComplete with colorful turrets, edible flags, and whimsical decorations that bring fairy tale dreams to life. The cake can be made in any flavor and is decorated with buttercream and fondant details. Figurines of princes, princesses, or dragons can be added for an extra touch of magic.",
       "labels": [
         "Birthday",
         "Children",
@@ -25,6 +25,235 @@
         "Whimsical",
         "Colorful",
         "Custom Design"
+      ]
+    },
+    {
+      "id": "rustic-floral-cake",
+      "imageSrc": "/portfolio-images/059.jpeg",
+      "title": "Rustic Floral Cake",
+      "description": "A beautiful rustic-themed cake adorned with fresh flowers.\nPerfect for outdoor weddings and nature lovers. The semi-naked finish gives it a charming, understated look, while the fresh flowers add a touch of natural beauty. Popular flower choices include roses, eucalyptus, and baby's breath.",
+      "labels": [
+        "Rustic",
+        "Floral",
+        "Wedding",
+        "Nature"
+      ]
+    },
+    {
+      "id": "superhero-birthday-cake",
+      "imageSrc": "/portfolio-images/20190907-092556.jpeg",
+      "title": "Superhero Birthday Cake",
+      "description": "A fun and exciting superhero-themed cake for a child's birthday.\nFeatures popular superhero logos and vibrant colors. This cake is sure to be a hit with any young superhero fan. The logos are made from edible icing and the cake is covered in brightly colored fondant.",
+      "labels": [
+        "Birthday",
+        "Children",
+        "Superhero",
+        "Fun"
+      ]
+    },
+    {
+      "id": "chocolate-drip-cake",
+      "imageSrc": "/portfolio-images/20200627-133221.jpeg",
+      "title": "Chocolate Drip Cake",
+      "description": "A decadent chocolate cake with a rich chocolate drip.\nTopped with various chocolates and treats. This cake is a chocolate lover's dream, with layers of moist chocolate sponge, chocolate buttercream, and a glossy chocolate ganache drip. It's generously decorated with a variety of chocolates, such as macarons, chocolate bars, and truffles.",
+      "labels": [
+        "Chocolate",
+        "Drip Cake",
+        "Decadent",
+        "Birthday"
+      ]
+    },
+    {
+      "id": "unicorn-fantasy-cake",
+      "imageSrc": "/portfolio-images/20201205-113048.jpeg",
+      "title": "Unicorn Fantasy Cake",
+      "description": "A magical unicorn cake with a rainbow mane and golden horn.\nA dream come true for any unicorn lover. The cake is decorated with pastel-colored buttercream swirls to create a beautiful rainbow mane, and the horn and ears are crafted from fondant and painted with edible gold.",
+      "labels": [
+        "Unicorn",
+        "Fantasy",
+        "Children",
+        "Birthday",
+        "Magical"
+      ]
+    },
+    {
+      "id": "classic-white-wedding-cake",
+      "imageSrc": "/portfolio-images/dsc2221.jpeg",
+      "title": "Classic White Wedding Cake",
+      "description": "A timeless and elegant all-white wedding cake.\nFeatures subtle textures and a clean design. This cake exudes sophistication with its smooth white fondant, delicate piping, and subtle patterns. It can be adorned with fresh flowers or a classic cake topper to match the wedding's theme.",
+      "labels": [
+        "Wedding",
+        "Classic",
+        "Elegant",
+        "White"
+      ]
+    },
+    {
+      "id": "sports-themed-cake",
+      "imageSrc": "/portfolio-images/img-1008.jpeg",
+      "title": "Sports-Themed Cake",
+      "description": "A cake designed for the ultimate sports fan.\nCan be customized with any team's logo and colors. Whether it's soccer, basketball, or football, this cake can be designed to represent any favorite team. The team's logo is recreated with edible icing, and the cake is decorated in the team's colors.",
+      "labels": [
+        "Sports",
+        "Birthday",
+        "Custom",
+        "Fun"
+      ]
+    },
+    {
+      "id": "baby-shower-cake",
+      "imageSrc": "/portfolio-images/img-20171022-070041-180.jpeg",
+      "title": "Baby Shower Cake",
+      "description": "A sweet and adorable cake for a baby shower.\nDecorated with baby-themed elements and soft pastel colors. This cake is perfect for welcoming a new arrival. It can be decorated with edible baby shoes, blocks, or a cute animal topper. The colors are typically soft pastels, but can be customized.",
+      "labels": [
+        "Baby Shower",
+        "Pastel",
+        "Adorable",
+        "Children"
+      ]
+    },
+    {
+      "id": "vintage-lace-wedding-cake",
+      "imageSrc": "/portfolio-images/img-20171029-165030-899.jpeg",
+      "title": "Vintage Lace Wedding Cake",
+      "description": "A vintage-inspired wedding cake with intricate lace details.\nPerfect for a romantic and classic wedding. The edible lace is carefully applied to the cake, creating a delicate and beautiful texture. This cake is often adorned with sugar pearls and soft, romantic flowers.",
+      "labels": [
+        "Wedding",
+        "Vintage",
+        "Lace",
+        "Romantic"
+      ]
+    },
+    {
+      "id": "cartoon-character-cake",
+      "imageSrc": "/portfolio-images/img-20171109-wa0000.jpeg",
+      "title": "Cartoon Character Cake",
+      "description": "Bring your favorite cartoon character to life with a custom cake.\nPerfect for children's birthdays and themed parties. From princesses to superheroes, any character can be the star of this cake. The character is either hand-painted or created as a 3D topper from fondant.",
+      "labels": [
+        "Cartoon",
+        "Children",
+        "Birthday",
+        "Custom"
+      ]
+    },
+    {
+      "id": "garden-party-cake",
+      "imageSrc": "/portfolio-images/img-20200607-104502.jpeg",
+      "title": "Garden Party Cake",
+      "description": "A beautiful cake inspired by a blooming garden.\nFeatures edible flowers and a fresh, vibrant design. This cake is perfect for spring and summer events. It's decorated with a variety of handcrafted sugar flowers, or fresh, edible flowers for a more natural look.",
+      "labels": [
+        "Garden",
+        "Floral",
+        "Elegant",
+        "Party"
+      ]
+    },
+    {
+      "id": "holiday-themed-cake",
+      "imageSrc": "/portfolio-images/img-20201112-144206.jpeg",
+      "title": "Holiday-Themed Cake",
+      "description": "Celebrate the holidays with a festive and delicious cake.\nCustomizable for any holiday season. Whether it's Christmas, Easter, or Halloween, this cake can be designed to fit the theme. It features festive colors, decorations, and flavors of the season.",
+      "labels": [
+        "Holiday",
+        "Festive",
+        "Custom",
+        "Party"
+      ]
+    },
+    {
+      "id": "modern-geometric-cake",
+      "imageSrc": "/portfolio-images/img-20210111-205252.jpeg",
+      "title": "Modern Geometric Cake",
+      "description": "A chic and modern cake with a geometric design.\nPerfect for a contemporary wedding or event. This cake features clean lines, sharp edges, and a bold geometric pattern. Metallic accents, such as gold or silver, are often used to enhance the modern look.",
+      "labels": [
+        "Modern",
+        "Geometric",
+        "Chic",
+        "Wedding"
+      ]
+    },
+    {
+      "id": "graduation-cake",
+      "imageSrc": "/portfolio-images/img-20220508-101218.jpeg",
+      "title": "Graduation Cake",
+      "description": "Celebrate academic achievements with a custom graduation cake.\nFeatures a graduation cap and diploma. This cake is a great way to congratulate a new graduate. It's decorated with an edible graduation cap, diploma, and can be customized with the school's colors.",
+      "labels": [
+        "Graduation",
+        "Celebration",
+        "Custom",
+        "Party"
+      ]
+    },
+    {
+      "id": "anniversary-cake",
+      "imageSrc": "/portfolio-images/img-20220512-192049.jpeg",
+      "title": "Anniversary Cake",
+      "description": "A romantic cake to celebrate a special anniversary.\nCan be personalized with names and dates. This cake is a sweet way to commemorate a milestone. It can be decorated with hearts, flowers, or a message of love. The couple's names and anniversary date can also be included.",
+      "labels": [
+        "Anniversary",
+        "Romantic",
+        "Custom",
+        "Celebration"
+      ]
+    },
+    {
+      "id": "simple-and-sweet-cake",
+      "imageSrc": "/portfolio-images/wp-20140829-002.jpeg",
+      "title": "Simple and Sweet Cake",
+      "description": "A simple yet elegant cake for any occasion.\nSometimes, less is more. This cake is perfect for those who appreciate understated elegance. It has a clean design, with minimal decoration, but is still delicious and beautiful. It can be any flavor and is perfect for small gatherings.",
+      "labels": [
+        "Simple",
+        "Elegant",
+        "Classic",
+        "Party"
+      ]
+    },
+    {
+      "id": "multi-tier-celebration-cake",
+      "imageSrc": "/portfolio-images/wp-20150715-16-49-01-pro.jpeg",
+      "title": "Multi-Tier Celebration Cake",
+      "description": "A grand multi-tier cake for a big celebration.\nSure to be a showstopper at any event. This cake is designed to impress. It features multiple tiers, each of which can be a different flavor. It's perfect for large weddings, milestone birthdays, or any event that calls for a grand centerpiece.",
+      "labels": [
+        "Multi-tier",
+        "Celebration",
+        "Grand",
+        "Party"
+      ]
+    },
+    {
+      "id": "artistic-watercolor-cake",
+      "imageSrc": "/portfolio-images/wp-20150919-17-15-33-pro.jpeg",
+      "title": "Artistic Watercolor Cake",
+      "description": "A beautiful cake with a hand-painted watercolor design.\nA true work of art. This cake is for the art lover. The watercolor effect is created with edible paints, and the design can be customized to match any color scheme or theme. It's a unique and stunning centerpiece for any event.",
+      "labels": [
+        "Artistic",
+        "Watercolor",
+        "Unique",
+        "Elegant"
+      ]
+    },
+    {
+      "id": "naked-cake-with-berries",
+      "imageSrc": "/portfolio-images/wp-20151011-12-00-19-pro.jpeg",
+      "title": "Naked Cake with Berries",
+      "description": "A trendy naked cake adorned with fresh berries.\nA light and refreshing option. This cake has minimal frosting on the outside, revealing the layers of cake and filling. It's decorated with an abundance of fresh berries, such as strawberries, raspberries, and blueberries, and often dusted with powdered sugar.",
+      "labels": [
+        "Naked Cake",
+        "Berries",
+        "Trendy",
+        "Rustic"
+      ]
+    },
+    {
+      "id": "corporate-event-cake",
+      "imageSrc": "/portfolio-images/wp-20151024-09-53-50-pro.jpeg",
+      "title": "Corporate Event Cake",
+      "description": "A professional and elegant cake for corporate events.\nCan be customized with a company logo. This cake is perfect for business functions, product launches, or company anniversaries. It can be designed with the company's logo and colors, and is a great way to make a sweet impression.",
+      "labels": [
+        "Corporate",
+        "Elegant",
+        "Custom",
+        "Professional"
       ]
     }
   ]

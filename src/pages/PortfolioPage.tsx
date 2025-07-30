@@ -104,7 +104,7 @@ export default function PortfolioPage({
                       ))}
                     </div>
                     <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm">{item.description}</p>
+                    <p className="text-muted-foreground text-sm line-clamp-3">{item.description}</p>
                   </div>
                 </CardContent>
               </Card>

@@ -173,10 +173,10 @@ function App() {
 
       {/* Lightbox */}
       <Dialog open={!!lightboxImage} onOpenChange={() => setLightboxImage(null)}>
-        <DialogContent className="max-w-4xl">
+        <DialogContent className="max-w-5xl">
           {lightboxImage && (
             <div>
-              <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden mb-4">
+              <div className="aspect-video bg-muted rounded-lg overflow-hidden mb-4">
                 <img
                   src={lightboxImage.imageSrc}
                   alt={lightboxImage.title}
@@ -203,7 +203,7 @@ function App() {
                 ))}
               </div>
               <h3 className="font-semibold text-xl mb-2">{lightboxImage.title}</h3>
-              <p className="text-muted-foreground">{lightboxImage.description}</p>
+              <p className="text-muted-foreground whitespace-pre-line">{lightboxImage.description}</p>
             </div>
           )}
         </DialogContent>
