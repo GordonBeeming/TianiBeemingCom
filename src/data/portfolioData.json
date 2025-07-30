@@ -1,0 +1,16 @@
+[
+  {
+    "id": "elegant-wedding-cake",
+    "imageSrc": "/portfolio-images/wp-20150722-17-42-10-pro.jpeg",
+    "title": "Elegant Wedding Cake",
+    "description": "A stunning three-tier wedding cake featuring delicate sugar flowers and intricate piping work. This elegant design combines classic white fondant with subtle gold accents, perfect for a sophisticated celebration.",
+    "labels": ["Wedding", "Elegant", "Multi-tier", "Sugar Flowers", "Custom Design"]
+  },
+  {
+    "id": "childrens-birthday-castle",
+    "imageSrc": "/portfolio-images/img-20171026-192909-176.jpeg",
+    "title": "Children's Birthday Castle",
+    "description": "A magical castle cake designed for a child's birthday party. Complete with colorful turrets, edible flags, and whimsical decorations that bring fairy tale dreams to life.",
+    "labels": ["Birthday", "Children", "Castle", "Whimsical", "Colorful", "Custom Design"]
+  }
+]
