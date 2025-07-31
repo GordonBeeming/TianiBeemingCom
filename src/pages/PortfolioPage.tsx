@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { ListFilter } from 'lucide-react'
 
 type PortfolioItem = {
@@ -66,41 +67,43 @@ export default function PortfolioPage({
                 <SheetHeader>
                   <SheetTitle>Filter Portfolio</SheetTitle>
                 </SheetHeader>
-                <div className="mt-6 space-y-4">
-                  <Button
-                    variant={selectedFilter === 'all' ? 'default' : 'outline'}
-                    onClick={() => {
-                      setSelectedFilter('all')
-                      setIsFilterDrawerOpen(false)
-                    }}
-                    className="w-full justify-between"
-                    size="sm"
-                  >
-                    <span>Show All</span>
-                    <Badge variant="secondary" className="ml-2">
-                      {portfolioItems.length}
-                    </Badge>
-                  </Button>
-                  <div className="space-y-2">
-                    {sortedLabels.map(label => (
-                      <Button
-                        key={label}
-                        variant={selectedFilter === label ? 'default' : 'outline'}
-                        onClick={() => {
-                          setSelectedFilter(label)
-                          setIsFilterDrawerOpen(false)
-                        }}
-                        className="w-full justify-between"
-                        size="sm"
-                      >
-                        <span>{label}</span>
-                        <Badge variant="secondary" className="ml-2">
-                          {labelCounts[label]}
-                        </Badge>
-                      </Button>
-                    ))}
+                <ScrollArea className="flex-1 mt-6">
+                  <div className="px-4 pb-4 space-y-4">
+                    <Button
+                      variant={selectedFilter === 'all' ? 'default' : 'outline'}
+                      onClick={() => {
+                        setSelectedFilter('all')
+                        setIsFilterDrawerOpen(false)
+                      }}
+                      className="w-full justify-between"
+                      size="sm"
+                    >
+                      <span>Show All</span>
+                      <Badge variant="secondary" className="ml-2">
+                        {portfolioItems.length}
+                      </Badge>
+                    </Button>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2">
+                      {sortedLabels.map(label => (
+                        <Button
+                          key={label}
+                          variant={selectedFilter === label ? 'default' : 'outline'}
+                          onClick={() => {
+                            setSelectedFilter(label)
+                            setIsFilterDrawerOpen(false)
+                          }}
+                          className="w-full justify-between"
+                          size="sm"
+                        >
+                          <span className="truncate">{label}</span>
+                          <Badge variant="secondary" className="ml-2 shrink-0">
+                            {labelCounts[label]}
+                          </Badge>
+                        </Button>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </ScrollArea>
               </SheetContent>
             </Sheet>
           </div>
