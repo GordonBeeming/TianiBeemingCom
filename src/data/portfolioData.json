@@ -1,263 +1,591 @@
 {
   "portfolio": [
     {
-      "id": "elegant-wedding-cake",
-      "imageSrc": "/portfolio-images/wp-20150722-17-42-10-pro.jpeg",
-      "title": "Elegant Wedding Cake",
-      "description": "A stunning three-tier wedding cake featuring delicate sugar flowers and intricate piping work.\nThis elegant design combines classic white fondant with subtle gold accents, perfect for a sophisticated celebration. Each tier can be a different flavor, from classic vanilla to rich chocolate fudge. The sugar flowers are handcrafted and can be customized to match the bridal bouquet.",
+      "id": "under-the-sea-pirate-cake",
+      "imageSrc": "/portfolio-images/portfolio-00001.jpg",
+      "title": "Under the Sea Pirate Cake",
+      "description": "A two-tier, pirate-themed birthday cake. The bottom tier is covered in dark blue fondant and features a white anchor, edible seaweed details, and a crumbled cookie 'sand' base. The top tier is decorated with light blue and white marbled buttercream to simulate waves, and includes sculpted green fondant tentacles, a small treasure chest, and a pink mermaid tail. The cake is finished with black, tattered sails on wooden dowels.",
+      "labels": [
+        "Custom Cakes",
+        "Birthday Cakes",
+        "Kids' Parties",
+        "Themed Cakes",
+        "Nautical",
+        "Pirate",
+        "Fondant Art",
+        "Tiered Cakes"
+      ]
+    },
+    {
+      "id": "mocha-celebration-slice",
+      "imageSrc": "/portfolio-images/portfolio-00002.jpg",
+      "title": "Mocha Celebration Slice",
+      "description": "A rectangular, multi-layered coffee sponge cake. This design consists of three layers of light sponge, each separated by intricate piping of rich coffee-flavored buttercream. The top is bordered with matching buttercream rosettes and generously decorated with a mix of milk, dark, and white chocolate spheres and shards of hand-made chocolate.",
+      "labels": [
+        "Celebration Cakes",
+        "Layer Cake",
+        "Coffee",
+        "Chocolate",
+        "Elegant",
+        "Sheet Cake"
+      ]
+    },
+    {
+      "id": "gotta-bake-em-all-cake",
+      "imageSrc": "/portfolio-images/portfolio-00003.jpg",
+      "title": "Gotta Bake 'Em All! Cake",
+      "description": "A round celebration cake expertly decorated to resemble the character Pikachu. The entire cake is covered in vibrant yellow buttercream, applied in a detailed star-tip piping technique to create texture. The character's distinct features are crafted from fondant, including black-tipped ears, black and white eyes, a nose, mouth, and iconic red cheeks.",
+      "labels": [
+        "Birthday Cakes",
+        "Kids' Parties",
+        "Themed Cakes",
+        "Character Cakes",
+        "Buttercream",
+        "Pop Culture",
+        "Pokémon"
+      ]
+    },
+    {
+      "id": "whimsical-unicorn-rainbow-cake",
+      "imageSrc": "/portfolio-images/portfolio-00004.jpg",
+      "title": "Whimsical Unicorn & Rainbow Cake",
+      "description": "A round celebration cake with a light blue fondant base, creating a sky scene. The cake features a prominent, handcrafted fondant rainbow arching across the top, complete with fluffy white fondant clouds at its base. A whimsical, hand-sculpted unicorn figure with a pink mane and golden horn stands on a patch of green fondant grass, appearing to 'eat' a colorful assortment of sprinkles spilling from the rainbow. The design is finished with white cloud and green grass details around the base.",
+      "labels": [
+        "Birthday Cakes",
+        "Kids' Parties",
+        "Themed Cakes",
+        "Character Cakes",
+        "Fantasy",
+        "Unicorn",
+        "Rainbow",
+        "Fondant Art"
+      ]
+    },
+    {
+      "id": "fondant-teddy-booties-cake",
+      "imageSrc": "/portfolio-images/portfolio-00005.jpg",
+      "title": "Fondant Teddy & Booties Cake",
+      "description": "A two-tier celebration cake designed for a baby shower. Both tiers are covered in smooth white fondant and wrapped with a delicate pink ribbon accent. The cake is adorned with a hand-sculpted pink fondant teddy bear, a matching baby bottle, and scattered pink and white fondant flowers. The design is finished with a textured ruffle border and topped with a pair of handcrafted pink baby booties.",
+      "labels": [
+        "Baby Shower",
+        "Custom Cakes",
+        "Tiered Cakes",
+        "Fondant Art",
+        "Teddy Bear",
+        "Pink and White"
+      ]
+    },
+    {
+      "id": "bon-voyage-celebration-cake",
+      "imageSrc": "/portfolio-images/portfolio-00006.jpg",
+      "title": "Bon Voyage Celebration Cake",
+      "description": "A custom-sculpted cake designed to look like a realistic vintage suitcase. The entire cake is covered in tan-colored fondant, featuring meticulously crafted details like stitched leather-effect straps, metallic-dusted buckles, corner protectors, and a central handle. A red fondant flag is tucked under a strap for a pop of color, making this design perfect for a farewell or bon voyage celebration.",
+      "labels": [
+        "Custom Cakes",
+        "Sculpted Cakes",
+        "Fondant Art",
+        "Farewell",
+        "Bon Voyage",
+        "Travel",
+        "Realistic Cakes"
+      ]
+    },
+    {
+      "id": "happy-scoops-birthday-cake",
+      "imageSrc": "/portfolio-images/portfolio-00007.jpg",
+      "title": "Happy Scoops Birthday Cake",
+      "description": "A tall, 3D sculpted cake designed to look like a triple-scoop ice cream cone. The structure stands on a realistic, textured fondant waffle cone base. It features three large, stacked scoops of 'ice cream'—in white, purple, and pink—each decorated with a unique and friendly fondant character face. The top scoop is finished with a sweet pink drizzle, a topping of colourful sprinkles, and a classic red fondant cherry.",
+      "labels": [
+        "3D Cakes",
+        "Sculpted Cakes",
+        "Birthday Cakes",
+        "Kids' Parties",
+        "Themed Cakes",
+        "Ice Cream",
+        "Character Cakes",
+        "Gravity-Defying Cakes"
+      ]
+    },
+    {
+      "id": "hole-in-one-celebration-cake",
+      "imageSrc": "/portfolio-images/portfolio-00008.jpg",
+      "title": "Hole-in-One Celebration Cake",
+      "description": "A round celebration cake themed as a personal golf green, perfect for any golf enthusiast. The top features a smooth green fondant putting surface with a custom 'Happy Birthday' message, a hole with a red flag, and a single golf ball ready to be sunk. The design includes a realistic sand trap made from crumbled cookie and is bordered by detailed green buttercream grass piping that continues down the sides of the cake.",
+      "labels": [
+        "Birthday Cakes",
+        "Themed Cakes",
+        "Custom Cakes",
+        "Sports",
+        "Golf",
+        "Buttercream",
+        "Milestone Birthday"
+      ]
+    },
+    {
+      "id": "personalized-character-drip-cake",
+      "imageSrc": "/portfolio-images/portfolio-00009.jpg",
+      "title": "Personalized Character Drip Cake",
+      "description": "A charming character birthday cake with a rich chocolate drip finish. This single-tier, round cake is covered in white fondant, providing a clean canvas for the thick, chocolate-colored drip. The design features a cute, minimalist character face, fondant cat-like ears, and a decorative pink bow. Colorful sprinkles accent the chocolate topping, which is crowned by a large fondant number '7'.",
+      "labels": [
+        "Birthday Cakes",
+        "Kids' Parties",
+        "Character Cakes",
+        "Drip Cake",
+        "Fondant Art",
+        "Custom Cakes",
+        "Cute"
+      ]
+    },
+    {
+      "id": "elegant-rose-gold-accent-cakes",
+      "imageSrc": "/portfolio-images/portfolio-00010.jpg",
+      "title": "Elegant Rose & Gold Accent Cakes",
+      "description": "A pair of elegant, individual-sized wedding cakes designed for a sophisticated celebration. Each cake is covered in white fondant featuring a classic quilted pattern with delicate gold dot accents. A simple white ribbon is tied around the circumference, and the design is finished with a topping of fresh, cream-colored roses. This style is perfect for intimate weddings or as a feature for the main table.",
       "labels": [
         "Wedding",
+        "Custom Cakes",
+        "Mini Cakes",
         "Elegant",
-        "Multi-tier",
-        "Sugar Flowers",
-        "Custom Design"
+        "Classic",
+        "Quilted",
+        "Fondant Art",
+        "Fresh Flowers"
+      ]
+    },
+    {
+      "id": "elegant-buttercream-drip-cake",
+      "imageSrc": "/portfolio-images/portfolio-00011.jpg",
+      "title": "Elegant Buttercream Drip Cake",
+      "description": "An elegant, single-tier drip cake with a soft color palette. The sides feature a delicate watercolor effect in pink and white buttercream with a clean white chocolate ganache drip. A border of chocolate sprinkles trims the base. The top holds a pool of smooth fruit curd, encircled by meticulously piped pink and white buttercream rosettes lightly decorated with chocolate sprinkles.",
+      "labels": [
+        "Drip Cake",
+        "Celebration Cakes",
+        "Birthday Cakes",
+        "Buttercream",
+        "Watercolor Effect",
+        "Elegant",
+        "White Chocolate"
+      ]
+    },
+    {
+      "id": "african-heritage-celebration-cake",
+      "imageSrc": "/portfolio-images/portfolio-00012.jpg",
+      "title": "African Heritage Celebration Cake",
+      "description": "A striking three-tier wedding cake celebrating traditional Zulu heritage. The white fondant base tier features a braided border, while the royal blue middle tier is adorned with a draped golden sash and motifs inspired by traditional art and beadwork. The top tier is masterfully sculpted to resemble a clay pot (ukhamba), detailed with intricate, colorful piped patterns. The design is crowned with a plume of natural feathers, creating a meaningful centerpiece for a traditional wedding.",
+      "labels": [
+        "Wedding",
+        "Traditional Wedding",
+        "Custom Cakes",
+        "Tiered Cakes",
+        "Fondant Art",
+        "Cultural",
+        "Zulu",
+        "Sculpted Cakes"
+      ]
+    },
+    {
+      "id": "custom-character-cake-topper",
+      "imageSrc": "/portfolio-images/portfolio-00013.jpg",
+      "title": "Custom Character Cake Topper",
+      "description": "A detailed, hand-sculpted fondant cake topper of a Minion character. This custom figure features the character's signature look, including blue overalls with texture and stitch details, silver-painted goggles, and black gloves. The character is sculpted in a seated position, ready to be placed on any celebration cake to add a professional, personalized touch.",
+      "labels": [
+        "Cake Topper",
+        "Fondant Figure",
+        "Custom Toppers",
+        "Fondant Art",
+        "Character",
+        "Pop Culture",
+        "Minions"
+      ]
+    },
+    {
+      "id": "semi-naked-botanical-wedding-cake",
+      "imageSrc": "/portfolio-images/portfolio-00014.jpg",
+      "title": "Semi-Naked Botanical Wedding Cake",
+      "description": "A two-tier, semi-naked wedding cake combining rustic charm with modern elegance. Each tier features a light coating of buttercream and a rich, dark green ganache drip. The cake is lavishly decorated with fresh cream-colored roses, complementary greenery, and delicate filler flowers. Touches of edible gold paint on select leaves and buds add a hint of glamour to the design.",
+      "labels": [
+        "Wedding",
+        "Semi-Naked Cake",
+        "Drip Cake",
+        "Tiered Cakes",
+        "Fresh Flowers",
+        "Rustic",
+        "Elegant",
+        "Green and Gold"
       ],
       "featurePosition": 1
     },
     {
-      "id": "childrens-birthday-castle",
-      "imageSrc": "/portfolio-images/img-20171026-192909-176.jpeg",
-      "title": "Children's Birthday Castle",
-      "description": "A magical castle cake designed for a child's birthday party.\nComplete with colorful turrets, edible flags, and whimsical decorations that bring fairy tale dreams to life. The cake can be made in any flavor and is decorated with buttercream and fondant details. Figurines of princes, princesses, or dragons can be added for an extra touch of magic.",
+      "id": "mixed-finish-floral-wedding-cake",
+      "imageSrc": "/portfolio-images/portfolio-00015.jpg",
+      "title": "Mixed-Finish Floral Wedding Cake",
+      "description": "A unique three-tier wedding cake that combines multiple popular styles in one cohesive design. The bottom tier features smooth white fondant, the middle tier is a rich chocolate drip cake, and the top tier showcases a rustic semi-naked finish. A lush cascade of fresh white roses and delicate sprays of blue baby's breath flows down the side, and the cake is completed with an elegant gold 'Mr & Mrs' topper.",
       "labels": [
-        "Birthday",
-        "Children",
-        "Castle",
-        "Whimsical",
-        "Colorful",
-        "Custom Design"
-      ]
-    },
-    {
-      "id": "rustic-floral-cake",
-      "imageSrc": "/portfolio-images/059.jpeg",
-      "title": "Rustic Floral Cake",
-      "description": "A beautiful rustic-themed cake adorned with fresh flowers.\nPerfect for outdoor weddings and nature lovers. The semi-naked finish gives it a charming, understated look, while the fresh flowers add a touch of natural beauty. Popular flower choices include roses, eucalyptus, and baby's breath.",
-      "labels": [
-        "Rustic",
-        "Floral",
         "Wedding",
-        "Nature"
-      ],
-      "featurePosition": 2
-    },
-    {
-      "id": "superhero-birthday-cake",
-      "imageSrc": "/portfolio-images/20190907-092556.jpeg",
-      "title": "Superhero Birthday Cake",
-      "description": "A fun and exciting superhero-themed cake for a child's birthday.\nFeatures popular superhero logos and vibrant colors. This cake is sure to be a hit with any young superhero fan. The logos are made from edible icing and the cake is covered in brightly colored fondant.",
-      "labels": [
-        "Birthday",
-        "Children",
-        "Superhero",
-        "Fun"
-      ]
-    },
-    {
-      "id": "chocolate-drip-cake",
-      "imageSrc": "/portfolio-images/20200627-133221.jpeg",
-      "title": "Chocolate Drip Cake",
-      "description": "A decadent chocolate cake with a rich chocolate drip.\nTopped with various chocolates and treats. This cake is a chocolate lover's dream, with layers of moist chocolate sponge, chocolate buttercream, and a glossy chocolate ganache drip. It's generously decorated with a variety of chocolates, such as macarons, chocolate bars, and truffles.",
-      "labels": [
-        "Chocolate",
+        "Tiered Cakes",
+        "Custom Cakes",
+        "Semi-Naked Cake",
         "Drip Cake",
-        "Decadent",
-        "Birthday"
-      ],
-      "featurePosition": 3
-    },
-    {
-      "id": "unicorn-fantasy-cake",
-      "imageSrc": "/portfolio-images/20201205-113048.jpeg",
-      "title": "Unicorn Fantasy Cake",
-      "description": "A magical unicorn cake with a rainbow mane and golden horn.\nA dream come true for any unicorn lover. The cake is decorated with pastel-colored buttercream swirls to create a beautiful rainbow mane, and the horn and ears are crafted from fondant and painted with edible gold.",
-      "labels": [
-        "Unicorn",
-        "Fantasy",
-        "Children",
-        "Birthday",
-        "Magical"
-      ]
-    },
-    {
-      "id": "classic-white-wedding-cake",
-      "imageSrc": "/portfolio-images/dsc2221.jpeg",
-      "title": "Classic White Wedding Cake",
-      "description": "A timeless and elegant all-white wedding cake.\nFeatures subtle textures and a clean design. This cake exudes sophistication with its smooth white fondant, delicate piping, and subtle patterns. It can be adorned with fresh flowers or a classic cake topper to match the wedding's theme.",
-      "labels": [
-        "Wedding",
-        "Classic",
-        "Elegant",
-        "White"
-      ]
-    },
-    {
-      "id": "sports-themed-cake",
-      "imageSrc": "/portfolio-images/img-1008.jpeg",
-      "title": "Sports-Themed Cake",
-      "description": "A cake designed for the ultimate sports fan.\nCan be customized with any team's logo and colors. Whether it's soccer, basketball, or football, this cake can be designed to represent any favorite team. The team's logo is recreated with edible icing, and the cake is decorated in the team's colors.",
-      "labels": [
-        "Sports",
-        "Birthday",
-        "Custom",
-        "Fun"
-      ]
-    },
-    {
-      "id": "baby-shower-cake",
-      "imageSrc": "/portfolio-images/img-20171022-070041-180.jpeg",
-      "title": "Baby Shower Cake",
-      "description": "A sweet and adorable cake for a baby shower.\nDecorated with baby-themed elements and soft pastel colors. This cake is perfect for welcoming a new arrival. It can be decorated with edible baby shoes, blocks, or a cute animal topper. The colors are typically soft pastels, but can be customized.",
-      "labels": [
-        "Baby Shower",
-        "Pastel",
-        "Adorable",
-        "Children"
-      ]
-    },
-    {
-      "id": "vintage-lace-wedding-cake",
-      "imageSrc": "/portfolio-images/img-20171029-165030-899.jpeg",
-      "title": "Vintage Lace Wedding Cake",
-      "description": "A vintage-inspired wedding cake with intricate lace details.\nPerfect for a romantic and classic wedding. The edible lace is carefully applied to the cake, creating a delicate and beautiful texture. This cake is often adorned with sugar pearls and soft, romantic flowers.",
-      "labels": [
-        "Wedding",
-        "Vintage",
-        "Lace",
-        "Romantic"
-      ]
-    },
-    {
-      "id": "cartoon-character-cake",
-      "imageSrc": "/portfolio-images/img-20171109-wa0000.jpeg",
-      "title": "Cartoon Character Cake",
-      "description": "Bring your favorite cartoon character to life with a custom cake.\nPerfect for children's birthdays and themed parties. From princesses to superheroes, any character can be the star of this cake. The character is either hand-painted or created as a 3D topper from fondant.",
-      "labels": [
-        "Cartoon",
-        "Children",
-        "Birthday",
-        "Custom"
-      ]
-    },
-    {
-      "id": "garden-party-cake",
-      "imageSrc": "/portfolio-images/img-20200607-104502.jpeg",
-      "title": "Garden Party Cake",
-      "description": "A beautiful cake inspired by a blooming garden.\nFeatures edible flowers and a fresh, vibrant design. This cake is perfect for spring and summer events. It's decorated with a variety of handcrafted sugar flowers, or fresh, edible flowers for a more natural look.",
-      "labels": [
-        "Garden",
-        "Floral",
-        "Elegant",
-        "Party"
-      ]
-    },
-    {
-      "id": "holiday-themed-cake",
-      "imageSrc": "/portfolio-images/img-20201112-144206.jpeg",
-      "title": "Holiday-Themed Cake",
-      "description": "Celebrate the holidays with a festive and delicious cake.\nCustomizable for any holiday season. Whether it's Christmas, Easter, or Halloween, this cake can be designed to fit the theme. It features festive colors, decorations, and flavors of the season.",
-      "labels": [
-        "Holiday",
-        "Festive",
-        "Custom",
-        "Party"
-      ]
-    },
-    {
-      "id": "modern-geometric-cake",
-      "imageSrc": "/portfolio-images/img-20210111-205252.jpeg",
-      "title": "Modern Geometric Cake",
-      "description": "A chic and modern cake with a geometric design.\nPerfect for a contemporary wedding or event. This cake features clean lines, sharp edges, and a bold geometric pattern. Metallic accents, such as gold or silver, are often used to enhance the modern look.",
-      "labels": [
-        "Modern",
-        "Geometric",
-        "Chic",
-        "Wedding"
-      ]
-    },
-    {
-      "id": "graduation-cake",
-      "imageSrc": "/portfolio-images/img-20220508-101218.jpeg",
-      "title": "Graduation Cake",
-      "description": "Celebrate academic achievements with a custom graduation cake.\nFeatures a graduation cap and diploma. This cake is a great way to congratulate a new graduate. It's decorated with an edible graduation cap, diploma, and can be customized with the school's colors.",
-      "labels": [
-        "Graduation",
-        "Celebration",
-        "Custom",
-        "Party"
-      ]
-    },
-    {
-      "id": "anniversary-cake",
-      "imageSrc": "/portfolio-images/img-20220512-192049.jpeg",
-      "title": "Anniversary Cake",
-      "description": "A romantic cake to celebrate a special anniversary.\nCan be personalized with names and dates. This cake is a sweet way to commemorate a milestone. It can be decorated with hearts, flowers, or a message of love. The couple's names and anniversary date can also be included.",
-      "labels": [
-        "Anniversary",
-        "Romantic",
-        "Custom",
-        "Celebration"
-      ]
-    },
-    {
-      "id": "simple-and-sweet-cake",
-      "imageSrc": "/portfolio-images/wp-20140829-002.jpeg",
-      "title": "Simple and Sweet Cake",
-      "description": "A simple yet elegant cake for any occasion.\nSometimes, less is more. This cake is perfect for those who appreciate understated elegance. It has a clean design, with minimal decoration, but is still delicious and beautiful. It can be any flavor and is perfect for small gatherings.",
-      "labels": [
-        "Simple",
-        "Elegant",
-        "Classic",
-        "Party"
-      ]
-    },
-    {
-      "id": "multi-tier-celebration-cake",
-      "imageSrc": "/portfolio-images/wp-20150715-16-49-01-pro.jpeg",
-      "title": "Multi-Tier Celebration Cake",
-      "description": "A grand multi-tier cake for a big celebration.\nSure to be a showstopper at any event. This cake is designed to impress. It features multiple tiers, each of which can be a different flavor. It's perfect for large weddings, milestone birthdays, or any event that calls for a grand centerpiece.",
-      "labels": [
-        "Multi-tier",
-        "Celebration",
-        "Grand",
-        "Party"
-      ]
-    },
-    {
-      "id": "artistic-watercolor-cake",
-      "imageSrc": "/portfolio-images/wp-20150919-17-15-33-pro.jpeg",
-      "title": "Artistic Watercolor Cake",
-      "description": "A beautiful cake with a hand-painted watercolor design.\nA true work of art. This cake is for the art lover. The watercolor effect is created with edible paints, and the design can be customized to match any color scheme or theme. It's a unique and stunning centerpiece for any event.",
-      "labels": [
-        "Artistic",
-        "Watercolor",
-        "Unique",
+        "Fresh Flowers",
+        "Mixed-Style",
         "Elegant"
       ]
     },
     {
-      "id": "naked-cake-with-berries",
-      "imageSrc": "/portfolio-images/wp-20151011-12-00-19-pro.jpeg",
-      "title": "Naked Cake with Berries",
-      "description": "A trendy naked cake adorned with fresh berries.\nA light and refreshing option. This cake has minimal frosting on the outside, revealing the layers of cake and filling. It's decorated with an abundance of fresh berries, such as strawberries, raspberries, and blueberries, and often dusted with powdered sugar.",
+      "id": "potjie-pot-wedding-cake",
+      "imageSrc": "/portfolio-images/portfolio-00016.jpg",
+      "title": "Potjie Pot Wedding Cake",
+      "description": "A proud three-tier wedding cake celebrating traditional South African heritage. The white fondant base is adorned with a striking geometric pattern inspired by traditional beadwork. The middle tier is elegantly wrapped in blue satin ribbons. The cake is crowned with a hand-sculpted black potjie pot—a symbol of community and celebration—and the entire design is unified with deep blue roses and accented with delicate feathers.",
       "labels": [
-        "Naked Cake",
-        "Berries",
-        "Trendy",
-        "Rustic"
+        "Wedding",
+        "Traditional Wedding",
+        "Custom Cakes",
+        "Tiered Cakes",
+        "Fondant Art",
+        "Cultural",
+        "South African",
+        "Sculpted Cakes"
       ]
     },
     {
-      "id": "corporate-event-cake",
-      "imageSrc": "/portfolio-images/wp-20151024-09-53-50-pro.jpeg",
-      "title": "Corporate Event Cake",
-      "description": "A professional and elegant cake for corporate events.\nCan be customized with a company logo. This cake is perfect for business functions, product launches, or company anniversaries. It can be designed with the company's logo and colors, and is a great way to make a sweet impression.",
+      "id": "personalized-overload-drip-cake",
+      "imageSrc": "/portfolio-images/portfolio-00017.jpg",
+      "title": "Personalized Overload Drip Cake",
+      "description": "A vibrant and fully loaded drip cake, perfect for a fun-filled boy's birthday. This tall, single-tier cake is frosted in bright blue buttercream and features a contrasting, glossy red drip. The top is piled high with an assortment of treats, including French macarons, Ferrero Rocher chocolates, wafer sticks, colorful candies, and a fondant soccer ball. The cake is finished with a custom name and age topper.",
       "labels": [
-        "Corporate",
-        "Elegant",
-        "Custom",
-        "Professional"
+        "Birthday Cakes",
+        "Kids' Parties",
+        "Drip Cake",
+        "Loaded Cake",
+        "Buttercream",
+        "Custom Topper",
+        "Fun"
       ]
+    },
+    {
+      "id": "gold-accent-elephant-topper",
+      "imageSrc": "/portfolio-images/portfolio-00018.jpg",
+      "title": "Gold-Accent Elephant Topper",
+      "description": "An adorable, hand-sculpted baby elephant cake topper crafted from fondant. This sweet figure features large, expressive ears, delicate eyelashes, and is adorned with a custom bow with a gold star pattern. Subtle, hand-painted gold accents on the trim complete the elegant look. It's the perfect finishing touch for a baby shower, christening, or first birthday cake.",
+      "labels": [
+        "Cake Topper",
+        "Fondant Figure",
+        "Custom Toppers",
+        "Fondant Art",
+        "Elephant",
+        "Baby Shower",
+        "First Birthday",
+        "Cute"
+      ]
+    },
+    {
+      "id": "elegant-bear-macaron-drip-cake",
+      "imageSrc": "/portfolio-images/portfolio-00019.jpg",
+      "title": "Elegant Bear & Macaron Drip Cake",
+      "description": "An elegant drip cake with a gentle pastel blue theme, perfect for a baby shower. This tall, single-tier cake is frosted in smooth light blue buttercream and features a creamy white chocolate drip. The top is beautifully decorated with a central, hand-made teddy bear figure, fresh white roses, artistic white chocolate shards, and delicate blue and white meringue kisses. Light blue French macarons are placed on top and at the base to complete the design.",
+      "labels": [
+        "Baby Shower",
+        "Drip Cake",
+        "Teddy Bear",
+        "Elegant",
+        "Buttercream",
+        "Macarons",
+        "Custom Cakes"
+      ]
+    },
+    {
+      "id": "gold-leaf-macaron-celebration-cake",
+      "imageSrc": "/portfolio-images/portfolio-00020.jpg",
+      "title": "Gold Leaf & Macaron Celebration Cake",
+      "description": "An elegant two-tier cake featuring a romantic pink and gold color palette. The cake is frosted in a soft, pink watercolor-style buttercream, with a stunning cascade of edible gold leaf flowing down the side for a touch of luxury. The design is finished with an arrangement of fresh pink and white roses, delicate dried flowers, and both pink and gold-painted French macarons.",
+      "labels": [
+        "Birthday Cakes",
+        "Tiered Cakes",
+        "Elegant",
+        "Buttercream",
+        "Gold Leaf",
+        "Fresh Flowers",
+        "Macarons",
+        "Milestone Birthday"
+      ]
+    },
+    {
+      "id": "hand-sculpted-rubble-figure",
+      "imageSrc": "/portfolio-images/portfolio-00021.jpg",
+      "title": "Hand-Sculpted Rubble Figure",
+      "description": "A detailed, hand-sculpted fondant cake topper of Rubble from the popular children's show, PAW Patrol. This figure is meticulously crafted to capture the character's signature look, including his yellow construction uniform and pup tag. Each character is made to order and can be part of a full set to bring the whole team to a birthday celebration.",
+      "labels": [
+        "Cake Topper",
+        "Fondant Figure",
+        "Custom Toppers",
+        "Fondant Art",
+        "Character",
+        "Pop Culture",
+        "PAW Patrol"
+      ]
+    },
+    {
+      "id": "heart-of-support-buttercream-cake",
+      "imageSrc": "/portfolio-images/portfolio-00022.jpg",
+      "title": "Heart of Support Buttercream Cake",
+      "description": "A heart-shaped cake entirely covered in delicate, hand-piped white buttercream rosettes. This thoughtful design is decorated with several handcrafted fondant elements: a pink awareness ribbon, a pencil, and a personal note that reads, 'To good times and through bad times.' It's a heartfelt way to show appreciation, support, or to celebrate a milestone for healthcare professionals.",
+      "labels": [
+        "Appreciation",
+        "Awareness",
+        "Celebration Cakes",
+        "Buttercream",
+        "Rosette Cake",
+        "Shaped Cake",
+        "Pink Ribbon",
+        "Custom Message"
+      ]
+    },
+    {
+      "id": "dog-lovers-custom-birthday-cake",
+      "imageSrc": "/portfolio-images/portfolio-00023.jpg",
+      "title": "Dog Lover's Custom Birthday Cake",
+      "description": "A charming, tall birthday cake designed for a young dog lover. This single-tier cake features a beautiful blue ombré buttercream finish, with black fondant paw prints climbing up the sides. The top creates a playful scene with several different breeds of hand-sculpted fondant dogs, complete with cute details like a bone and a food bowl. The design is finished with a personalized, glittery name topper.",
+      "labels": [
+        "Birthday Cakes",
+        "Kids' Parties",
+        "Dog Themed",
+        "Buttercream",
+        "Ombré",
+        "Fondant Figures",
+        "Custom Topper"
+      ]
+    },
+    {
+      "id": "bright-sunflower-sugar-cookies",
+      "imageSrc": "/portfolio-images/portfolio-00024.jpg",
+      "title": "Bright Sunflower Sugar Cookies",
+      "description": "A batch of custom-decorated, rectangular sugar cookies with a cheerful sunflower theme. Each cookie is topped with a smooth layer of vibrant teal icing and artfully decorated with hand-piped yellow sunflowers, complete with dark centers and green stems. These are perfect as party favors, for dessert tables, or as a bright, sweet treat for any occasion.",
+      "labels": [
+        "Decorated Cookies",
+        "Sugar Cookies",
+        "Party Favors",
+        "Sunflower",
+        "Floral",
+        "Royal Icing",
+        "Piping"
+      ]
+    },
+    {
+      "id": "strawberries-cream-layer-cake",
+      "imageSrc": "/portfolio-images/portfolio-00025.jpg",
+      "title": "Vanilla Sponge with Strawberries & Cream",
+      "description": "An elegant, rectangular layer cake piled high with fresh strawberries and chocolate. This celebration slice features two thick layers of light vanilla sponge, separated by a generous layer of smooth vanilla cream. The top is bordered with matching piped cream rosettes. The center is lavishly decorated with a mix of fresh, juicy strawberries, decadent chocolate-dipped strawberries, and artistic shards of both white and dark chocolate.",
+      "labels": [
+        "Celebration Cakes",
+        "Layer Cake",
+        "Strawberries and Cream",
+        "Fresh Fruit",
+        "Chocolate",
+        "Elegant",
+        "Sheet Cake"
+      ]
+    },
+    {
+      "id": "enchanted-unicorn-birthday-cake",
+      "imageSrc": "/portfolio-images/portfolio-00026.jpg",
+      "title": "Enchanted Unicorn Birthday Cake",
+      "description": "A magical unicorn-themed birthday cake. This single-tier cake is covered in smooth white buttercream and decorated with a whimsical swirl of rainbow-colored buttercream 'hair' cascading down the top and sides. It features a tall, elegant golden fondant horn and delicate white fondant ears with gold-painted inner details. The unicorn's sweet face is completed with simple black piped eyelashes.",
+      "labels": [
+        "Birthday Cakes",
+        "Kids' Parties",
+        "Themed Cakes",
+        "Unicorn",
+        "Fantasy",
+        "Buttercream",
+        "Fondant Accents",
+        "Rainbow"
+      ]
+    },
+    {
+      "id": "two-tier-sunflower-drip-cake",
+      "imageSrc": "/portfolio-images/portfolio-00027.jpg",
+      "title": "Two-Tier Sunflower Drip Cake",
+      "description": "A bright and cheerful two-tier celebration cake with a rustic yet elegant sunflower theme. Both tiers are frosted in smooth white buttercream and feature a luscious, golden caramel drip. The cake is beautifully adorned with large, fresh sunflowers, complemented by delicate white roses and sprays of baby's breath.",
+      "labels": [
+        "Celebration Cakes",
+        "Tiered Cakes",
+        "Drip Cake",
+        "Sunflower",
+        "Fresh Flowers",
+        "Rustic",
+        "Buttercream"
+      ]
+    },
+    {
+      "id": "fun-watermelon-birthday-cake",
+      "imageSrc": "/portfolio-images/portfolio-00028.jpg",
+      "title": "Fun Watermelon Birthday Cake",
+      "description": "A creative and playful tall cake designed to look just like a juicy slice of watermelon. The buttercream exterior features striped green and white rind details at the base, with the main body in a vibrant pink. Teardrop-shaped black fondant 'seeds' are dotted around the sides, and the design is finished with a 'Happy Birthday' message on top.",
+      "labels": [
+        "Birthday Cakes",
+        "Novelty Cake",
+        "Buttercream",
+        "Watermelon",
+        "Summer",
+        "Fun",
+        "Kids' Parties"
+      ]
+    },
+    {
+      "id": "ultimate-candy-explosion-cake",
+      "imageSrc": "/portfolio-images/portfolio-00029.jpg",
+      "title": "Ultimate Candy Explosion Cake",
+      "description": "A vibrant and playful drip cake featuring a pastel rainbow and an explosion of sweet treats. The sides are decorated with soft, horizontal stripes of rainbow-colored buttercream and topped with a creamy white chocolate drip. The cake is lavishly decorated with a variety of confections, including a giant lollipop, a handcrafted fondant rainbow, meringue kisses, cookies, and an assortment of colorful candies.",
+      "labels": [
+        "Birthday Cakes",
+        "Kids' Parties",
+        "Drip Cake",
+        "Rainbow Cake",
+        "Loaded Cake",
+        "Candy",
+        "Buttercream",
+        "Fun"
+      ]
+    },
+    {
+      "id": "surprise-kittens-novelty-cake",
+      "imageSrc": "/portfolio-images/portfolio-00030.jpg",
+      "title": "Surprise Kittens Novelty Cake",
+      "description": "An adorable novelty birthday cake designed to look like a charming gift box full of kittens. The cake is covered in light pink fondant with white polka dots. A propped-open lid, topped with a large, elegant white fondant bow, creates the gift box effect. Peeking out from inside are three hand-sculpted fondant kittens—ginger, white, and tabby—each with sweet, detailed faces.",
+      "labels": [
+        "Birthday Cakes",
+        "Novelty Cake",
+        "Fondant Art",
+        "Fondant Figures",
+        "Cats",
+        "Animals",
+        "Cute"
+      ]
+    },
+    {
+      "id": "funky-llama-birthday-cake",
+      "imageSrc": "/portfolio-images/portfolio-00031.jpg",
+      "title": "Funky Llama Birthday Cake",
+      "description": "A fun and funky novelty cake designed to look like a friendly llama. The cake is covered in textured white buttercream to create a 'fur' effect and features a sweet, hand-modelled fondant face with long eyelashes. The llama is decorated with a colorful, fiesta-style blanket and pom-poms made from fondant, and is finished with a custom name and age topper.",
+      "labels": [
+        "Birthday Cakes",
+        "Novelty Cake",
+        "Kids' Parties",
+        "Buttercream",
+        "Llama",
+        "Animals",
+        "Fun",
+        "Colorful"
+      ]
+    },
+    {
+      "id": "spider-man-fondant-toppers",
+      "imageSrc": "/portfolio-images/portfolio-00032.jpg",
+      "title": "Spider-Man Fondant Toppers",
+      "description": "A set of handcrafted fondant toppers featuring the iconic Spider-Man mask. Each round, red topper is detailed with hand-drawn black webbing and the superhero's classic white eyes. These toppers are perfect for quickly and easily decorating cupcakes or cookies for a superhero-themed party.",
+      "labels": [
+        "Cupcake Toppers",
+        "Fondant Toppers",
+        "Superhero",
+        "Spider-Man",
+        "Pop Culture",
+        "Kids' Parties",
+        "Edible Decorations"
+      ]
+    },
+    {
+      "id": "love-note-sugar-cookies",
+      "imageSrc": "/portfolio-images/portfolio-00033.jpg",
+      "title": "Love Note Sugar Cookies",
+      "description": "A beautiful assortment of hand-decorated sugar cookies, perfect for Valentine's Day. This set features a variety of heart and love-note shapes decorated in a classic palette of pink, white, and red. Designs include elegant script with messages like 'LOVE' and 'BE MINE,' delicate floral piping, and sophisticated quilted patterns.",
+      "labels": [
+        "Decorated Cookies",
+        "Valentine's Day",
+        "Sugar Cookies",
+        "Royal Icing",
+        "Romantic",
+        "Party Favors",
+        "Love"
+      ]
+    },
+    {
+      "id": "creepy-crawly-birthday-cake",
+      "imageSrc": "/portfolio-images/portfolio-00034.jpg",
+      "title": "Creepy Crawly Birthday Cake",
+      "description": "A fun and muddy chocolate birthday cake, perfect for an adventurous boy who loves creepy crawlies. The cake is frosted with a rustic chocolate buttercream and topped with a generous layer of crushed chocolate cookie 'dirt.' It's brought to life with hand-sculpted fondant creatures, including a large, detailed brown spider and a cute green snake, all nestled amongst lush fondant leaves and personalized with the birthday boy's name.",
+      "labels": [
+        "Birthday Cakes",
+        "Kids' Parties",
+        "Novelty Cake",
+        "Bugs",
+        "Animals",
+        "Fondant Figures",
+        "Chocolate"
+      ]
+    },
+    {
+      "id": "chocolate-lovers-dream-cake",
+      "imageSrc": "/portfolio-images/portfolio-00035.jpg",
+      "title": "Chocolate Lover's Dream Cake",
+      "description": "The ultimate celebration cake for any true chocolate aficionado. This rich, single-tier cake is frosted with a decadent chocolate buttercream and generously topped with a wreath of assorted chocolates and treats. The decorations include Lindt Lindor truffles, Oreo cookies, malted chocolate balls, honeycomb pieces, and colorful chocolate candies.",
+      "labels": [
+        "Birthday Cakes",
+        "Chocolate",
+        "Loaded Cake",
+        "Buttercream",
+        "Decadent",
+        "Celebration Cakes"
+      ],
+      "featurePosition": 2
+    },
+    {
+      "id": "best-friends-fondant-topper",
+      "imageSrc": "/portfolio-images/portfolio-00036.jpg",
+      "title": "Best Friends Fondant Topper",
+      "description": "A heartwarming, hand-sculpted fondant topper featuring a teddy bear and a pony sharing a hug. The pony is crafted from smooth white fondant with sweet, sleepy eyes and pink accents, while the teddy bear has a unique, textured finish to create a soft, fuzzy appearance. This beautiful keepsake topper is perfect for celebrating friendship, a new baby, or a child's birthday.",
+      "labels": [
+        "Cake Topper",
+        "Fondant Figure",
+        "Custom Toppers",
+        "Teddy Bear",
+        "Horse",
+        "Friendship",
+        "Baby Shower",
+        "Textured Fondant"
+      ]
+    },
+    {
+      "id": "ice-cream-parlor-party-cake",
+      "imageSrc": "/portfolio-images/portfolio-00037.jpg",
+      "title": "Ice Cream Parlor Party Cake",
+      "description": "A cheerful celebration cake decorated with a festival of colorful buttercream piping. The smooth, white buttercream base provides the perfect canvas for the vibrant decorations. The top is completely covered in a dense mosaic of hand-piped rosettes and stars, with a matching border around the base, using a fun, multi-color palette of pink, blue, yellow, purple, and green.",
+      "labels": [
+        "Birthday Cakes",
+        "Celebration Cakes",
+        "Buttercream",
+        "Piping",
+        "Rosette Cake",
+        "Rainbow",
+        "Colorful",
+        "Fun"
+      ]
+    },
+    {
+      "id": "fuzzy-monster-and-friend-cake",
+      "imageSrc": "/portfolio-images/portfolio-00062.jpg",
+      "title": "Fuzzy Monster & Friend Cake",
+      "description": "A playful and friendly monster-themed cake, guaranteed to bring smiles to a birthday party. The main cake is covered in a fun, shaggy orange buttercream 'fur' and brought to life with big, expressive fondant eyes, a cheerful smile, and striped horns. It's accompanied by a little three-eyed monster friend, hand-sculpted from smooth fondant, making this duo a fantastic centerpiece for a fun-loving child's celebration.",
+      "labels": [
+        "Birthday Cakes",
+        "Kids' Parties",
+        "Monster",
+        "Novelty Cake",
+        "Buttercream",
+        "Piping",
+        "Fondant Figures",
+        "Fun"
+      ],
+      "featurePosition": 3
     }
   ]
 }
