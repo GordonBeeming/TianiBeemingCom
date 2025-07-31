@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 type PortfolioItem = {
   id: string
@@ -33,7 +35,12 @@ export default function HomePage({
       {/* Hero Section */}
       <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-card">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <img src="/images/tiani-beeming-profile_350.png" alt="Tiani Beeming" className="w-56 h-56 mx-auto mb-8 rounded-full object-cover" />
+          <LazyLoadImage
+            src="/images/tiani-beeming-profile_350.png"
+            alt="Tiani Beeming"
+            className="w-56 h-56 mx-auto mb-8 rounded-full object-cover"
+            effect="blur"
+          />
 
           <h1 className="font-display text-4xl lg:text-6xl font-bold text-primary mb-6">
             Tiani Beeming
@@ -81,17 +88,19 @@ export default function HomePage({
                 >
                   <CardContent className="p-0">
                     <div className="aspect-[4/3] bg-muted rounded-t-lg overflow-hidden">
-                      <img
+                      <LazyLoadImage
                         src={item.imageSrc}
                         alt={item.title}
                         className="w-full h-full object-cover"
-                        onError={(e) => {
+                        effect="blur"
+                        onError={e => {
                           // Fallback to placeholder if image fails to load
-                          e.currentTarget.classList.add('hidden');
-                          const nextEl = e.currentTarget.nextElementSibling;
+                          const target = e.target as HTMLImageElement
+                          target.classList.add('hidden')
+                          const nextEl = target.nextElementSibling
                           if (nextEl) {
-                            nextEl.classList.remove('hidden');
-                            nextEl.classList.add('flex');
+                            nextEl.classList.remove('hidden')
+                            nextEl.classList.add('flex')
                           }
                         }}
                       />

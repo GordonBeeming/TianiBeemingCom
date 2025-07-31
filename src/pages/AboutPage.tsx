@@ -1,4 +1,6 @@
 import React from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 interface AboutPageProps {
   aboutContent: string
@@ -16,7 +18,12 @@ export default function AboutPage({
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
           <div className="lg:col-span-1 text-center">
-            <img src="/images/tiani-beeming-profile_350_flipped.png" alt="Tiani Beeming" className="w-48 h-48 mx-auto rounded-full object-cover" />
+            <LazyLoadImage
+              src="/images/tiani-beeming-profile_350_flipped.png"
+              alt="Tiani Beeming"
+              className="w-48 h-48 mx-auto rounded-full object-cover"
+              effect="blur"
+            />
           </div>
 
           <div className="lg:col-span-2">

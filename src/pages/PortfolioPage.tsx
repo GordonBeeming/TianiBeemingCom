@@ -5,6 +5,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ListFilter } from 'lucide-react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 type PortfolioItem = {
   id: string
@@ -129,17 +131,19 @@ export default function PortfolioPage({
                   <div
                     className="aspect-[4/3] bg-muted rounded-t-lg overflow-hidden"
                   >
-                    <img
+                    <LazyLoadImage
                       src={item.imageSrc}
                       alt={item.title}
                       className="w-full h-full object-cover"
-                      onError={(e) => {
+                      effect="blur"
+                      onError={e => {
                         // Fallback to placeholder if image fails to load
-                        e.currentTarget.classList.add('hidden');
-                        const nextEl = e.currentTarget.nextElementSibling;
+                        const target = e.target as HTMLImageElement
+                        target.classList.add('hidden')
+                        const nextEl = target.nextElementSibling
                         if (nextEl) {
-                          nextEl.classList.remove('hidden');
-                          nextEl.classList.add('flex');
+                          nextEl.classList.remove('hidden')
+                          nextEl.classList.add('flex')
                         }
                       }}
                     />
