@@ -92,7 +92,7 @@ export default function PortfolioPage({
                             setSelectedFilter(label)
                             setIsFilterDrawerOpen(false)
                           }}
-                          className="w-full justify-between text-left"
+                          className="w-full justify-between"
                           size="sm"
                         >
                           <span className="truncate">{label}</span>
