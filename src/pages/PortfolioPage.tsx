@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { ListFilter } from 'lucide-react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css'
@@ -65,12 +64,12 @@ export default function PortfolioPage({
                   )}
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-80 sm:max-w-sm">
-                <SheetHeader>
+              <SheetContent side="left" className="w-80 sm:w-[500px] md:w-[600px] flex flex-col p-0">
+                <SheetHeader className="px-6 pt-6 pb-4 border-b">
                   <SheetTitle>Filter Portfolio</SheetTitle>
                 </SheetHeader>
-                <ScrollArea className="flex-1 mt-6">
-                  <div className="px-4 pb-4 space-y-4">
+                <div className="flex-1 overflow-y-auto">
+                  <div className="px-6 py-4 space-y-4">
                     <Button
                       variant={selectedFilter === 'all' ? 'default' : 'outline'}
                       onClick={() => {
@@ -85,7 +84,7 @@ export default function PortfolioPage({
                         {portfolioItems.length}
                       </Badge>
                     </Button>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {sortedLabels.map(label => (
                         <Button
                           key={label}
@@ -105,7 +104,7 @@ export default function PortfolioPage({
                       ))}
                     </div>
                   </div>
-                </ScrollArea>
+                </div>
               </SheetContent>
             </Sheet>
           </div>
