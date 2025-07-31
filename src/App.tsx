@@ -10,6 +10,7 @@ import PortfolioPage from '@/pages/PortfolioPage'
 import ResumePage from '@/pages/ResumePage'
 import AboutPage from '@/pages/AboutPage'
 import ContactPage from '@/pages/ContactPage'
+import ScrollToTop from '@/components/ScrollToTop'
 import {
   List,
   X,
@@ -159,6 +160,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background font-body">
+      <ScrollToTop />
       {renderNavigation()}
 
       <main>
