@@ -83,11 +83,11 @@ export default function HomePage({
                   onClick={() => setLightboxImage?.(item)}
                 >
                   <CardContent className="p-0">
-                    <div className="aspect-[4/3] bg-muted rounded-t-lg overflow-hidden">
+                    <div className="aspect-square bg-muted rounded-t-lg overflow-hidden">
                       <LazyLoadImage
                         src={item.imageSrc}
                         alt={item.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover object-center"
                         effect="blur"
                         onError={e => {
                           // Fallback to placeholder if image fails to load

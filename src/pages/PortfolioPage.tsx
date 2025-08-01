@@ -158,11 +158,11 @@ export default function PortfolioPage({
                 onClick={() => handleCardClick(item)}
               >
                 <CardContent className="p-0 relative">
-                  <div className="aspect-[4/3] bg-muted overflow-hidden relative">
+                  <div className="aspect-square bg-muted overflow-hidden relative">
                     <LazyLoadImage
                       src={item.imageSrc}
                       alt={item.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                       effect="blur"
                       onError={e => {
                         // Fallback to placeholder if image fails to load
