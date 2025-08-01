@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { motion, AnimatePresence } from 'framer-motion'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 
 type PortfolioItem = {
@@ -26,9 +27,40 @@ export default function HomePage({
   portfolioItems,
   setLightboxImage
 }: HomePageProps) {
+  const [touchActiveCard, setTouchActiveCard] = useState<string | null>(null)
+  
   const featuredItems = portfolioItems
     .filter(item => typeof item.featurePosition === 'number')
     .sort((a, b) => (a.featurePosition ?? 0) - (b.featurePosition ?? 0));
+
+  // Close touch overlay when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (touchActiveCard && !(event.target as Element).closest('.featured-card')) {
+        setTouchActiveCard(null)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [touchActiveCard])
+
+  const handleCardClick = (item: PortfolioItem) => {
+    // On touch devices, first tap shows overlay, second tap opens lightbox
+    if ('ontouchstart' in window) {
+      if (touchActiveCard === item.id) {
+        // Second tap - open lightbox
+        setLightboxImage?.(item)
+        setTouchActiveCard(null)
+      } else {
+        // First tap - show overlay
+        setTouchActiveCard(item.id)
+      }
+    } else {
+      // Desktop - direct lightbox open
+      setLightboxImage?.(item)
+    }
+  }
 
   return (
     <div className="font-body">
@@ -79,11 +111,11 @@ export default function HomePage({
               {featuredItems.map(item => (
                 <Card
                   key={item.id}
-                  className="group cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105"
-                  onClick={() => setLightboxImage?.(item)}
+                  className="featured-card group cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 relative overflow-hidden"
+                  onClick={() => handleCardClick(item)}
                 >
-                  <CardContent className="p-0">
-                    <div className="aspect-square bg-muted rounded-t-lg overflow-hidden">
+                  <CardContent className="p-0 relative">
+                    <div className="aspect-square bg-muted overflow-hidden relative">
                       <LazyLoadImage
                         src={item.imageSrc}
                         alt={item.title}
@@ -100,20 +132,37 @@ export default function HomePage({
                           }
                         }}
                       />
-                      <div className="w-full h-full bg-muted hidden items-center justify-center">
+                      <div className="w-full h-full bg-muted hidden items-center justify-center absolute top-0 left-0">
                         <span className="text-muted-foreground">Image: {item.title}</span>
                       </div>
-                    </div>
-                    <div className="p-6">
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {item.labels.map(label => (
-                          <Badge key={label} variant="secondary" className="text-xs">
-                            {label}
-                          </Badge>
-                        ))}
-                      </div>
-                      <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm line-clamp-3">{item.description}</p>
+                      
+                      {/* Hover/Touch Overlay */}
+                      <motion.div
+                        className={`absolute inset-0 bg-black/50 text-white p-6 flex flex-col justify-end transition-opacity duration-300 ${
+                          touchActiveCard === item.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                        }`}
+                      >
+                        <AnimatePresence>
+                          {(touchActiveCard === item.id || !('ontouchstart' in window)) && (
+                            <motion.div
+                              initial={{ y: 20, opacity: 0 }}
+                              animate={{ y: 0, opacity: 1 }}
+                              exit={{ y: 20, opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <div className="flex flex-wrap gap-2 mb-3">
+                                {item.labels.map(label => (
+                                  <Badge key={label} variant="secondary" className="text-xs bg-white/20 text-white border-white/30 hover:bg-white/30">
+                                    {label}
+                                  </Badge>
+                                ))}
+                              </div>
+                              <h3 className="font-semibold text-lg mb-2 text-white">{item.title}</h3>
+                              <p className="text-white/90 text-sm line-clamp-3">{item.description}</p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
                     </div>
                   </CardContent>
                 </Card>

@@ -181,7 +181,7 @@ export default function PortfolioPage({
                     
                     {/* Hover/Touch Overlay */}
                     <motion.div
-                      className={`absolute inset-0 bg-black/70 text-white p-6 flex flex-col justify-end transition-opacity duration-300 ${
+                      className={`absolute inset-0 bg-black/50 text-white p-6 flex flex-col justify-end transition-opacity duration-300 ${
                         touchActiveCard === item.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                       }`}
                     >
