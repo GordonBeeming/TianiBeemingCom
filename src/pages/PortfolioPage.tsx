@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { ListFilter } from 'lucide-react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { motion, AnimatePresence } from 'framer-motion'
 import 'react-lazy-load-image-component/src/effects/blur.css'
 
 type PortfolioItem = {
@@ -29,6 +30,7 @@ export default function PortfolioPage({
   setLightboxImage
 }: PortfolioPageProps) {
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false)
+  const [touchActiveCard, setTouchActiveCard] = useState<string | null>(null)
 
   const labelCounts = portfolioItems.flatMap(item => item.labels).reduce((acc, label) => {
     acc[label] = (acc[label] || 0) + 1;
@@ -42,6 +44,35 @@ export default function PortfolioPage({
     : portfolioItems.filter(item => item.labels.includes(selectedFilter))
 
   const activeFiltersCount = selectedFilter === 'all' ? 0 : 1
+
+  // Close touch overlay when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (touchActiveCard && !(event.target as Element).closest('.portfolio-card')) {
+        setTouchActiveCard(null)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [touchActiveCard])
+
+  const handleCardClick = (item: PortfolioItem) => {
+    // On touch devices, first tap shows overlay, second tap opens lightbox
+    if ('ontouchstart' in window) {
+      if (touchActiveCard === item.id) {
+        // Second tap - open lightbox
+        setLightboxImage?.(item)
+        setTouchActiveCard(null)
+      } else {
+        // First tap - show overlay
+        setTouchActiveCard(item.id)
+      }
+    } else {
+      // Desktop - direct lightbox open
+      setLightboxImage?.(item)
+    }
+  }
 
   return (
     <div className="py-8 font-body">
@@ -123,17 +154,15 @@ export default function PortfolioPage({
             {filteredItems.map(item => (
               <Card
                 key={item.id}
-                className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 relative"
-                onClick={() => setLightboxImage?.(item)}
+                className="portfolio-card group cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 relative overflow-hidden"
+                onClick={() => handleCardClick(item)}
               >
-                <CardContent className="p-0">
-                  <div
-                    className="aspect-[4/3] bg-muted rounded-t-lg overflow-hidden"
-                  >
+                <CardContent className="p-0 relative">
+                  <div className="aspect-square bg-muted overflow-hidden relative">
                     <LazyLoadImage
                       src={item.imageSrc}
                       alt={item.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                       effect="blur"
                       onError={e => {
                         // Fallback to placeholder if image fails to load
@@ -146,20 +175,40 @@ export default function PortfolioPage({
                         }
                       }}
                     />
-                    <div className="w-full h-full bg-muted hidden items-center justify-center">
+                    <div className="w-full h-full bg-muted hidden items-center justify-center absolute top-0 left-0">
                       <span className="text-muted-foreground">Image: {item.title}</span>
                     </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {item.labels.map(label => (
-                        <Badge key={label} variant="secondary" className="text-xs">
-                          {label}
-                        </Badge>
-                      ))}
-                    </div>
-                    <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm line-clamp-3">{item.description}</p>
+                    
+                    {/* Hover/Touch Overlay */}
+                    <motion.div
+                      className={`absolute inset-0 bg-black/50 text-white p-6 flex flex-col justify-between transition-opacity duration-300 ${
+                        touchActiveCard === item.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                      }`}
+                    >
+                      <AnimatePresence>
+                        {(touchActiveCard === item.id || !('ontouchstart' in window)) && (
+                          <motion.div
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: 20, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="flex flex-col justify-between h-full"
+                          >
+                            <div>
+                              <h3 className="font-semibold text-lg mb-2 text-white">{item.title}</h3>
+                              <p className="text-white/90 text-sm line-clamp-3">{item.description}</p>
+                            </div>
+                            <div className="flex flex-wrap gap-2 mt-3">
+                              {[...item.labels].sort().map(label => (
+                                <Badge key={label} variant="secondary" className="text-xs bg-white/20 text-white border-white/30 hover:bg-white/30">
+                                  {label}
+                                </Badge>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
                   </div>
                 </CardContent>
               </Card>
