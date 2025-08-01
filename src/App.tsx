@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import { Badge } from '@/components/ui/badge'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogOverlay, DialogPortal } from '@/components/ui/dialog'
 import { Toaster } from '@/components/ui/sonner'
 import portfolioData from '@/data/portfolioData.json'
 import cvData from '@/data/cvData.json'
@@ -14,7 +14,9 @@ import ScrollToTop from '@/components/ScrollToTop'
 import {
   List,
   X,
-  CaretDown
+  CaretDown,
+  CaretLeft,
+  CaretRight
 } from '@phosphor-icons/react'
 
 type PortfolioItem = {
@@ -62,6 +64,7 @@ function App() {
   const imageRef = useRef<HTMLImageElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showScrollIndicator, setShowScrollIndicator] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
 
 
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>((portfolioData as any).portfolio as PortfolioItem[])
@@ -90,6 +93,67 @@ function App() {
       setShowScrollIndicator(false);
     }
   }, [lightboxImage]);
+
+  // Navigation functions for lightbox
+  const getNavigationItems = () => {
+    // On home page, only navigate through featured items
+    if (location.pathname === '/') {
+      return portfolioItems
+        .filter(item => typeof item.featurePosition === 'number')
+        .sort((a, b) => (a.featurePosition ?? 0) - (b.featurePosition ?? 0));
+    }
+    // On portfolio page or other pages, navigate through all items
+    return portfolioItems;
+  };
+
+  const getCurrentItemIndex = () => {
+    if (!lightboxImage) return -1;
+    const navigationItems = getNavigationItems();
+    return navigationItems.findIndex(item => item.id === lightboxImage.id);
+  };
+
+  const navigateToNext = () => {
+    const navigationItems = getNavigationItems();
+    const currentIndex = getCurrentItemIndex();
+    if (currentIndex === -1) return;
+    const nextIndex = (currentIndex + 1) % navigationItems.length;
+    setLightboxImage(navigationItems[nextIndex]);
+  };
+
+  const navigateToPrevious = () => {
+    const navigationItems = getNavigationItems();
+    const currentIndex = getCurrentItemIndex();
+    if (currentIndex === -1) return;
+    const prevIndex = (currentIndex - 1 + navigationItems.length) % navigationItems.length;
+    setLightboxImage(navigationItems[prevIndex]);
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!lightboxImage) return;
+      
+      switch (event.key) {
+        case 'ArrowRight':
+          event.preventDefault();
+          navigateToNext();
+          break;
+        case 'ArrowLeft':
+          event.preventDefault();
+          navigateToPrevious();
+          break;
+        case 'Escape':
+          event.preventDefault();
+          setLightboxImage(null);
+          break;
+      }
+    };
+
+    if (lightboxImage) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [lightboxImage, portfolioItems, location.pathname]);
 
   const handleScroll = () => {
     if (scrollContainerRef.current) {
@@ -205,54 +269,91 @@ function App() {
         </Routes>
       </main>
 
-      {/* Lightbox */}
+      {/* Enhanced Lightbox */}
       <Dialog open={!!lightboxImage} onOpenChange={() => setLightboxImage(null)}>
-        <DialogContent className="max-w-4xl w-auto h-auto max-h-[90vh] flex flex-col p-0">
+        <DialogPortal>
+          {/* Custom darker overlay */}
+          <DialogOverlay className="bg-black/80" />
+          
+          {/* Navigation buttons */}
           {lightboxImage && (
-            <div
-              ref={scrollContainerRef}
-              onScroll={handleScroll}
-              className="flex-grow overflow-y-auto p-6 hide-scrollbar relative"
-            >
-              <div className="bg-muted rounded-lg overflow-hidden mb-4 relative group">
-                <img
-                  ref={imageRef}
-                  src={lightboxImage.imageSrc}
-                  alt={lightboxImage.title}
-                  className="w-full h-auto object-contain transition-opacity duration-300 max-h-[calc(90vh-12rem)]"
-                  onError={(e) => {
-                    // Fallback to placeholder if image fails to load
-                    e.currentTarget.classList.add('hidden');
-                    const nextEl = e.currentTarget.nextElementSibling;
-                    if (nextEl) {
-                      nextEl.classList.remove('hidden');
-                      nextEl.classList.add('flex');
-                    }
-                  }}
-                />
-                <div className="w-full h-full bg-muted hidden items-center justify-center">
-                  <span className="text-muted-foreground">Image: {lightboxImage.title}</span>
-                </div>
-              </div>
-              <h3 className="font-semibold text-xl mb-2">{lightboxImage.title}</h3>
-              <p className="text-muted-foreground whitespace-pre-line mb-3">{lightboxImage.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {[...lightboxImage.labels].sort().map(label => (
-                  <Badge key={label} variant="secondary" className="text-xs">
-                    {label}
-                  </Badge>
-                ))}
-              </div>
-              {showScrollIndicator && (
-                <div className="sticky bottom-0 left-1/2 -translate-x-1/2 w-full h-12 flex justify-center items-end pointer-events-none">
-                  <div className="bg-background/80 backdrop-blur-sm rounded-full p-1">
-                    <CaretDown size={24} className="animate-bounce text-primary" />
+            <>
+              <button
+                onClick={navigateToPrevious}
+                className="fixed left-4 top-1/2 -translate-y-1/2 z-[60] p-3 rounded-full bg-white/90 hover:bg-white text-black shadow-lg transition-all hover:scale-110 backdrop-blur-sm"
+                aria-label="Previous image"
+              >
+                <CaretLeft size={24} weight="bold" />
+              </button>
+              
+              <button
+                onClick={navigateToNext}
+                className="fixed right-4 top-1/2 -translate-y-1/2 z-[60] p-3 rounded-full bg-white/90 hover:bg-white text-black shadow-lg transition-all hover:scale-110 backdrop-blur-sm"
+                aria-label="Next image"
+              >
+                <CaretRight size={24} weight="bold" />
+              </button>
+            </>
+          )}
+
+          <DialogContent className="max-w-5xl w-auto h-auto max-h-[95vh] flex flex-col p-0 data-[state=open]:duration-300 data-[state=closed]:duration-200">
+            {lightboxImage && (
+              <div
+                ref={scrollContainerRef}
+                onScroll={handleScroll}
+                className="flex-grow overflow-y-auto p-6 hide-scrollbar relative"
+              >
+                <div className="bg-muted rounded-lg overflow-hidden mb-4 relative group">
+                  {imageLoading && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-muted z-10">
+                      <div className="flex items-center gap-3 text-muted-foreground">
+                        <div className="w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                        <span>Loading...</span>
+                      </div>
+                    </div>
+                  )}
+                  <img
+                    ref={imageRef}
+                    src={lightboxImage.imageSrc}
+                    alt={lightboxImage.title}
+                    className={`w-full h-auto object-contain transition-opacity duration-300 max-h-[calc(90vh-12rem)] ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
+                    onLoadStart={() => setImageLoading(true)}
+                    onLoad={() => setImageLoading(false)}
+                    onError={(e) => {
+                      setImageLoading(false);
+                      // Fallback to placeholder if image fails to load
+                      e.currentTarget.classList.add('hidden');
+                      const nextEl = e.currentTarget.nextElementSibling;
+                      if (nextEl) {
+                        nextEl.classList.remove('hidden');
+                        nextEl.classList.add('flex');
+                      }
+                    }}
+                  />
+                  <div className="w-full h-full bg-muted hidden items-center justify-center">
+                    <span className="text-muted-foreground">Image: {lightboxImage.title}</span>
                   </div>
                 </div>
-              )}
-            </div>
-          )}
-        </DialogContent>
+                <h3 className="font-semibold text-xl mb-2">{lightboxImage.title}</h3>
+                <p className="text-muted-foreground whitespace-pre-line mb-3">{lightboxImage.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {[...lightboxImage.labels].sort().map(label => (
+                    <Badge key={label} variant="secondary" className="text-xs">
+                      {label}
+                    </Badge>
+                  ))}
+                </div>
+                {showScrollIndicator && (
+                  <div className="sticky bottom-0 left-1/2 -translate-x-1/2 w-full h-12 flex justify-center items-end pointer-events-none">
+                    <div className="bg-background/80 backdrop-blur-sm rounded-full p-1">
+                      <CaretDown size={24} className="animate-bounce text-primary" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </DialogContent>
+        </DialogPortal>
       </Dialog>
 
       <Toaster />
