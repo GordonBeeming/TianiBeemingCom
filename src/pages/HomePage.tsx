@@ -50,10 +50,6 @@ export default function HomePage({
             Professional Pastry Chef
           </p>
 
-          <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-            {aboutContent.split('.')[0]}. Creating beautiful and delicious desserts with precision and artistry.
-          </p>
-
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/portfolio">
               <Button size="lg" className="font-medium">
