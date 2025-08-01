@@ -214,9 +214,7 @@ function App() {
               onScroll={handleScroll}
               className="flex-grow overflow-y-auto p-6 hide-scrollbar relative"
             >
-              <div
-                className="bg-muted rounded-lg overflow-hidden mb-4 relative group"
-              >
+              <div className="bg-muted rounded-lg overflow-hidden mb-4 relative group">
                 <img
                   ref={imageRef}
                   src={lightboxImage.imageSrc}
@@ -236,15 +234,15 @@ function App() {
                   <span className="text-muted-foreground">Image: {lightboxImage.title}</span>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2 mb-3">
-                {lightboxImage.labels.map(label => (
+              <h3 className="font-semibold text-xl mb-2">{lightboxImage.title}</h3>
+              <p className="text-muted-foreground whitespace-pre-line mb-3">{lightboxImage.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {[...lightboxImage.labels].sort().map(label => (
                   <Badge key={label} variant="secondary" className="text-xs">
                     {label}
                   </Badge>
                 ))}
               </div>
-              <h3 className="font-semibold text-xl mb-2">{lightboxImage.title}</h3>
-              <p className="text-muted-foreground whitespace-pre-line">{lightboxImage.description}</p>
               {showScrollIndicator && (
                 <div className="sticky bottom-0 left-1/2 -translate-x-1/2 w-full h-12 flex justify-center items-end pointer-events-none">
                   <div className="bg-background/80 backdrop-blur-sm rounded-full p-1">

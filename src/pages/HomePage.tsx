@@ -138,7 +138,7 @@ export default function HomePage({
                       
                       {/* Hover/Touch Overlay */}
                       <motion.div
-                        className={`absolute inset-0 bg-black/50 text-white p-6 flex flex-col justify-end transition-opacity duration-300 ${
+                        className={`absolute inset-0 bg-black/50 text-white p-6 flex flex-col justify-between transition-opacity duration-300 ${
                           touchActiveCard === item.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                         }`}
                       >
@@ -149,16 +149,19 @@ export default function HomePage({
                               animate={{ y: 0, opacity: 1 }}
                               exit={{ y: 20, opacity: 0 }}
                               transition={{ duration: 0.3 }}
+                              className="flex flex-col justify-between h-full"
                             >
-                              <div className="flex flex-wrap gap-2 mb-3">
-                                {item.labels.map(label => (
+                              <div>
+                                <h3 className="font-semibold text-lg mb-2 text-white">{item.title}</h3>
+                                <p className="text-white/90 text-sm line-clamp-3">{item.description}</p>
+                              </div>
+                              <div className="flex flex-wrap gap-2 mt-3">
+                                {[...item.labels].sort().map(label => (
                                   <Badge key={label} variant="secondary" className="text-xs bg-white/20 text-white border-white/30 hover:bg-white/30">
                                     {label}
                                   </Badge>
                                 ))}
                               </div>
-                              <h3 className="font-semibold text-lg mb-2 text-white">{item.title}</h3>
-                              <p className="text-white/90 text-sm line-clamp-3">{item.description}</p>
                             </motion.div>
                           )}
                         </AnimatePresence>
