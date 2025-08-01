@@ -95,23 +95,37 @@ function App() {
   }, [lightboxImage]);
 
   // Navigation functions for lightbox
+  const getNavigationItems = () => {
+    // On home page, only navigate through featured items
+    if (location.pathname === '/') {
+      return portfolioItems
+        .filter(item => typeof item.featurePosition === 'number')
+        .sort((a, b) => (a.featurePosition ?? 0) - (b.featurePosition ?? 0));
+    }
+    // On portfolio page or other pages, navigate through all items
+    return portfolioItems;
+  };
+
   const getCurrentItemIndex = () => {
     if (!lightboxImage) return -1;
-    return portfolioItems.findIndex(item => item.id === lightboxImage.id);
+    const navigationItems = getNavigationItems();
+    return navigationItems.findIndex(item => item.id === lightboxImage.id);
   };
 
   const navigateToNext = () => {
+    const navigationItems = getNavigationItems();
     const currentIndex = getCurrentItemIndex();
     if (currentIndex === -1) return;
-    const nextIndex = (currentIndex + 1) % portfolioItems.length;
-    setLightboxImage(portfolioItems[nextIndex]);
+    const nextIndex = (currentIndex + 1) % navigationItems.length;
+    setLightboxImage(navigationItems[nextIndex]);
   };
 
   const navigateToPrevious = () => {
+    const navigationItems = getNavigationItems();
     const currentIndex = getCurrentItemIndex();
     if (currentIndex === -1) return;
-    const prevIndex = (currentIndex - 1 + portfolioItems.length) % portfolioItems.length;
-    setLightboxImage(portfolioItems[prevIndex]);
+    const prevIndex = (currentIndex - 1 + navigationItems.length) % navigationItems.length;
+    setLightboxImage(navigationItems[prevIndex]);
   };
 
   // Keyboard navigation
@@ -139,7 +153,7 @@ function App() {
       document.addEventListener('keydown', handleKeyDown);
       return () => document.removeEventListener('keydown', handleKeyDown);
     }
-  }, [lightboxImage, portfolioItems]);
+  }, [lightboxImage, portfolioItems, location.pathname]);
 
   const handleScroll = () => {
     if (scrollContainerRef.current) {
