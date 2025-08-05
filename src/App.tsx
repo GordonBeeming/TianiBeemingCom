@@ -279,7 +279,10 @@ function App() {
           {lightboxImage && (
             <>
               <button
-                onClick={navigateToPrevious}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateToPrevious();
+                }}
                 className="fixed left-4 top-1/2 -translate-y-1/2 z-[60] p-3 rounded-full bg-white/90 hover:bg-white text-black shadow-lg transition-all hover:scale-110 backdrop-blur-sm"
                 aria-label="Previous image"
               >
@@ -287,7 +290,10 @@ function App() {
               </button>
               
               <button
-                onClick={navigateToNext}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateToNext();
+                }}
                 className="fixed right-4 top-1/2 -translate-y-1/2 z-[60] p-3 rounded-full bg-white/90 hover:bg-white text-black shadow-lg transition-all hover:scale-110 backdrop-blur-sm"
                 aria-label="Next image"
               >
@@ -301,6 +307,7 @@ function App() {
               <div
                 ref={scrollContainerRef}
                 onScroll={handleScroll}
+                onClick={(e) => e.stopPropagation()}
                 className="flex-grow overflow-y-auto p-6 hide-scrollbar relative"
               >
                 <div className="bg-muted rounded-lg overflow-hidden mb-4 relative group">
