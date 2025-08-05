@@ -132,7 +132,7 @@ function App() {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!lightboxImage) return;
-      
+
       switch (event.key) {
         case 'ArrowRight':
           event.preventDefault();
@@ -270,39 +270,41 @@ function App() {
       </main>
 
       {/* Enhanced Lightbox */}
+
       <Dialog open={!!lightboxImage} onOpenChange={() => setLightboxImage(null)}>
         <DialogPortal>
           {/* Custom darker overlay */}
           <DialogOverlay className="bg-black/80" />
-          
-          {/* Navigation buttons */}
-          {lightboxImage && (
-            <>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigateToPrevious();
-                }}
-                className="fixed left-4 top-1/2 -translate-y-1/2 z-[60] p-3 rounded-full bg-white/90 hover:bg-white text-black shadow-lg transition-all hover:scale-110 backdrop-blur-sm"
-                aria-label="Previous image"
-              >
-                <CaretLeft size={24} weight="bold" />
-              </button>
-              
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigateToNext();
-                }}
-                className="fixed right-4 top-1/2 -translate-y-1/2 z-[60] p-3 rounded-full bg-white/90 hover:bg-white text-black shadow-lg transition-all hover:scale-110 backdrop-blur-sm"
-                aria-label="Next image"
-              >
-                <CaretRight size={24} weight="bold" />
-              </button>
-            </>
-          )}
-
           <DialogContent className="max-w-5xl w-auto h-auto max-h-[95vh] flex flex-col p-0 data-[state=open]:duration-300 data-[state=closed]:duration-200">
+            {/* Navigation buttons absolutely positioned at edge of viewport, but inside DialogContent */}
+            {lightboxImage && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigateToPrevious();
+                  }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-[60] p-3 rounded-full bg-white/90 hover:bg-white text-black shadow-lg transition-all hover:scale-110 backdrop-blur-sm"
+                  style={{ position: 'fixed' }}
+                  aria-label="Previous image"
+                  type="button"
+                >
+                  <CaretLeft size={24} weight="bold" />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigateToNext();
+                  }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-[60] p-3 rounded-full bg-white/90 hover:bg-white text-black shadow-lg transition-all hover:scale-110 backdrop-blur-sm"
+                  style={{ position: 'fixed' }}
+                  aria-label="Next image"
+                  type="button"
+                >
+                  <CaretRight size={24} weight="bold" />
+                </button>
+              </>
+            )}
             {lightboxImage && (
               <div
                 ref={scrollContainerRef}
