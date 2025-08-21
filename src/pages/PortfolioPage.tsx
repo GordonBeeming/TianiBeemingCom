@@ -82,13 +82,19 @@ export default function PortfolioPage({
             <h1 className="font-display text-4xl font-bold text-primary">Portfolio</h1>
             <Sheet open={isFilterDrawerOpen} onOpenChange={setIsFilterDrawerOpen}>
               <SheetTrigger asChild>
-                <Button variant="outline" size="sm" className="relative">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="relative"
+                  aria-label={`Filter portfolio items${activeFiltersCount > 0 ? ` (${activeFiltersCount} active)` : ''}`}
+                >
                   <ListFilter className="w-4 h-4 mr-2" />
                   Filter
                   {activeFiltersCount > 0 && (
                     <Badge
                       variant="secondary"
                       className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center text-xs rounded-full bg-primary text-primary-foreground"
+                      aria-hidden="true"
                     >
                       {activeFiltersCount}
                     </Badge>
@@ -156,6 +162,15 @@ export default function PortfolioPage({
                 key={item.id}
                 className="portfolio-card group cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 relative overflow-hidden"
                 onClick={() => handleCardClick(item)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleCardClick(item);
+                  }
+                }}
+                aria-label={`View ${item.title} in lightbox`}
               >
                 <CardContent className="p-0 relative">
                   <div className="aspect-square bg-muted overflow-hidden relative">

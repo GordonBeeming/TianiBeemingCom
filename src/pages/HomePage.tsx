@@ -113,6 +113,15 @@ export default function HomePage({
                   key={item.id}
                   className="featured-card group cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 relative overflow-hidden"
                   onClick={() => handleCardClick(item)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleCardClick(item);
+                    }
+                  }}
+                  aria-label={`View ${item.title} in lightbox`}
                 >
                   <CardContent className="p-0 relative">
                     <div className="aspect-square bg-muted overflow-hidden relative">

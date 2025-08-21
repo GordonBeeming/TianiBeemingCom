@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import { Badge } from '@/components/ui/badge'
-import { Dialog, DialogContent, DialogOverlay, DialogPortal } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogOverlay, DialogPortal, DialogTitle } from '@/components/ui/dialog'
 import { Toaster } from '@/components/ui/sonner'
 import portfolioData from '@/data/portfolioData.json'
 import cvData from '@/data/cvData.json'
@@ -166,19 +166,21 @@ function App() {
   };
 
   const renderNavigation = () => (
-    <nav className="bg-white/95 backdrop-blur-sm border-b sticky top-0 z-40">
+    <nav className="bg-white/95 backdrop-blur-sm border-b sticky top-0 z-40" aria-label="Main navigation">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="font-display text-xl font-bold text-primary">
+          <Link to="/" className="font-display text-xl font-bold text-primary" aria-label="Tiani Beeming - Home">
             Tiani Beeming
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-8" role="menubar">
             {navigation.map(item => (
               <Link
                 key={item.path}
                 to={item.path}
+                role="menuitem"
+                aria-current={location.pathname === item.path ? 'page' : undefined}
                 className={`font-body text-sm font-medium transition-colors ${location.pathname === item.path
                   ? 'text-primary border-b-2 border-primary'
                   : 'text-foreground hover:text-primary'
@@ -194,6 +196,9 @@ function App() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="text-foreground hover:text-primary"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              type="button"
             >
               {mobileMenuOpen ? <X size={24} /> : <List size={24} />}
             </button>
@@ -203,13 +208,15 @@ function App() {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t">
+        <div className="md:hidden bg-white border-t" role="menu" aria-label="Mobile navigation menu">
           <div className="px-4 py-3 space-y-3">
             {navigation.map(item => (
               <Link
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
+                role="menuitem"
+                aria-current={location.pathname === item.path ? 'page' : undefined}
                 className={`block w-full text-left font-body text-sm font-medium transition-colors ${location.pathname === item.path ? 'text-primary' : 'text-foreground hover:text-primary'
                   }`}
               >
@@ -224,10 +231,17 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background font-body">
+      {/* Skip to main content link for keyboard users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded"
+      >
+        Skip to main content
+      </a>
       <ScrollToTop />
       {renderNavigation()}
 
-      <main>
+      <main id="main-content">
         <Routes>
           <Route
             path="/"
@@ -275,7 +289,11 @@ function App() {
         <DialogPortal>
           {/* Custom darker overlay */}
           <DialogOverlay className="bg-black/80" />
-          <DialogContent className="max-w-5xl w-auto h-auto max-h-[95vh] flex flex-col p-0 data-[state=open]:duration-300 data-[state=closed]:duration-200">
+          <DialogContent 
+            className="max-w-5xl w-auto h-auto max-h-[95vh] flex flex-col p-0 data-[state=open]:duration-300 data-[state=closed]:duration-200"
+            aria-labelledby={lightboxImage ? `lightbox-title-${lightboxImage.id}` : undefined}
+            aria-describedby={lightboxImage ? `lightbox-description-${lightboxImage.id}` : undefined}
+          >
             {/* Navigation buttons absolutely positioned at edge of viewport, but inside DialogContent */}
             {lightboxImage && (
               <>
@@ -306,12 +324,16 @@ function App() {
               </>
             )}
             {lightboxImage && (
-              <div
-                ref={scrollContainerRef}
-                onScroll={handleScroll}
-                onClick={(e) => e.stopPropagation()}
-                className="flex-grow overflow-y-auto p-6 hide-scrollbar relative"
-              >
+              <>
+                <DialogTitle className="sr-only">
+                  {lightboxImage.title}
+                </DialogTitle>
+                <div
+                  ref={scrollContainerRef}
+                  onScroll={handleScroll}
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex-grow overflow-y-auto p-6 hide-scrollbar relative"
+                >
                 <div className="bg-muted rounded-lg overflow-hidden mb-4 relative group">
                   {imageLoading && (
                     <div className="absolute inset-0 flex items-center justify-center bg-muted z-10">
@@ -343,8 +365,18 @@ function App() {
                     <span className="text-muted-foreground">Image: {lightboxImage.title}</span>
                   </div>
                 </div>
-                <h3 className="font-semibold text-xl mb-2">{lightboxImage.title}</h3>
-                <p className="text-muted-foreground whitespace-pre-line mb-3">{lightboxImage.description}</p>
+                <h3 
+                  id={`lightbox-title-${lightboxImage.id}`}
+                  className="font-semibold text-xl mb-2"
+                >
+                  {lightboxImage.title}
+                </h3>
+                <p 
+                  id={`lightbox-description-${lightboxImage.id}`}
+                  className="text-muted-foreground whitespace-pre-line mb-3"
+                >
+                  {lightboxImage.description}
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {[...lightboxImage.labels].sort().map(label => (
                     <Badge key={label} variant="secondary" className="text-xs">
