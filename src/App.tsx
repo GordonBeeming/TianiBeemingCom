@@ -294,9 +294,10 @@ function App() {
             aria-labelledby={lightboxImage ? `lightbox-title-${lightboxImage.id}` : undefined}
             aria-describedby={lightboxImage ? `lightbox-description-${lightboxImage.id}` : undefined}
           >
-            {/* Navigation buttons absolutely positioned at edge of viewport, but inside DialogContent */}
+            {/* Navigation buttons and content when lightbox is open */}
             {lightboxImage && (
               <>
+                {/* Navigation buttons absolutely positioned at edge of viewport */}
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -321,10 +322,7 @@ function App() {
                 >
                   <CaretRight size={24} weight="bold" />
                 </button>
-              </>
-            )}
-            {lightboxImage && (
-              <>
+                
                 <DialogTitle className="sr-only">
                   {lightboxImage.title}
                 </DialogTitle>
@@ -392,6 +390,7 @@ function App() {
                   </div>
                 )}
               </div>
+              </>
             )}
           </DialogContent>
         </DialogPortal>
