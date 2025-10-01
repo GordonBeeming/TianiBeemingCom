@@ -3,8 +3,7 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogOverlay, DialogPortal, DialogTitle } from '@/components/ui/dialog'
 import { Toaster } from '@/components/ui/sonner'
-import portfolioData from '@/data/portfolioData.json'
-import cvData from '@/data/cvData.json'
+import { loadPortfolioItems, loadCVData, type PortfolioItem, type CVData } from '@/lib/tina'
 import HomePage from '@/pages/HomePage'
 import PortfolioPage from '@/pages/PortfolioPage'
 import ResumePage from '@/pages/ResumePage'
@@ -19,43 +18,6 @@ import {
   CaretRight
 } from '@phosphor-icons/react'
 
-type PortfolioItem = {
-  id: string
-  title: string
-  description: string
-  imageSrc: string
-  labels: string[]
-  featurePosition?: number
-}
-
-type CVData = {
-  name: string;
-  contact: {
-    email: string;
-    phone: string;
-  };
-  summary: string;
-  socialMedia: Array<{
-    name: string;
-    url: string;
-    handle: string;
-  }>;
-  careerHistory: Array<{
-    role: string;
-    company: string;
-    period: string;
-    responsibilities?: string[];
-  }>;
-  skills: string[];
-  languages: string[];
-  education: Array<{
-    qualification: string;
-    institution: string;
-    year: string;
-    details?: string[];
-  }>;
-}
-
 function App() {
   const location = useLocation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -65,11 +27,11 @@ function App() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showScrollIndicator, setShowScrollIndicator] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
-
-  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>((portfolioData as any).portfolio as PortfolioItem[])
-  const [aboutContent, setAboutContent] = useState(cvData.summary)
-  const [cvDataState, setCvDataState] = useState<CVData>(cvData as CVData)
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([])
+  const [aboutContent, setAboutContent] = useState('')
+  const [cvDataState, setCvDataState] = useState<CVData | null>(null)
 
   const navigation = [
     { name: 'Home', path: '/' },
@@ -78,6 +40,25 @@ function App() {
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' }
   ]
+
+  // Load data from Tina CMS on mount
+  useEffect(() => {
+    const loadData = async () => {
+      const [portfolio, cvData] = await Promise.all([
+        loadPortfolioItems(),
+        loadCVData()
+      ])
+      
+      setPortfolioItems(portfolio)
+      if (cvData) {
+        setCvDataState(cvData)
+        setAboutContent(cvData.summary)
+      }
+      setDataLoaded(true)
+    }
+    
+    loadData()
+  }, [])
 
   useEffect(() => {
     if (location.pathname !== '/portfolio') {
@@ -242,45 +223,54 @@ function App() {
       {renderNavigation()}
 
       <main id="main-content">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <HomePage
-                aboutContent={aboutContent}
-                portfolioItems={portfolioItems}
-                setLightboxImage={setLightboxImage}
-              />
-            }
-          />
-          <Route
-            path="/portfolio"
-            element={
-              <PortfolioPage
-                portfolioItems={portfolioItems}
-                selectedFilter={selectedFilter}
-                setSelectedFilter={setSelectedFilter}
-                setLightboxImage={setLightboxImage}
-              />
-            }
-          />
-          <Route
-            path="/resume"
-            element={<ResumePage cvDataState={cvDataState} />}
-          />
-          <Route
-            path="/about"
-            element={
-              <AboutPage
-                aboutContent={aboutContent}
-              />
-            }
-          />
-          <Route
-            path="/contact"
-            element={<ContactPage cvDataState={cvDataState} />}
-          />
-        </Routes>
+        {!dataLoaded ? (
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="flex items-center gap-3 text-muted-foreground">
+              <div className="w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin" />
+              <span>Loading...</span>
+            </div>
+          </div>
+        ) : (
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <HomePage
+                  aboutContent={aboutContent}
+                  portfolioItems={portfolioItems}
+                  setLightboxImage={setLightboxImage}
+                />
+              }
+            />
+            <Route
+              path="/portfolio"
+              element={
+                <PortfolioPage
+                  portfolioItems={portfolioItems}
+                  selectedFilter={selectedFilter}
+                  setSelectedFilter={setSelectedFilter}
+                  setLightboxImage={setLightboxImage}
+                />
+              }
+            />
+            <Route
+              path="/resume"
+              element={<ResumePage cvDataState={cvDataState} />}
+            />
+            <Route
+              path="/about"
+              element={
+                <AboutPage
+                  aboutContent={aboutContent}
+                />
+              }
+            />
+            <Route
+              path="/contact"
+              element={<ContactPage cvDataState={cvDataState} />}
+            />
+          </Routes>
+        )}
       </main>
 
       {/* Enhanced Lightbox */}

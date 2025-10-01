@@ -31,12 +31,22 @@ type CVData = {
 }
 
 interface ContactPageProps {
-  cvDataState: CVData
+  cvDataState: CVData | null
 }
 
 export default function ContactPage({ cvDataState }: ContactPageProps) {
   const [showEmail, setShowEmail] = useState(false)
   const [showPhone, setShowPhone] = useState(false)
+
+  if (!cvDataState) {
+    return (
+      <div className="py-8 font-body">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p>Loading contact data...</p>
+        </div>
+      </div>
+    )
+  }
 
   const maskedEmail = cvDataState.contact.email.replace('@', ' [at] ').replace(/\./g, ' [dot] ');
   const maskedPhone = `${cvDataState.contact.phone.slice(0, 3)} ... ... ${cvDataState.contact.phone.slice(-3)}`;
