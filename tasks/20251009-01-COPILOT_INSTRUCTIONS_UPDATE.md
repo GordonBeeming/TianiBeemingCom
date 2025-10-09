@@ -1,169 +1,129 @@
-# Copilot Instructions Update - Corrections for Tiani Beeming Portfolio
+# Copilot Instructions Update - Adapted for Tiani Beeming Portfolio
 
 ## Date: October 9, 2025
 
 ## Summary
 
-Updated `.github/copilot-instructions.md` to accurately reflect the current state of the Tiani Beeming Portfolio project after the Tina CMS integration.
+Updated `.github/copilot-instructions.md` to properly adapt the recipe website template for the Tiani Beeming Portfolio project, keeping all workflow instructions intact while updating project-specific details.
 
-## Changes Made
+## What Was Changed
 
-### 1. **Corrected Tech Stack Versions**
+### ✅ Project-Specific Updates (Tech Stack & Content)
 
-**Before:**
-- React 19 + TypeScript
-- Vite 6.3.6
-- Tailwind CSS 4.0
-- React Router 7
+1. **Project Overview**
+   - Changed from: "recipe website"
+   - Changed to: "portfolio website for Tiani Beeming, a professional pastry chef and cake decorator"
 
-**After:**
-- React 19.0.0 + TypeScript
-- Vite 6.3.5
-- Tailwind CSS 4.0.17
-- React Router DOM v6 (not v7)
-- Tina.io v2.9.0
+2. **Technology Stack Versions**
+   - React 19.0.0 (confirmed)
+   - Vite 6.3.5 (confirmed)
+   - Tailwind CSS 4.0.17 (confirmed)
+   - Tina CMS v2.9.0 (confirmed)
+   - React Router DOM v6 (confirmed)
+   - Markdown parser: gray-matter (confirmed)
 
-### 2. **Updated Portfolio Item Count**
+3. **Content Structure**
+   - Changed from: `content/recipes/`
+   - Changed to: `content/portfolio/` (42 items), `content/profile/`, `content/posts/`
 
-**Before:** 41 portfolio items  
-**After:** 42 portfolio items (accurate count from `content/portfolio/`)
+4. **Admin Access URLs**
+   - Changed from: `http://localhost:5000/admin`
+   - Changed to: `http://localhost:5173/admin` (Vite default port)
 
-### 3. **Added Posts Collection**
+5. **Build Scripts**
+   - Updated to match actual package.json:
+     - `npm run dev` - Regular dev (faster)
+     - `npm run dev:tina` - Dev with Tina CMS
+     - `npm run build:tina` - Build Tina admin
+     - `npm run build` - Build application
 
-Added mention of `/content/posts/` folder which exists but is optional/not currently used.
+6. **Project-Specific Patterns Added**
+   - Featured Items Logic (specific to portfolio)
+   - Data Loading with gray-matter
+   - Common Pitfalls specific to this project
 
-### 4. **Corrected Build Error Solutions**
+7. **File Organization**
+   - Updated component structure
+   - Noted `src/lib/tina.ts` for data loading
+   - Documented backup JSON files location
 
-**Before:**
-- "React plugin comes from Tailwind CSS Vite plugin"
-- "Don't add `@vitejs/plugin-react` separately"
+8. **Deployment**
+   - Added GitHub Pages deployment info
+   - Noted GitHub Actions workflow
 
-**After:**
-- Detailed explanation of Vite config structure
-- Mentions `buffer` and `process.env` polyfills
-- Lists required `optimizeDeps` packages
+### ✅ What Was KEPT (Your Workflow Instructions)
 
-### 5. **Updated Image Optimization Status**
+All of these sections were preserved exactly as you had them:
 
-**Before:** "Currently disabled due to plugin conflicts"  
-**After:** "Currently using `vite-plugin-image-optimizer` (configured but may have conflicts)"
+1. **Project File Structure Rules**
+   - ⚠️ CRITICAL: All Files Must Be in Project Directory
+   - Never write outside project root
+   - Temporary files in `tmp/` folder
 
-More accurate - the plugin is installed and configured, just not actively used.
+2. **File Organization Standards**
+   - Documentation in `/docs/` (except standard GitHub files)
+   - Task documentation in `/tasks/`
+   - Task file naming: `YYYYMMDD-XX-topic.md`
+   - Task screenshots in `/tasks/images/`
 
-### 6. **Enhanced Deployment Section**
+3. **Git Workflow - Commit as You Go**
+   - Commit frequently
+   - Small, focused commits
+   - Descriptive commit messages
+   - When to commit guidelines
+   - Commit message format
 
-**Added entire new section:**
-- GitHub Pages Deployment workflow explanation
-- Step-by-step build process
-- Required GitHub secrets (NEXT_PUBLIC_TINA_CLIENT_ID and TINA_TOKEN)
-- Emphasis on running `build:tina` before `build`
+4. **Co-Author Attribution**
+   - ALWAYS add requester as co-author
+   - How to identify the requester
+   - Co-author format examples
+   - When to add co-authors
 
-**Before:**
-- Generic deployment checklist
-- Mentioned Vercel/Netlify as examples
+5. **Accessibility First 🌟**
+   - All accessibility requirements
+   - Semantic HTML
+   - ARIA attributes
+   - Keyboard navigation
+   - Form accessibility
+   - Visual accessibility
+   - Screen reader support
+   - Accessibility checklist
 
-**After:**
-- Specific GitHub Pages deployment instructions
-- Accurate checklist with Tina build steps
-- References to GitHub Actions workflow
+6. **Before/After/Making Changes Workflow**
+   - Before making changes checklist
+   - Making changes guidelines
+   - After making changes checklist
 
-### 7. **Updated Deployment Checklist**
+7. **Testing and Quality**
+   - Manual testing requirements
+   - Screenshots for task documentation
+   - Before committing checklist
+   - Edge cases to consider
 
-**Before:**
-```
-- [ ] Run `npm run build`
-- [ ] Check `/dist` for output
-- [ ] Test with `npm run preview`
-- [ ] Configure hosting for SPA routing
-- [ ] Set up redirects (all routes → index.html)
-```
-
-**After:**
-```
-- [ ] Run `npm run build:tina` to build Tina admin interface
-- [ ] Run `npm run build` to build the main application
-- [ ] Check `/dist` for output (including `/admin` folder)
-- [ ] Test with `npm run preview`
-- [ ] Ensure GitHub secrets are set
-- [ ] Push to main branch to trigger GitHub Actions deployment
-```
-
-### 8. **Updated Dependencies Section**
-
-**Before:**
-- Basic warnings about not adding React plugins
-
-**After:**
-- Clearer explanations of why certain plugins should not be added
-- Note about testing plugins before adding to avoid conflicts
-
-### 9. **Updated Future Improvements**
-
-**Before:**
-- Generic list of potential features
-
-**After:**
-- More specific improvements based on current project state
-- Added "expand blog/posts collection usage"
-- Noted that Tina Cloud requires setup at tina.io
-
-### 10. **Updated Footer Metadata**
-
-**Before:**
-```
-**Last Updated**: October 2025
-**Project Status**: ✅ Fully Functional
-**CMS Status**: ✅ Tina.io Integrated
-**Content Items**: 41 portfolio + 1 CV profile
-```
-
-**After:**
-```
-**Last Updated**: October 2025
-**Project Status**: ✅ Fully Functional
-**CMS Status**: ✅ Tina.io v2.9.0 Integrated
-**Content Items**: 42 portfolio items + 1 CV profile + posts collection
-**Deployment**: ✅ GitHub Pages via GitHub Actions
-```
-
-### 11. **Enhanced Key Commands Section**
-
-**Before:**
-- Basic commands only
-
-**After:**
-- Complete list including:
-  - `npm run dev:tina` - Development with Tina CMS admin UI
-  - `npm run build:tina` - Build Tina admin interface
-  - `npm run preview` - Preview production build locally
-
-## Verification
-
-All corrections were verified against:
-- ✅ `package.json` for version numbers
-- ✅ `vite.config.ts` for build configuration
-- ✅ File system for content counts
-- ✅ `.github/workflows/deploy.yml` for deployment process
-- ✅ Git history for Tina CMS merge status
+8. **Important Reminders**
+   - All 14 critical guidelines
+   - When to update these instructions
 
 ## Files Modified
 
-1. `.github/copilot-instructions.md` - Updated with accurate project information
+1. `.github/copilot-instructions.md` - Fully adapted for Tiani Beeming Portfolio
 
-## Impact
+## Verification
 
-- ✅ Future AI interactions will have accurate project information
-- ✅ Deployment process is now clearly documented
-- ✅ Version numbers match actual project state
-- ✅ Build process reflects Tina CMS integration
-- ✅ No functional code changes (documentation only)
+✅ All workflow instructions preserved
+✅ Project-specific tech details updated
+✅ Content management structure updated
+✅ Build commands match package.json
+✅ Accessibility requirements intact
+✅ Co-author guidelines intact
+✅ File organization rules intact
+✅ Git workflow instructions intact
 
-## Notes
+## Result
 
-The copilot instructions were originally copied from another project, so several details were inaccurate:
-- Different React Router version
-- Different Vite version
-- Missing GitHub Pages deployment info
-- Generic deployment instructions instead of project-specific ones
-
-All inaccuracies have been corrected to match the current Tiani Beeming Portfolio project state.
+The copilot instructions now:
+- Have accurate tech stack for THIS project (Tiani Beeming Portfolio)
+- Retain ALL your workflow preferences (commits, co-authoring, file organization)
+- Include project-specific patterns (featured items, portfolio structure)
+- Maintain all accessibility and quality standards
+- Reference correct paths and content structure

@@ -1,486 +1,532 @@
-# GitHub Copilot Instructions for Tiani Beeming Portfolio
-
-## Meta-Instructions for AI Assistants
-
-**IMPORTANT**: When the user provides "repo organization" or "process improvement" tasks (e.g., file naming conventions, folder structures, documentation standards), you MUST:
-
-1. ✅ **Implement the requested changes** immediately
-2. ✅ **Update these copilot instructions** to document the new conventions
-3. ✅ **Add clear examples** so future AI interactions follow the same patterns
-4. ✅ **Place new rules in the appropriate section** (File Organization, Development Workflow, etc.)
-
-This ensures the repository stays organized and future tasks automatically follow established patterns without requiring the user to repeat instructions.
-
----
+# GitHub Copilot Instructions
 
 ## Project Overview
+This is a **portfolio website for Tiani Beeming**, a professional pastry chef and cake decorator. The site showcases her cake designs, provides her CV/resume, and offers contact information. Built with React, Vite, TypeScript, and Tailwind CSS, using **Tina CMS** for content management.
 
-This is a **portfolio website for Tiani Beeming**, a professional pastry chef and cake decorator. The site showcases her cake designs, provides her CV/resume, and offers contact information.
-
-### Tech Stack
-- **Frontend**: React 19.0.0 + TypeScript
+## Technology Stack
+- **Frontend**: React 19.0.0, TypeScript, Tailwind CSS 4.0.17
 - **Build Tool**: Vite 6.3.5
-- **Styling**: Tailwind CSS 4.0.17
-- **Routing**: React Router DOM v6 (not v7)
-- **CMS**: Tina.io v2.9.0 (for content management)
-- **UI Components**: Radix UI primitives with custom components
+- **CMS**: Tina CMS v2.9.0 (integrated)
+- **Routing**: React Router DOM v6
+- **UI Components**: Radix UI primitives, custom components
+- **Markdown**: gray-matter for frontmatter parsing
 
-### Project Type
-- Static portfolio website
-- Single-page application with client-side routing
-- Content-driven with markdown files
+## Content Management System (Tina CMS)
 
----
+### Important: Generated Files Are NOT Source Code
+**Tina admin files are build artifacts, NOT source code.**
 
-## Important Project Patterns
+#### What Gets Committed:
+- ✅ `tina/config.ts` - Tina configuration
+- ✅ `content/` - Portfolio and profile markdown files
+- ✅ Tina-related dependencies in package.json
 
-### 1. Content Management (Tina CMS)
+#### What Gets Ignored (`.gitignore`):
+- ❌ `public/admin/` - Generated admin UI files (except `.gitignore`)
+- ❌ `tina/__generated__/` - Auto-generated schema and GraphQL files
+- ❌ Any other admin build artifacts
 
-**All content is stored as markdown files with YAML frontmatter:**
+**NEVER commit these generated files** - they are rebuilt during the build process.
 
-#### Portfolio Items
-- **Location**: `/content/portfolio/*.md`
-- **Format**: Individual markdown file per item
-- **Structure**:
-```markdown
----
-title: "Item Title"
-imageSrc: "/portfolio-images/image.jpg"
-labels:
-  - "Category 1"
-  - "Category 2"
-featurePosition: 1  # Optional number for homepage featuring
----
-
-Description text (markdown body)
+### Build Process
+The build includes Tina admin generation:
+```json
+{
+  "scripts": {
+    "build": "tsc -b --noCheck && vite build",
+    "build:tina": "tinacms build"
+  }
+}
 ```
 
-#### CV/Profile Data
-- **Location**: `/content/profile/cv-data.md`
-- **Single file** with complex nested YAML frontmatter
-- **Parser**: Uses `gray-matter` library (NOT custom parser)
+**GitHub Actions workflow** runs both:
+1. `npm run build:tina` - Generates admin UI in `public/admin/`
+2. `npm run build` - TypeScript compilation + Vite builds the app (includes admin files)
 
-### 2. Data Loading Pattern
+### Development Workflow
 
-**File**: `/src/lib/tina.ts`
+#### With CMS Access (use this for content editing):
+```bash
+npm run dev:tina
+```
+- Starts Vite + Tina CMS
+- Access admin at `/admin`
+- Edit content visually
+
+#### Without CMS (faster for code changes):
+```bash
+npm run dev
+```
+- Regular Vite dev server
+- No admin access
+
+### Why Admin Files Are NOT Committed
+
+1. **Build Artifacts**: Generated during build, like `dist/`
+2. **Platform-Specific**: esbuild binaries differ per OS
+3. **Reproducible**: Build produces identical output
+4. **Bloat**: Large JS bundles would bloat repo
+
+### CI/CD Behavior
+- GitHub Actions runs on Linux
+- Builds Tina admin during deployment
+- Works correctly because build happens on target platform
+- Deployed to GitHub Pages automatically on push to main
+
+## Project File Structure Rules
+
+### ⚠️ CRITICAL: All Files Must Be in Project Directory
+**NEVER write files outside the project root.** All files, directories, and artifacts must be within the project folder.
+
+#### Allowed Locations:
+- Project root: `/work` or current working directory
+- Any subdirectories under project root
+- Temporary files: Use `tmp/` folder within project (add to .gitignore)
+
+#### Forbidden:
+- Writing to home directory (`~/`)
+- Writing to system directories (`/tmp`, `/var`, etc.)
+- Writing outside project boundaries
+
+#### If You Need Temporary Storage:
+1. Create `tmp/` folder in project root
+2. Add `tmp/` to `.gitignore`
+3. Use it for temporary files
+4. Clean up when done
+
+## File Organization Standards
+
+### Documentation Structure
+**All documentation files must be organized in the `/docs` folder**, except for standard GitHub files.
+
+#### Standard GitHub Files (keep in root):
+- `README.md` - Project overview and getting started guide
+- `LICENSE` - Project license
+- `SECURITY.md` - Security policies and vulnerability reporting (if exists)
+- `CODE_OF_CONDUCT.md` - Community guidelines (if exists)
+- `CONTRIBUTING.md` - Contribution guidelines (if exists)
+- `CHANGELOG.md` - Version history (if exists)
+
+#### Documentation Files (must be in `/docs`):
+- Product requirements documents
+- Architecture documentation
+- Design specifications
+- API documentation
+- User guides
+- Development guides
+- Any other project documentation
+
+### Task Documentation
+All task outcomes from Copilot jobs and development tasks must be documented in `/tasks/`.
+
+#### Task File Naming Convention:
+- **Format**: `YYYYMMDD-XX-topic.md` (XX is a two-digit order number)
+- **Example**: `20251001-01-migration-checklist.md`, `20251001-02-featured-items-verification.md`
+- **Date Format**: Use ISO 8601 date format (YYYYMMDD)
+- **Order**: Two-digit sequence number (01, 02, 03...) to track order of tasks on same day
+- **Topic**: Use lowercase with hyphens for multi-word topics
+
+#### Task Screenshots:
+- **Location**: `/tasks/images/`
+- **For UI Changes**: Take before/after screenshots manually
+- **Naming**: `YYYYMMDD-XX-{description}.png` (matches task file)
+- **Examples**: 
+  - `20251001-02-before-lightbox.png`
+  - `20251001-02-after-lightbox.png`
+  - `20251009-01-deployment-workflow.png`
+- **In Task Docs**: Reference images with relative paths: `![Description](./images/20251001-02-before-lightbox.png)`
+
+#### Task Documentation Guidelines:
+1. **Minor Tasks**: Update existing task files instead of creating new ones
+   - If a task is a continuation or update to previous work, append to the existing file
+   - Add a new section with updated date header within the file
+   
+2. **Major Tasks**: Create new task files for significant features or changes
+   - New features or components
+   - Major refactoring efforts
+   - Significant bug fixes
+   - Architecture changes
+
+3. **Task File Content Should Include**:
+   - Date and brief description at the top
+   - Problem/objective statement
+   - Solution approach
+   - Changes made (file changes, new dependencies, etc.)
+   - Testing performed
+   - Any follow-up items or known issues
+   - **Use standard markdown checkboxes**: `- [ ]` for unchecked, `- [x]` for checked
+   - Avoid using emojis (✅, ✓, ❌) for checkboxes - use proper markdown syntax
+
+## Tina CMS Integration (Complete)
+
+### Content Structure
+- **Portfolio Content**: `content/portfolio/` - 42 individual cake designs as markdown files
+- **Profile/CV**: `content/profile/cv-data.md` - Single file with nested YAML frontmatter
+- **Posts**: `content/posts/` - Blog posts (optional, not actively used)
+- **Tina Config**: `tina/config.ts` - Schema and collection definitions
+
+### Admin Access
+- **Local**: `http://localhost:5173/admin` (requires `npm run dev:tina`)
+- **Production**: `https://yourusername.github.io/your-repo/admin` (after deployment)
+
+### Development Commands
+```bash
+# Dev with Tina CMS access
+npm run dev:tina
+
+# Regular dev (faster, no CMS)
+npm run dev
+
+# Build Tina admin
+npm run build:tina
+
+# Build the app
+npm run build
+```
+
+### Build Behavior
+- Tina build creates admin interface: `tinacms build` → `public/admin/`
+- Main build includes everything: `tsc && vite build` → `dist/` (includes admin)
+- Admin files are in `.gitignore` (build artifacts)
+
+### When Making Changes
+1. **Never commit** `public/admin/` or `tina/__generated__/` files (they're generated)
+2. **Always commit** changes to `tina/config.ts` or content schema
+3. **Use `npm run dev:tina`** when testing CMS-related features
+4. **Update Tina config** when adding new content fields
+
+### Content Loading Pattern
+**Important**: This project uses `gray-matter` library for parsing markdown frontmatter.
 
 ```typescript
-// Uses Vite's glob imports with eager loading
+// In src/lib/tina.ts
+import matter from 'gray-matter'
+
+// Uses Vite's glob imports
 const files = import.meta.glob('../../content/portfolio/*.md', {
   eager: true,
   query: '?raw',
   import: 'default'
 })
 
-// Parse with gray-matter library
-import matter from 'gray-matter'
-const { data: frontmatter, content: body } = matter(content)
+// Parse with gray-matter
+const { data: frontmatter, content: body } = matter(fileContent)
 ```
 
-**Key Points**:
-- ✅ **DO** use `gray-matter` for parsing markdown frontmatter
-- ✅ **DO** use Vite glob imports with `eager: true` and `query: '?raw'`
-- ❌ **DON'T** use custom YAML parsers (they break with nested objects)
-- ❌ **DON'T** use dynamic imports (`await import()`) - use glob patterns
+**Never use custom YAML parsers** - they break with nested objects. Always use `gray-matter`.
 
-### 3. Featured Items Logic
+## Code Style and Patterns
 
-**Featured items on homepage require:**
-- `featurePosition` must be a **number** (not string)
-- Filter: `typeof item.featurePosition === 'number'`
-- Sort: `(a, b) => (a.featurePosition ?? 0) - (b.featurePosition ?? 0)`
+### Accessibility First 🌟
 
-**Homepage lightbox navigation**:
-- Only cycles through featured items (1, 2, 3)
-- Portfolio page cycles through all items
+**Accessibility is a CORE requirement, not an afterthought.**
 
-### 4. Type Safety
+Every component, feature, and change MUST be built with accessibility in mind:
 
-**Important interfaces** in `/src/lib/tina.ts`:
-```typescript
-export interface PortfolioItem {
-  id: string
-  title: string
-  description: string
-  imageSrc: string
-  labels: string[]
-  featurePosition?: number  // Optional number
-}
+#### Required Accessibility Practices:
+1. **Semantic HTML**
+   - Use appropriate HTML elements (`<button>`, `<nav>`, `<main>`, `<article>`, etc.)
+   - Never use `<div>` or `<span>` when a semantic element exists
+   - Ensure proper heading hierarchy (h1 → h2 → h3, no skipping levels)
 
-export interface CVData {
-  name: string
-  contact: { email: string; phone: string }
-  summary: string
-  socialMedia: Array<{name: string; url: string; handle: string}>
-  careerHistory: Array<{role: string; company: string; period: string; responsibilities?: string[]}>
-  skills: string[]
-  languages: string[]
-  education: Array<{qualification: string; institution: string; year: string; details?: string[]}>
-}
+2. **ARIA Attributes**
+   - Add `aria-label` to icon-only buttons and interactive elements
+   - Use `aria-hidden="true"` for decorative icons and images
+   - Implement `aria-live` regions for dynamic content updates
+   - Add `aria-describedby` for additional context when needed
+   - Use proper `role` attributes (e.g., `role="list"`, `role="status"`)
+
+3. **Keyboard Navigation**
+   - All interactive elements must be keyboard accessible
+   - Implement visible focus states (never `outline: none` without replacement)
+   - Support standard keyboard patterns (Tab, Enter, Space, Escape, Arrow keys)
+   - Ensure logical tab order follows visual flow
+
+4. **Form Accessibility**
+   - Always associate labels with form inputs using `htmlFor` and `id`
+   - Include helpful placeholder text and error messages
+   - Use appropriate input types
+   - Provide clear validation feedback
+
+5. **Visual Accessibility**
+   - Maintain WCAG AA contrast ratios minimum (4.5:1 for normal text, 3:1 for large text)
+   - Don't rely on color alone to convey information
+   - Ensure touch targets are at least 44×44 pixels
+   - Support text resize up to 200% without breaking layout
+
+6. **Images and Media**
+   - Provide meaningful `alt` text for all images (describe content, not "image of...")
+   - Use `aria-hidden="true"` for decorative images with empty alt (`alt=""`)
+   - Ensure portfolio images have descriptive alt text
+
+7. **Screen Reader Support**
+   - Test with screen readers (VoiceOver, NVDA, JAWS)
+   - Use skip links for navigation
+   - Announce dynamic content changes with `aria-live`
+   - Provide descriptive link text (avoid "click here")
+
+#### Accessibility Checklist for Every Change:
+- [ ] Can this be used with keyboard only?
+- [ ] Does this work with a screen reader?
+- [ ] Are color contrasts sufficient?
+- [ ] Are all interactive elements properly labeled?
+- [ ] Is focus management handled correctly?
+- [ ] Are error states clearly communicated?
+- [ ] Does this work at 200% zoom?
+
+### TypeScript
+- Use TypeScript for all new files
+- Prefer type inference where possible
+- Use interfaces for object shapes, types for unions/intersections
+- Avoid `any` - use `unknown` if type is truly unknown
+
+### React Patterns
+- Use functional components with hooks
+- Prefer composition over inheritance
+- Use custom hooks for reusable logic
+- Keep components small and focused (single responsibility)
+
+### Naming Conventions
+- **Components**: PascalCase (e.g., `PortfolioCard.tsx`)
+- **Utilities/Hooks**: camelCase (e.g., `usePortfolioData.ts`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `MAX_FEATURED_ITEMS`)
+- **CSS Classes**: Use Tailwind utility classes, custom classes in kebab-case
+
+### File Organization
 ```
+src/
+  ├── components/     # Reusable UI components
+  │   └── ui/        # Radix UI wrapper components
+  ├── pages/          # Page components
+  ├── lib/            # Data loading utilities (tina.ts)
+  ├── data/           # Data files
+  │   └── backup/    # Old JSON files (deprecated)
+  ├── styles/         # CSS files (theme.css)
+  └── App.tsx         # Main app with routing
 
----
+content/              # All CMS-managed content
+  ├── portfolio/      # Portfolio items (42 markdown files)
+  ├── profile/        # CV/profile data
+  └── posts/          # Blog posts (optional)
+
+tina/                 # Tina CMS configuration
+  ├── config.ts       # Schema definitions
+ __generated__/  # Auto-generated (gitignored)  └─
+
+public/               # Static assets
+  ├── portfolio-images/  # Portfolio images
+  └── admin/          # Tina admin (generated, gitignored)
+```
 
 ## Development Workflow
 
-### Commands
+### Git Workflow - Commit as You Go
+**IMPORTANT**: Commit changes incrementally as you complete logical units of work.
+
+#### Commit Guidelines:
+1. **Commit frequently**: After completing each logical change or fix
+2. **Small, focused commits**: Each commit should represent one change
+3. **Descriptive messages**: Use clear, concise commit messages
+4. **Fix mistakes**: If you need to fix something in the last commit:
+   ```bash
+   # Undo last commit but keep changes
+   git reset --soft HEAD~1
+   # Make your fixes
+   git add .
+   git commit -m "Fixed: [description]"
+   ```
+
+#### When to Commit:
+- ✅ After adding a new feature or component
+- ✅ After fixing a bug
+- ✅ After updating documentation
+- ✅ After refactoring code
+- ✅ Before making major changes (safety checkpoint)
+- ✅ After successful test runs
+
+#### Commit Message Format:
+```
+[Type]: Brief description
+
+Examples:
+- feat: Add portfolio filtering functionality
+- fix: Correct lightbox navigation behavior
+- docs: Update Tina CMS setup guide
+- refactor: Simplify portfolio card component
+- style: Fix accessibility contrast issues
+- test: Add keyboard navigation tests
+```
+
+#### Co-Author Attribution
+
+**ALWAYS add the requester as a co-author on commits** to ensure proper attribution.
+
+**How to identify the requester**:
+1. **Git config**: Check `git config user.name` and `git config user.email`
+2. **GitHub user**: If running in GitHub Codespaces, use the logged-in GitHub user
+3. **GitHub Actions**: When triggered by a comment/issue, use the comment author's details
+4. **Manual request**: When someone asks you to make changes, use their information
+
+**Co-Author Format**:
 ```bash
-npm run dev          # Standard dev (Vite only) - RECOMMENDED
-npm run dev:tina     # Dev with Tina CMS admin UI
-npm run build        # Production build
-npm run build:tina   # Build with Tina GraphQL types
+git commit -m "Type: Brief description
+
+Co-authored-by: Name <email@example.com>"
 ```
 
-### Dev Server
-- **Port**: 5173 (Vite default)
-- **Tina GraphQL**: Port 4001 (when using `dev:tina`)
-- **Admin UI**: `http://localhost:5173/admin/index.html`
-
----
-
-## Common Pitfalls & Solutions
-
-### ❌ Problem: Pages Show Blank/Loading Forever
-**Cause**: Data not loading properly
-**Solution**: 
-- Check `loadCVData()` and `loadPortfolioItems()` in `/src/lib/tina.ts`
-- Verify glob patterns are correct
-- Ensure `gray-matter` is being used (not custom parser)
-- Add console.logs to debug data loading
-
-### ❌ Problem: Featured Items Don't Display
-**Cause**: `featurePosition` parsed as string instead of number
-**Solution**:
-- Ensure `gray-matter` is used (it auto-converts types)
-- In markdown: `featurePosition: 1` (no quotes)
-- Check filter: `typeof item.featurePosition === 'number'`
-
-### ❌ Problem: Build Fails with Module Errors
-**Cause**: Missing dependencies or incorrect Vite config
-**Solution**:
-- Check `vite.config.ts` - uses Tailwind CSS Vite plugin only
-- No separate React plugin is used (handled by Tailwind)
-- Check for `buffer` and `process.env` polyfills in config
-- Ensure `optimizeDeps` includes: `react`, `react-dom`, `react-router-dom`, `gray-matter`, `buffer`
-
-### ❌ Problem: Nested YAML Data Not Parsing
-**Cause**: Using custom YAML parser
-**Solution**:
-- **ALWAYS use `gray-matter`** library
-- Never write custom YAML parsers for this project
-- `gray-matter` handles all edge cases correctly
-
----
-
-## File Organization
-
-### Documentation & Markdown Files
-**IMPORTANT**: Follow these rules for markdown file placement:
-
-✅ **Keep in root** (standard GitHub files):
-- `README.md` - Project overview
-- `LICENSE` - License file
-- `CHANGELOG.md` - Version history
-- `CONTRIBUTING.md` - Contribution guidelines
-- `CODE_OF_CONDUCT.md` - Community standards
-- `SECURITY.md` - Security policies
-
-📁 **Move to `/docs`** (project documentation):
-- All user-facing documentation
-- Setup guides, tutorials, how-tos
-- Architecture docs, API docs
-- Any `.md` files about the project itself
-
-📋 **Move to `/tasks`** (task/work tracking):
-- Task completion summaries
-- Debug logs and investigation notes
-- Implementation notes
-- Work progress documentation
-
-### Task File Naming Convention
-
-**ALL task files MUST follow this naming pattern:**
-
-```
-yyyyMMdd-XX-DESCRIPTION.md
-```
-
-**Format rules:**
-- `yyyyMMdd` = Date the task was created (e.g., 20251001 for October 1, 2025)
-- `XX` = Two-digit sequence number (01-99) for tasks created on the same day
-- `DESCRIPTION` = Clear, descriptive name in UPPER_SNAKE_CASE or kebab-case
-
-**Examples:**
-- ✅ `20251001-01-MIGRATION_CHECKLIST.md`
-- ✅ `20251001-02-FEATURED_ITEMS_VERIFICATION.md`
-- ✅ `20251002-01-add-search-feature.md`
-- ❌ `MIGRATION_CHECKLIST.md` (missing date prefix)
-- ❌ `2025-10-01-task.md` (wrong date format)
-
-**Benefits:**
-- Chronological sorting is automatic
-- Easy to see when tasks were created
-- Supports up to 99 tasks per day
-- Clear at-a-glance timeline of work
-
-**When creating new task files:**
-1. Use current date in yyyyMMdd format
-2. Check existing files for that date to determine next sequence number
-3. Add descriptive name after the sequence number
-
-### Project Structure
-
-```
-/content                    # ALL CONTENT (managed by Tina CMS)
-├── /portfolio/            # 42 individual portfolio items
-│   └── *.md              # One file per item
-├── /posts/                # Blog posts (optional)
-└── /profile/
-    └── cv-data.md        # Single CV/profile file
-
-/src
-├── /lib/
-│   └── tina.ts           # Data loading utilities ⭐ IMPORTANT
-├── /pages/               # Page components
-│   ├── HomePage.tsx      # Featured items logic
-│   ├── PortfolioPage.tsx # All items + filtering
-│   ├── ResumePage.tsx    # CV display
-│   ├── ContactPage.tsx   # Contact info
-│   └── AboutPage.tsx     # Bio/summary
-├── /components/          # Reusable components
-│   └── /ui/             # Radix UI wrappers
-├── /data/
-│   └── /backup/         # OLD JSON files (DEPRECATED)
-└── App.tsx              # Main app with routing
-
-/tina
-└── config.ts            # Tina CMS schema
-
-/public
-└── /portfolio-images/   # Portfolio images
-
-/docs                    # User documentation
-/tasks                   # Task completion summaries
-```
-
----
-
-## Image Handling
-
-### Adding New Portfolio Images
-1. Place image in `/public/portfolio-images/`
-2. Reference in markdown: `imageSrc: "/portfolio-images/filename.jpg"`
-3. Images are served statically from public folder
-4. Path must start with `/` (absolute from public root)
-
-### Image Optimization
-- Currently using `vite-plugin-image-optimizer` (configured but may have conflicts)
-- Plugin is installed but not actively used in production build
-- Images should be optimized before upload for best performance
-
----
-
-## Component Patterns
-
-### Data Loading in App.tsx
-```typescript
-// Load data on mount
-useEffect(() => {
-  const loadData = async () => {
-    const [portfolio, cvData] = await Promise.all([
-      loadPortfolioItems(),
-      loadCVData()
-    ])
-    setPortfolioItems(portfolio)
-    if (cvData) {
-      setCvDataState(cvData)
-      setAboutContent(cvData.summary)
-    }
-    setDataLoaded(true)
-  }
-  loadData()
-}, [])
-```
-
-### Null Handling in Pages
-```typescript
-// Pages must handle null state
-if (!cvDataState) {
-  return <div>Loading...</div>
-}
-```
-
----
-
-## Styling Guidelines
-
-### Tailwind Usage
-- Uses Tailwind CSS 4.0.17 with `@tailwindcss/vite` plugin
-- Custom theme in `/src/styles/theme.css`
-- Component-specific styles in `/src/index.css`
-- Configuration uses Vite plugin instead of separate config file
-
-### UI Components
-- Built on Radix UI primitives
-- Located in `/src/components/ui/`
-- Styled with Tailwind + CVA (class-variance-authority)
-
----
-
-## Content Editing
-
-### For Developers
-- Edit markdown files in `/content/` directly
-- Hot reload works automatically
-- Commit markdown files to Git
-
-### For Content Managers
-- Use Tina CMS admin UI (`npm run dev:tina`)
-- Visual editor at `/admin/index.html`
-- Changes save directly to markdown files
-
----
-
-## Production Deployment
-
-### GitHub Pages Deployment
-
-The project is configured to automatically deploy to GitHub Pages via GitHub Actions.
-
-**Workflow file**: `.github/workflows/deploy.yml`
-
-**Build Process**:
-1. Checkout code
-2. Setup Node.js v20
-3. Install dependencies
-4. **Build Tina Admin** (`npm run build:tina`) - Creates admin interface in `public/admin/`
-5. **Build Main App** (`npm run build`) - Vite builds to `dist/` (includes admin)
-6. Upload and deploy to GitHub Pages
-
-**Required GitHub Secrets**:
-- `NEXT_PUBLIC_TINA_CLIENT_ID` - From tina.io project dashboard
-- `TINA_TOKEN` - From tina.io project settings
-
-**Important**: The workflow MUST run `build:tina` before `build` to ensure the admin interface is properly included in the deployment.
-
-### Build Output
-- Static files in `/dist`
-- SPA with client-side routing
-- Currently deployed to GitHub Pages
-- Requires SPA-friendly hosting or proper routing configuration
-
-### Environment Variables
-Optional (for Tina Cloud):
-```
-NEXT_PUBLIC_TINA_CLIENT_ID=your-client-id
-TINA_TOKEN=your-token
-```
-
-### Deployment Checklist
-- [ ] Run `npm run build:tina` to build Tina admin interface
-- [ ] Run `npm run build` to build the main application
-- [ ] Check `/dist` for output (including `/admin` folder)
-- [ ] Test with `npm run preview`
-- [ ] Ensure GitHub secrets are set (NEXT_PUBLIC_TINA_CLIENT_ID and TINA_TOKEN)
-- [ ] Push to main branch to trigger GitHub Actions deployment
-
----
-
-## Dependencies to Remember
-
-### Critical Dependencies
-- `gray-matter`: YAML frontmatter parsing ⭐ ESSENTIAL
-- `tinacms`: CMS functionality
-- `@tinacms/cli`: CLI tools
-- `react-router-dom`: Client-side routing
-
-### Don't Add These
-- ❌ Custom YAML parsers (use `gray-matter` instead)
-- ❌ `@vitejs/plugin-react` (not needed with Tailwind Vite plugin)
-- ❌ `@vitejs/plugin-react-swc` (same reason)
-- ❌ Additional build plugins without testing (can cause conflicts)
-
----
-
-## Debugging Tips
-
-### Check Data Loading
-```typescript
-// In tina.ts functions
-console.log('Portfolio files:', Object.keys(portfolioFiles))
-console.log('Parsed item:', item)
-console.log('CV data:', cvData)
-```
-
-### Check Featured Items
-```typescript
-// In HomePage.tsx
-const featuredItems = portfolioItems
-  .filter(item => typeof item.featurePosition === 'number')
-console.log('Featured items:', featuredItems)
-```
-
-### Common Console Errors
-- "Cannot find module" → Check glob pattern paths
-- "cvDataState is null" → Check loadCVData() function
-- "featurePosition is undefined" → Check YAML parsing
-
----
-
-## Testing Approach
-
-### What to Test
-1. All pages load without errors
-2. Portfolio items display correctly
-3. Featured items show on homepage (exactly 3)
-4. Contact page shows CV data
-5. Resume page shows CV data
-6. Build completes successfully
-
-### Quick Test
+**Example**:
 ```bash
-npm run build && npm run preview
-# Visit all routes and check for errors
+git commit -m "feat: Add portfolio search functionality
+
+Co-authored-by: Gordon Beeming <me@gordonbeeming.com>"
 ```
 
+**Multiple co-authors**:
+```bash
+git commit -m "feat: Add portfolio search functionality
+
+Co-authored-by: Gordon Beeming <me@gordonbeeming.com>
+Co-authored-by: Other Contributor <other@example.com>"
+```
+
+**When to add co-authors**:
+- ✅ When implementing a requested feature
+- ✅ When fixing a reported bug
+- ✅ When making changes based on feedback
+- ✅ When pair programming or collaborating
+- ❌ Not needed for automated updates (dependency bumps, etc.)
+- ❌ Not needed for your own self-initiated refactoring (unless requested)
+
+### Before Making Changes
+1. Check existing patterns in the codebase
+2. Review documentation in `/docs/` for project requirements
+3. **Review accessibility requirements** - ensure changes maintain or improve accessibility
+4. Ensure changes align with portfolio website goals
+
+### Making Changes
+1. Make minimal, surgical changes - change only what's necessary
+2. Follow existing code patterns and conventions
+3. **Implement accessibility best practices** - semantic HTML, ARIA, keyboard support
+4. Update relevant documentation if making structural changes
+5. Test changes locally before committing
+
+### After Making Changes
+1. Run linters: `npm run lint`
+2. Build the project: `npm run build`
+3. Test in dev mode: `npm run dev`
+4. **For UI changes**: Take before/after screenshots manually, save to `tasks/images/`
+5. Document significant changes in `/tasks/` following naming conventions
+6. **Include screenshots in task docs** with relative image paths
+7. **Commit your changes with co-author attribution**:
+   ```bash
+   git add . && git commit -m "Type: Description
+
+   Co-authored-by: Name <email@example.com>"
+   ```
+
+## Testing and Quality
+
+### Manual Testing
+Always test your changes thoroughly before committing.
+
+#### Screenshots for Task Documentation:
+**For UI changes, manually capture screenshots**:
+1. Run the dev server: `npm run dev`
+2. Take "before" screenshot of current state
+3. Make your changes
+4. Take "after" screenshot
+5. Save both to `tasks/images/` with task-numbered names
+6. Reference in task documentation with relative paths
+
+**Example**:
+```markdown
+## Visual Changes
+
+Before:
+![Before lightbox update](./images/20251009-01-before-lightbox.png)
+
+After:
+![After lightbox update](./images/20251009-01-after-lightbox.png)
+```
+
+### Before Committing
+- Ensure no TypeScript errors: `npm run build`
+- Run ESLint: `npm run lint`
+- Test affected functionality manually in the browser
+- **For UI changes**: Capture before/after screenshots in `tasks/images/`
+- **Test keyboard navigation** - ensure all interactive elements are accessible
+- **Test with screen reader** - verify announcements are correct
+- Verify responsive design if UI changes were made
+- **Check color contrast** - ensure WCAG AA compliance
+
+### Edge Cases to Consider
+- Missing or failed image loads
+- Empty states (no portfolio items)
+- Long text content (titles, descriptions)
+- Various screen sizes and devices
+- Slow network conditions
+- **Keyboard-only navigation**
+- **Screen reader usage**
+- **High contrast mode**
+- **Reduced motion preferences**
+
+## Important Project-Specific Patterns
+
+### Featured Items Logic
+- Featured items require `featurePosition` as a **number** (not string)
+- Filter: `typeof item.featurePosition === 'number'`
+- Sort: `(a, b) => (a.featurePosition ?? 0) - (b.featurePosition ?? 0)`
+- Homepage lightbox only cycles through featured items
+- Portfolio page cycles through all items
+
+### Data Loading
+- Uses Vite's `import.meta.glob` with `eager: true` and `query: '?raw'`
+- Parses markdown with `gray-matter` library (NEVER custom parsers)
+- Handles async data loading in App.tsx
+- Pages must handle null states during loading
+
+### Common Pitfalls
+- ❌ Don't use custom YAML parsers - use `gray-matter`
+- ❌ Don't add `@vitejs/plugin-react` - conflicts with Tailwind Vite plugin
+- ❌ Don't commit `public/admin/` or `tina/__generated__/` files
+- ✅ Featured items must have `featurePosition` as number, not string
+- ✅ Always check glob patterns match content folder structure
+- ✅ Ensure Vite config has buffer and process.env polyfills
+
+## Important Reminders
+
+### ⚠️ Critical Guidelines
+1. **Commit as you go** - Make incremental commits after each logical change
+2. **Fix commits if needed** - Use `git reset --soft HEAD~1` to undo last commit and fix
+3. **Add co-authors to commits** - Always attribute the requester (see Git Workflow section)
+4. **All files in project directory** - Never write outside project root
+5. **Keep these instructions updated** - Especially during major changes
+6. **All docs in `/docs`** - Except standard GitHub files
+7. **Task files in `/tasks`** - Use date prefix `YYYYMMDD-XX-topic.md` format
+8. **Task screenshots in `/tasks/images/`** - Manual before/after for UI changes
+9. **Minor tasks update existing files** - Don't create duplicate task files
+10. **Document major changes** - Create task files for significant work
+11. **Accessibility is mandatory** - Every change must be accessible
+12. **Test before committing** - Build and manually test functionality in browser
+13. **Tina generated files are ignored** - Never commit `tina/__generated__/` or `public/admin/`
+14. **Use gray-matter for parsing** - Never write custom YAML parsers
+
+### When to Update These Instructions
+- Adding new tools or dependencies
+- Changing project structure
+- Establishing new coding patterns
+- Adding new development workflows
+- Changing documentation structure
+- Adding deployment configurations
+
 ---
 
-## Quick Reference
-
-### Key Files
-- `/src/lib/tina.ts` - Data loading ⭐
-- `/src/App.tsx` - Main app & routing
-- `/tina/config.ts` - CMS schema
-- `/content/` - All content
-
-### Key Commands
-- `npm run dev` - Standard development (Vite only)
-- `npm run dev:tina` - Development with Tina CMS admin UI
-- `npm run build:tina` - Build Tina admin interface
-- `npm run build` - Build production application
-- `npm run preview` - Preview production build locally
-- Check `/docs/QUICK_START.md` for more
-
-### Key Concepts
-- Content = Markdown files
-- Parser = gray-matter library
-- Featured = `featurePosition` number
-- Images = `/public/portfolio-images/`
-
----
-
-## Notes for Future Developers
-
-1. **Never replace gray-matter** - Custom parsers break nested YAML
-2. **Use glob patterns** - Dynamic imports don't work reliably
-3. **Featured items need numbers** - Not strings, actual numbers
-4. **Keep it simple** - Avoid complex build plugins
-5. **Test all pages** - Especially Contact and Resume after changes
-
----
-
-**Last Updated**: October 2025  
-**Project Status**: ✅ Fully Functional  
-**CMS Status**: ✅ Tina.io v2.9.0 Integrated  
-**Content Items**: 42 portfolio items + 1 CV profile + posts collection  
+**Last Updated**: 2025-10-09
+**Version**: 1.0.0
+**Project**: Tiani Beeming Portfolio
+**CMS Status**: ✅ Tina CMS v2.9.0 Integrated
 **Deployment**: ✅ GitHub Pages via GitHub Actions
+**Accessibility Standard**: WCAG 2.1 AA
+**Testing**: Manual testing and validation
+**Screenshots**: Manual capture in tasks/images/
+**Attribution**: Co-author commits for proper attribution
