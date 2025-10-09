@@ -28,6 +28,11 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm install
+      - name: Build Tina Admin
+        run: npm run build:tina
+        env:
+          NEXT_PUBLIC_TINA_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_TINA_CLIENT_ID }}
+          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
       - name: Build
         run: npm run build
       - name: Setup Pages

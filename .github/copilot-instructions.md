@@ -18,11 +18,11 @@ This ensures the repository stays organized and future tasks automatically follo
 This is a **portfolio website for Tiani Beeming**, a professional pastry chef and cake decorator. The site showcases her cake designs, provides her CV/resume, and offers contact information.
 
 ### Tech Stack
-- **Frontend**: React 19 + TypeScript
-- **Build Tool**: Vite 6.3.6
-- **Styling**: Tailwind CSS 4.0
-- **Routing**: React Router 7
-- **CMS**: Tina.io (for content management)
+- **Frontend**: React 19.0.0 + TypeScript
+- **Build Tool**: Vite 6.3.5
+- **Styling**: Tailwind CSS 4.0.17
+- **Routing**: React Router DOM v6 (not v7)
+- **CMS**: Tina.io v2.9.0 (for content management)
 - **UI Components**: Radix UI primitives with custom components
 
 ### Project Type
@@ -156,11 +156,12 @@ npm run build:tina   # Build with Tina GraphQL types
 - Check filter: `typeof item.featurePosition === 'number'`
 
 ### ❌ Problem: Build Fails with Module Errors
-**Cause**: Vite can't find React plugin
+**Cause**: Missing dependencies or incorrect Vite config
 **Solution**:
-- Check `vite.config.ts` - should use minimal config
-- React plugin comes from Tailwind CSS Vite plugin
-- Don't add `@vitejs/plugin-react` separately
+- Check `vite.config.ts` - uses Tailwind CSS Vite plugin only
+- No separate React plugin is used (handled by Tailwind)
+- Check for `buffer` and `process.env` polyfills in config
+- Ensure `optimizeDeps` includes: `react`, `react-dom`, `react-router-dom`, `gray-matter`, `buffer`
 
 ### ❌ Problem: Nested YAML Data Not Parsing
 **Cause**: Using custom YAML parser
@@ -231,8 +232,9 @@ yyyyMMdd-XX-DESCRIPTION.md
 
 ```
 /content                    # ALL CONTENT (managed by Tina CMS)
-├── /portfolio/            # 41 individual portfolio items
+├── /portfolio/            # 42 individual portfolio items
 │   └── *.md              # One file per item
+├── /posts/                # Blog posts (optional)
 └── /profile/
     └── cv-data.md        # Single CV/profile file
 
@@ -272,9 +274,9 @@ yyyyMMdd-XX-DESCRIPTION.md
 4. Path must start with `/` (absolute from public root)
 
 ### Image Optimization
-- Currently disabled due to plugin conflicts
-- Can be re-enabled once dependencies stabilized
-- Images should be optimized before upload
+- Currently using `vite-plugin-image-optimizer` (configured but may have conflicts)
+- Plugin is installed but not actively used in production build
+- Images should be optimized before upload for best performance
 
 ---
 
@@ -313,9 +315,10 @@ if (!cvDataState) {
 ## Styling Guidelines
 
 ### Tailwind Usage
-- Uses Tailwind CSS 4.0 with `@tailwindcss/vite` plugin
+- Uses Tailwind CSS 4.0.17 with `@tailwindcss/vite` plugin
 - Custom theme in `/src/styles/theme.css`
 - Component-specific styles in `/src/index.css`
+- Configuration uses Vite plugin instead of separate config file
 
 ### UI Components
 - Built on Radix UI primitives
@@ -340,10 +343,31 @@ if (!cvDataState) {
 
 ## Production Deployment
 
+### GitHub Pages Deployment
+
+The project is configured to automatically deploy to GitHub Pages via GitHub Actions.
+
+**Workflow file**: `.github/workflows/deploy.yml`
+
+**Build Process**:
+1. Checkout code
+2. Setup Node.js v20
+3. Install dependencies
+4. **Build Tina Admin** (`npm run build:tina`) - Creates admin interface in `public/admin/`
+5. **Build Main App** (`npm run build`) - Vite builds to `dist/` (includes admin)
+6. Upload and deploy to GitHub Pages
+
+**Required GitHub Secrets**:
+- `NEXT_PUBLIC_TINA_CLIENT_ID` - From tina.io project dashboard
+- `TINA_TOKEN` - From tina.io project settings
+
+**Important**: The workflow MUST run `build:tina` before `build` to ensure the admin interface is properly included in the deployment.
+
 ### Build Output
 - Static files in `/dist`
 - SPA with client-side routing
-- Requires SPA-friendly hosting (e.g., Vercel, Netlify)
+- Currently deployed to GitHub Pages
+- Requires SPA-friendly hosting or proper routing configuration
 
 ### Environment Variables
 Optional (for Tina Cloud):
@@ -353,11 +377,12 @@ TINA_TOKEN=your-token
 ```
 
 ### Deployment Checklist
-- [ ] Run `npm run build`
-- [ ] Check `/dist` for output
+- [ ] Run `npm run build:tina` to build Tina admin interface
+- [ ] Run `npm run build` to build the main application
+- [ ] Check `/dist` for output (including `/admin` folder)
 - [ ] Test with `npm run preview`
-- [ ] Configure hosting for SPA routing
-- [ ] Set up redirects (all routes → index.html)
+- [ ] Ensure GitHub secrets are set (NEXT_PUBLIC_TINA_CLIENT_ID and TINA_TOKEN)
+- [ ] Push to main branch to trigger GitHub Actions deployment
 
 ---
 
@@ -370,9 +395,10 @@ TINA_TOKEN=your-token
 - `react-router-dom`: Client-side routing
 
 ### Don't Add These
-- ❌ Custom YAML parsers
-- ❌ `@vitejs/plugin-react` (conflicts with Tailwind)
-- ❌ `@vitejs/plugin-react-swc` (same issue)
+- ❌ Custom YAML parsers (use `gray-matter` instead)
+- ❌ `@vitejs/plugin-react` (not needed with Tailwind Vite plugin)
+- ❌ `@vitejs/plugin-react-swc` (same reason)
+- ❌ Additional build plugins without testing (can cause conflicts)
 
 ---
 
@@ -419,16 +445,6 @@ npm run build && npm run preview
 
 ---
 
-## Future Improvements (Don't Do Yet)
-
-- [ ] Add image optimization back (after fixing plugin conflicts)
-- [ ] Implement search functionality
-- [ ] Add blog/testimonials collections
-- [ ] Enable Tina Cloud for collaborative editing
-- [ ] Add content preview features
-
----
-
 ## Quick Reference
 
 ### Key Files
@@ -438,8 +454,11 @@ npm run build && npm run preview
 - `/content/` - All content
 
 ### Key Commands
-- `npm run dev` - Development
-- `npm run build` - Production build
+- `npm run dev` - Standard development (Vite only)
+- `npm run dev:tina` - Development with Tina CMS admin UI
+- `npm run build:tina` - Build Tina admin interface
+- `npm run build` - Build production application
+- `npm run preview` - Preview production build locally
 - Check `/docs/QUICK_START.md` for more
 
 ### Key Concepts
@@ -462,5 +481,6 @@ npm run build && npm run preview
 
 **Last Updated**: October 2025  
 **Project Status**: ✅ Fully Functional  
-**CMS Status**: ✅ Tina.io Integrated  
-**Content Items**: 41 portfolio + 1 CV profile
+**CMS Status**: ✅ Tina.io v2.9.0 Integrated  
+**Content Items**: 42 portfolio items + 1 CV profile + posts collection  
+**Deployment**: ✅ GitHub Pages via GitHub Actions
