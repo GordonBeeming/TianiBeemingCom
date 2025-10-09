@@ -32,10 +32,20 @@ type ResumeData = {
 }
 
 interface ResumePageProps {
-  cvDataState: ResumeData
+  cvDataState: ResumeData | null
 }
 
 export default function ResumePage({ cvDataState }: ResumePageProps) {
+  if (!cvDataState) {
+    return (
+      <div className="py-8 font-body">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p>Loading resume data...</p>
+        </div>
+      </div>
+    )
+  }
+  
   return (
     <div className="py-8 font-body">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
