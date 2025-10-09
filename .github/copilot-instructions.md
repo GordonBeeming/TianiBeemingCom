@@ -48,6 +48,8 @@ The build includes Tina admin generation:
 #### With CMS Access (use this for content editing):
 ```bash
 npm run dev:tina
+# or
+pnpm run dev:tina
 ```
 - Starts Vite + Tina CMS
 - Access admin at `/admin`
@@ -56,6 +58,8 @@ npm run dev:tina
 #### Without CMS (faster for code changes):
 ```bash
 npm run dev
+# or
+pnpm run dev
 ```
 - Regular Vite dev server
 - No admin access
@@ -166,22 +170,22 @@ All task outcomes from Copilot jobs and development tasks must be documented in 
 - **Tina Config**: `tina/config.ts` - Schema and collection definitions
 
 ### Admin Access
-- **Local**: `http://localhost:5173/admin` (requires `npm run dev:tina`)
+- **Local**: `http://localhost:5173/admin` (requires `npm run dev:tina` or `pnpm run dev:tina`)
 - **Production**: `https://yourusername.github.io/your-repo/admin` (after deployment)
 
 ### Development Commands
 ```bash
 # Dev with Tina CMS access
-npm run dev:tina
+npm run dev:tina  # or: pnpm run dev:tina
 
 # Regular dev (faster, no CMS)
-npm run dev
+npm run dev       # or: pnpm run dev
 
 # Build Tina admin
-npm run build:tina
+npm run build:tina  # or: pnpm run build:tina
 
 # Build the app
-npm run build
+npm run build     # or: pnpm run build
 ```
 
 ### Build Behavior
